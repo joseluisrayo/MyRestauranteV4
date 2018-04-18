@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SingUpActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="270dp">
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/logo_eat_it"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="260dp">
+            <EditText
+                android:id="@+id/signup_user_id"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:textColor="#fff"
+                android:textColorHint="@color/lightgray"
+                android:layout_gravity="center"
+                android:hint="name@example.com"
+                android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/signup_pass_id"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:textColor="#fff"
+                android:textColorHint="@color/lightgray"
+                android:layout_marginTop="25dp"
+                android:hint="Password"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnLogerSignUp"
+                android:onClick="registerUser"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:layout_marginTop="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="SIGN UP"/>
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

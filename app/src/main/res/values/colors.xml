@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#004d40</color>
+    <color name="colorPrimaryDark">#00252a</color>
+    <color name="Backgroundcolor">#FCFCFC</color>
+    <color name="lightgray">#ededed</color>
+    <color name="deeppurple">#7c4dff</color>
+    <color name="yello">#ffb300</color>
+    <color name="green">#00bfa5</color>
+    <color name="colorAccent">#39796b</color>
+
+    <color name="colorbtnSignUp">#39796b</color>
+    <color name="texView"></color>
+    <color name="colorbtnSignActive">#A9d440</color>
+</resources>

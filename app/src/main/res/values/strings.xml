@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyRestauranteV3</string>
+    <string name="Slogan">No importa dónde se encuentre: si está en su casa, en la oficina o en la playa. Nos encontraras y te alimentaremos</string>
+
+    <string name="facebook_app_id">1842791679124875</string>
+    <string name="fb_login_protocol_scheme">fb1842791679124875</string>
+</resources>
