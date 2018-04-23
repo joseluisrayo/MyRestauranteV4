@@ -6,14 +6,17 @@ public interface LoginInterfaces {
         void RegisterError(String r);
         void RegisterValidation(String r);
     }
+
     interface View{
-        void LoginValidation();
-        void LoginSucces();
-        void LginError();
+        void LoginValidation(String p);
+        void LoginSucces(String p);
+        void LginError(String p);
     }
 
     interface Presenter{
         void mostrarNotificaciones(String r);
+        void mostrarNotificacionLogNorm(String p);
+        void mostrarNotificacionLogFace(String r);
         void LoginNormalPresenter(String email,String pass);
         void LoginFacebookPresenter(String email, String pass);
         void RegistroPresenter(String email, String pass);

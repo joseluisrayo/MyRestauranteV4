@@ -17,7 +17,26 @@ public class LoginModel implements LoginInterfaces.Model{
 
     @Override
     public void LoginNormalModel(String email, String pass) {
+        firebaseAuth = FirebaseAuth.getInstance();
 
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
+            String notify = "Please enter email and enter password";
+            presenter.mostrarNotificacionLogNorm(notify);
+        }else {
+            final Task<AuthResult> resultTask = firebaseAuth.signInWithEmailAndPassword(email, pass);
+
+            if (resultTask != null) {
+
+                String succes = "Bienvenido";
+                presenter.mostrarNotificacionLogNorm(succes);
+
+            } else {
+
+                String error = "Error, please try again";
+                presenter.mostrarNotificacionLogNorm(error);
+            }
+
+        }
     }
 
     @Override
