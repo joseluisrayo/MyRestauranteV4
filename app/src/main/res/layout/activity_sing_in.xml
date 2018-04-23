@@ -59,7 +59,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="SIGN IN"/>
+                android:text="INICIAR SESIÓN"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"

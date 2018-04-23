@@ -15,8 +15,14 @@ public class LoginPresenter implements LoginInterfaces.Presenter{
 
     @Override
     public void mostrarNotificaciones(String r) {
-        if(view!=null){
+        if(r.equals("Please enter email and enter password")){
             view.RegisterValidation(r);
+
+        }else if (r.equals("Registered Successfully")){
+            view.RegisterSucces(r);
+
+        }else if (r.equals("Error, please try again")){
+            view.RegisterError(r);
         }
     }
 

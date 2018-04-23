@@ -34,9 +34,16 @@ public class LoginModel implements LoginInterfaces.Model{
             presenter.mostrarNotificaciones(notify);
         }else {
             final Task<AuthResult> resultTask = firebaseAuth.createUserWithEmailAndPassword(email, pass);
+
             if (resultTask != null) {
-                String succes = "Registereed Successfully";
+
+                String succes = "Registered Successfully";
                 presenter.mostrarNotificaciones(succes);
+
+            }else {
+
+                String error = "Error, please try again";
+                presenter.mostrarNotificaciones(error);
             }
         }
     }

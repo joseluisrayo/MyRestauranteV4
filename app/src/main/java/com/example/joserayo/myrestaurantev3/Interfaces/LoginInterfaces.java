@@ -2,6 +2,8 @@ package com.example.joserayo.myrestaurantev3.Interfaces;
 
 public interface LoginInterfaces {
     interface View2{
+        void RegisterSucces(String r);
+        void RegisterError(String r);
         void RegisterValidation(String r);
     }
     interface View{
