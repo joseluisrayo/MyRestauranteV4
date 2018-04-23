@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.joserayo.myrestaurantev3.Interfaces.LoginInterfaces;
+import com.example.joserayo.myrestaurantev3.Presentador.LoginPresenter;
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -26,7 +28,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SingInActivity extends AppCompatActivity {
+public class SingInActivity extends AppCompatActivity implements LoginInterfaces.View{
     private EditText user2,pass2;
     private Button btnsignIn;
     private ProgressDialog progressDialog;
@@ -34,6 +36,7 @@ public class SingInActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private LoginButton loginButton;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private LoginInterfaces.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,51 +51,7 @@ public class SingInActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
-
-         /*(firebaseAuth.getCurrentUser()!=null){
-            //profile activity here
-            finish();
-            startActivity(new Intent(this,HomeActivity.class));
-            }*/
-
-        btnsignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String email = user2.getText().toString().trim();
-                String password = pass2.getText().toString().trim();
-
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(SingInActivity.this,"Please enter email",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)){
-                    Toast.makeText(SingInActivity.this,"Please enter password",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                progressDialog.setMessage("Sign In user..");
-                progressDialog.show();
-
-                //Start firebase aunt db
-                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()){
-                            finish();
-                            //startActivity(new Intent(SingInActivity.this,HomeActivity.class));
-                            goMainScreen();
-
-                        }else{
-                            Toast.makeText(SingInActivity.this,"Error, please try again",Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-
-            }
-        });
+        presenter = new LoginPresenter(this);
 
         //login por facebook
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -132,6 +91,13 @@ public class SingInActivity extends AppCompatActivity {
 
         }
 
+    public void LoginUsuarios(View view){
+        //cambiamos las variable para enviar al pesentador-->RegistroPresenter
+        String email = user2.getText().toString().trim();
+        String password = pass2.getText().toString().trim();
+        //se envia los datos capturados al metodo registroPresenter
+        presenter.LoginNormalPresenter(email,password);
+    }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
@@ -178,4 +144,19 @@ public class SingInActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void LoginValidation(String p) {
+        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void LoginSucces(String p) {
+        goMainScreen();
+        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void LginError(String p) {
+        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
+    }
 }
