@@ -1,4 +1,4 @@
-package com.example.joserayo.myrestaurantev3;
+package com.example.joserayo.myrestaurantev3.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -175,7 +176,6 @@ public class SingInActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
     }
-
 
 
 }

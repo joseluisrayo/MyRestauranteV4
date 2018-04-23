@@ -52,6 +52,8 @@ public class SingUpActivity extends AppCompatActivity implements LoginInterfaces
     @Override
     public void RegisterValidation(String r) {
         //Se recibe la respuesta del loginModelo(r)
+        finish();
+        startActivity(new Intent(this,HomeActivity.class));
         Toast.makeText(SingUpActivity.this,r,Toast.LENGTH_SHORT).show();
     }
 }
