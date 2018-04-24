@@ -52,8 +52,8 @@ public class SingUpActivity extends AppCompatActivity implements LoginInterfaces
     @Override
     public void RegisterSucces(String r) {
         finish();
-        startActivity(new Intent(this,HomeActivity.class));
-        //Toast.makeText(SingUpActivity.this,r,Toast.LENGTH_SHORT).show();
+        goMainScreen();
+        Toast.makeText(SingUpActivity.this,r,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -65,5 +65,10 @@ public class SingUpActivity extends AppCompatActivity implements LoginInterfaces
     public void RegisterValidation(String r) {
         //Se recibe la respuesta del loginModelo(r)
         Toast.makeText(SingUpActivity.this,r,Toast.LENGTH_SHORT).show();
+    }
+    private void goMainScreen(){
+        Intent intent= new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

@@ -42,6 +42,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_in);
+
         //add dependenci facebook
         callbackManager = CallbackManager.Factory.create();
 
@@ -112,14 +113,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
                 loginButton.setVisibility(View.VISIBLE);
             }
         });
-
     }
-
-    private void goMainScreen(){
-        Intent intent= new Intent(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        }
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -143,6 +137,11 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
     }
 
+    private void goMainScreen(){
+        Intent intent= new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
     @Override
     public void LoginValidation(String p) {
