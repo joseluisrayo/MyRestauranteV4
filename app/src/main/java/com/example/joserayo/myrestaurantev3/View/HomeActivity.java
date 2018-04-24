@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
+    //private FirebaseAuth firebaseAuth;
     private TextView nombuser;
     private Button btnLogUp;
 
