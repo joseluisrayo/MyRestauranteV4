@@ -30,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
            // startActivity(new Intent(this,SingInActivity.class));
             btnLogUp = (Button) findViewById(R.id.logout);
             nombuser = (TextView) findViewById(R.id.nombreUser);
-            nombuser.setText("Bienvenido"+user.getEmail());
+            nombuser.setText("Bienvenido:"+user.getEmail());
         }else {
             goloinScreen();
         }
