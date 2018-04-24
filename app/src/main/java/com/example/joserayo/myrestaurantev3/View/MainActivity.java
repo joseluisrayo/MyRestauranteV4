@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity{
         if (firebaseAuth.getCurrentUser()!=null){
             //profile activity here
             finish();
-            startActivity(new Intent(this,HomeActivity.class));
+            startActivity(new Intent(this,PrincipalActivity.class));
         }
 
         btnsignIn.setOnClickListener(new View.OnClickListener() {
