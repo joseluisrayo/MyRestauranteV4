@@ -138,7 +138,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
     }
 
     private void goMainScreen(){
-        Intent intent= new Intent(this, HomeActivity.class);
+        Intent intent= new Intent(this, PrincipalActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
