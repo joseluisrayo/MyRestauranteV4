@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_ListaRest"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:title="Lista de Restaurantes" />
+
+    <item
+        android:id="@+id/navigation_LocaMaps"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="Localización Restaurantes" />
+
+</menu>

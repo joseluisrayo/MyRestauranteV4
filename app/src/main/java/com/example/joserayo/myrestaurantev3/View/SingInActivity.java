@@ -30,12 +30,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SingInActivity extends AppCompatActivity implements LoginInterfaces.View{
     private EditText user2,pass2;
-    private Button btnsignIn;
     private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private FirebaseAuth firebaseAuth;
     private LoginInterfaces.Presenter presenter;
 
     @Override
@@ -48,7 +47,6 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
 
         user2 = (EditText) findViewById(R.id.signin_user_id);
         pass2 = (EditText) findViewById(R.id.signin_pass_id);
-        btnsignIn = (Button) findViewById(R.id.btnLogerSignIn);
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -64,13 +62,11 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-
             }
 
             @Override
             public void onCancel() {
                 Toast.makeText(getApplicationContext(),"Se Canceló la Operación",Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -102,7 +98,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        loginButton.setVisibility(View.GONE);
+        //loginButton.setVisibility(View.GONE);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -110,7 +106,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
                     Toast.makeText(getApplicationContext(),"Error en login",Toast.LENGTH_SHORT).show();
                 }
 
-                loginButton.setVisibility(View.VISIBLE);
+                //loginButton.setVisibility(View.VISIBLE);
             }
         });
     }
