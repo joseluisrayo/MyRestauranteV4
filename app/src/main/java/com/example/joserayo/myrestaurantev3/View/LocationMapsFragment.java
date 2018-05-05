@@ -9,8 +9,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +27,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -65,9 +62,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private void AgregarMarcador(double lat, double lng) {
         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate MiUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 18);
-        if (marcador != null){
-            marcador.remove();
-        }
+        if (marcador != null)marcador.remove();
         marcador = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
                 .title("Direccion:" + direccion)
