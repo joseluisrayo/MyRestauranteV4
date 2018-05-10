@@ -1,4 +1,5 @@
 package com.example.joserayo.myrestaurantev3.View;
+
 import com.example.joserayo.myrestaurantev3.Model.LocationData;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,10 +38,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Map;
 
-public class LocationMapsFragment extends Fragment implements OnMapReadyCallback, LocationListener{
+public class LocationMapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
     private GoogleMap mMap;
     private Marker marcador;
     private LatLng locationLatLng;
@@ -48,7 +51,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View vista =  inflater.inflate(R.layout.location_maps_fragment,container,false);
+        View vista = inflater.inflate(R.layout.location_maps_fragment, container, false);
 
         SupportMapFragment supportMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         supportMapFragment.getMapAsync(this);
@@ -66,13 +69,28 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+
         //LatLng recife = new LatLng( -11.984694472037257, -76.83246731758118);
         //mMap.addMarker(new MarkerOptions().position(recife).title("Marcador em Recife"));
         //CameraPosition cameraPosition = new CameraPosition.Builder().zoom(15).target(recife).build();
-        //mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
         //LocationData locationData = new LocationData(recife.latitude,recife.longitude);
         //mDatabase.child("location2").child(String.valueOf("Las Delicias De Casa")).setValue(locationData);
+
+        //se aprega el permiso para mostrar el icono de location en el mapa
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+
+
     }
 
     @Override
@@ -81,6 +99,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         if (marcador!=null){
             marcador.remove();
         }
+
         //Se agrega el market
         locationLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -93,8 +112,9 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         //Se mueve a la nueva localizacion
         CameraPosition cameraPosition = new CameraPosition.Builder().zoom(15).target(locationLatLng).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        Toast.makeText(getActivity(), "Localización Actualizada", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Localización Actualizada", Toast.LENGTH_SHORT).show();
         getMarkers();
+
     }
     private ArrayList findUnAskedPermissions(ArrayList<String> wanted) {
         ArrayList result = new ArrayList();
@@ -182,7 +202,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
                 ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Permiso Denegado", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -207,6 +227,8 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             Toast.makeText(getActivity(), "No se pudo obtener la localización", Toast.LENGTH_SHORT).show();
         }
     }
+
+    //Esta linea de cogigo nos lista los markets registrados
 
     private void getMarkers(){
 
