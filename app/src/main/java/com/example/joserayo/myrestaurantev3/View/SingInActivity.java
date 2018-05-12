@@ -2,15 +2,17 @@ package com.example.joserayo.myrestaurantev3.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.joserayo.myrestaurantev3.Interfaces.LoginInterfaces;
 import com.example.joserayo.myrestaurantev3.Presentador.LoginPresenter;
 import com.example.joserayo.myrestaurantev3.R;
@@ -26,7 +28,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SingInActivity extends AppCompatActivity implements LoginInterfaces.View{
     private EditText user2,pass2;
@@ -36,21 +37,28 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private FirebaseAuth firebaseAuth;
     private LoginInterfaces.Presenter presenter;
+    private Button btnlogin;
+    private MaterialDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_in);
 
+        //login normal
+
+
+        setvie();
+
+
+
+
         //add dependenci facebook
         callbackManager = CallbackManager.Factory.create();
 
-        user2 = (EditText) findViewById(R.id.signin_user_id);
-        pass2 = (EditText) findViewById(R.id.signin_pass_id);
 
-        progressDialog = new ProgressDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
-        presenter = new LoginPresenter(this);
+
+
 
         //login por facebook
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -75,26 +83,12 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
             }
         });
 
-        //inicializamos la bd de firebase
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    goMainScreen();
-                }
-              }
-          };
+
 
         }
 
-    public void LoginUsuarios(View view){
-        //cambiamos las variable para enviar al pesentador-->RegistroPresenter
-        String email = user2.getText().toString().trim();
-        String password = pass2.getText().toString().trim();
-        //se envia los datos capturados al metodo registroPresenter
-        presenter.LoginNormalPresenter(email,password);
-    }
+
+
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
@@ -110,48 +104,92 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
             }
         });
     }
+//declara los id a las etiquetas
+    private void setvie() {
+        presenter= new LoginPresenter(this);
+        user2 = (EditText) findViewById(R.id.signin_user_id);
+        pass2 = (EditText) findViewById(R.id.signin_pass_id);
 
-   @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
+//creo el progresbar
+        btnlogin=(Button)findViewById(R.id.btnlogin);
+        MaterialDialog.Builder builder=new MaterialDialog.Builder(this)
+                .title("Cargando")
+                .content("Espere Porfavor")
+                .cancelable(false)
+                .progress(true,0);
+         dialog=builder.build();
 
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Ejecutar();
+            }
+        });
+
+    }
+//  Inicio login normal
+
+
+
+    @Override
+    public void showprogres() {
+        dialog.show();
+
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    public void hideprogres() {
+       dialog.dismiss();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
+    public void Ejecutar() {
+        if(!isValidEmail()){
+           Toast.makeText(this,"Correo Invalido",Toast.LENGTH_LONG).show();
+        } else if(isValidPass()){
+            Toast.makeText(this,"Password Invalido",Toast.LENGTH_LONG).show();
+        } else{
+            presenter.toLogin(user2.getText().toString(),pass2.getText().toString());
+        }
 
-    private void goMainScreen(){
-        Intent intent= new Intent(this, PrincipalActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @Override
-    public void LoginValidation(String p) {
-        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void LoginSucces(String p) {
-        goMainScreen();
-        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
+    public boolean isValidEmail() {
+        return Patterns.EMAIL_ADDRESS.matcher(user2.getText().toString()).matches();
     }
 
     @Override
-    public void LginError(String p) {
-        Toast.makeText(SingInActivity.this,p,Toast.LENGTH_SHORT).show();
+    public boolean isValidPass() {
+        if (TextUtils.isEmpty(pass2.getText().toString())) {
+            Toast.makeText(this, "No es una contraseña válida", Toast.LENGTH_SHORT).show();
+            pass2.setError("No es una contraseña válida");
+
+        }
+        return false;
+    }
+
+    @Override
+    public void loginValidacion() {
+      Toast.makeText(this,"Bienvenido al Prinsipal SÑR(@): "+user2.getText().toString().trim(),Toast.LENGTH_LONG).show();
+
+      startActivity(new Intent(this,PrincipalActivity.class));
+        finish();
+
+    }
+
+    @Override
+    public void Error(String error) {
+       Toast.makeText(this,error,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestoy();
+    }
+    public void registrar(View view){
+        startActivity(new Intent(this,SingUpActivity.class));
+
     }
 }

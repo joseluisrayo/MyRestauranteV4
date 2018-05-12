@@ -1,8 +1,11 @@
 package com.example.joserayo.myrestaurantev3.Model;
 
-import android.text.TextUtils;
+
+
+import android.support.annotation.NonNull;
 
 import com.example.joserayo.myrestaurantev3.Interfaces.LoginInterfaces;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -10,61 +13,32 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginModel implements LoginInterfaces.Model{
     private LoginInterfaces.Presenter presenter;
     private FirebaseAuth firebaseAuth;
+    private LoginInterfaces.TaskListener listener;
 
-    public LoginModel(LoginInterfaces.Presenter presenter){
-        this.presenter = presenter;
+    public LoginModel(LoginInterfaces.TaskListener listener) {
+        this.listener = listener;
+        firebaseAuth=FirebaseAuth.getInstance();
     }
 
     @Override
-    public void LoginNormalModel(String email, String pass) {
-        firebaseAuth = FirebaseAuth.getInstance();
+    public void doLogin(String email, String password) {
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    listener.onSucess();
+                } else
+                if(task.getException()!=null){
+                    listener.onError(task.getException().getMessage());
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
-            String notify = "Please enter email and enter password";
-            presenter.mostrarNotificacionLogNorm(notify);
-        }else {
-            final Task<AuthResult> resultTask = firebaseAuth.signInWithEmailAndPassword(email, pass);
-
-            if (resultTask != null) {
-
-                String succes = "Bienvenido";
-                presenter.mostrarNotificacionLogNorm(succes);
-
-            } else {
-
-                String error = "Error, please try again";
-                presenter.mostrarNotificacionLogNorm(error);
+                }
             }
-
-        }
+        });
     }
 
     @Override
     public void LoginFacebookModel(String email, String pass) {
 
-    }
-
-    @Override
-    public void RegistroModel(String email, String pass) {
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
-            String notify = "Please enter email and enter password";
-            presenter.mostrarNotificaciones(notify);
-        }else {
-            final Task<AuthResult> resultTask = firebaseAuth.createUserWithEmailAndPassword(email, pass);
-
-            if (resultTask != null) {
-
-                String succes = "Registered Successfully";
-                presenter.mostrarNotificaciones(succes);
-
-            }else {
-
-                String error = "Error, please try again";
-                presenter.mostrarNotificaciones(error);
-            }
-        }
     }
 
 

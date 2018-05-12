@@ -20,28 +20,29 @@
             <ImageView
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
                 android:src="@drawable/logo_eat_it"/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="260dp">
+            android:weightSum="3"
+            android:layout_height="300dp">
             <EditText
-                android:id="@+id/signup_user_id"
+                android:id="@+id/signupUser"
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:textColor="#fff"
                 android:textColorHint="@color/lightgray"
                 android:layout_gravity="center"
                 android:hint="name@example.com"
-                android:padding="10dp"
+                android:padding="7dp"
                 android:inputType="textEmailAddress"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content" />
             <EditText
-                android:id="@+id/signup_pass_id"
+                android:id="@+id/SignupPass1"
                 android:drawableStart="@drawable/ic_lock_black_24dp"
                 android:textColor="#fff"
                 android:textColorHint="@color/lightgray"
@@ -52,22 +53,37 @@
                 android:layout_gravity="center"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/SignupPass2"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:textColor="#fff"
+                android:textColorHint="@color/lightgray"
+                android:layout_marginTop="25dp"
+                android:hint="Confirmar Password"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+
             <Button
-                android:id="@+id/btnLogerSignUp"
-                android:onClick="registerUser"
+                android:id="@+id/btnRegis"
+
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:layout_marginTop="20dp"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="Regístrate"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="500dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="40dp" />
         </LinearLayout>
 
