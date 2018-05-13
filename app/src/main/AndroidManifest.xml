@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.joserayo.myrestaurantev3">
-     <!--Permisos de acceso a intermet por medio de gps y local-->
+
+    <!-- Permisos de acceso a intermet por medio de gps y local -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -27,8 +29,10 @@
         </activity>
         <activity android:name=".View.SingInActivity" />
         <activity android:name=".View.SingUpActivity" />
-        <activity android:name=".View.HomeActivity" />
-
+        <activity
+            android:name=".View.HomeActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -60,14 +64,20 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyCZ6ea8HSYuMt0fZ68GDmJ6FHl3hOfqJoc" />
 
         <activity
             android:name=".View.PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme" />
         <activity android:name=".View.ListaFragment" />
-        <activity android:name=".View.LocationMapsFragment"></activity>
+        <activity android:name=".View.LocationMapsFragment" />
+        <activity
+            android:name=".View.SelecUbicacion"
+            android:label="@string/title_activity_selec_ubicacion"
+            android:theme="@style/AppTheme.CustomTheme"
+
+            />
     </application>
 
 </manifest>

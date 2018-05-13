@@ -25,4 +25,11 @@
         app:headerLayout="@layout/nav_header_principal"
         app:menu="@menu/activity_principal_drawer" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nomuser1"
+        android:textSize="20dp"
+        />
+
 </android.support.v4.widget.DrawerLayout>

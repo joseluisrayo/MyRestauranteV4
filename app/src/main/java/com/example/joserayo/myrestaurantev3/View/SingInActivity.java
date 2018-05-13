@@ -173,7 +173,10 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
     public void loginValidacion() {
       Toast.makeText(this,"Bienvenido al Prinsipal SÑR(@): "+user2.getText().toString().trim(),Toast.LENGTH_LONG).show();
 
-      startActivity(new Intent(this,PrincipalActivity.class));
+      Intent intent=new Intent(SingInActivity.this,PrincipalActivity.class);
+      intent.putExtra("user",user2.getText().toString().trim());
+      startActivity(intent);
+
         finish();
 
     }

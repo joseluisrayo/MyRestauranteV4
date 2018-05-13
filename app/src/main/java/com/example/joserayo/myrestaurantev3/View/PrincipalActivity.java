@@ -2,6 +2,8 @@ package com.example.joserayo.myrestaurantev3.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.joserayo.myrestaurantev3.Interfaces.LoginInterfaces;
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class PrincipalActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private TextView nombuser;
+public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+ public TextView nombuser, user1;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,6 @@ public class PrincipalActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,6 +60,9 @@ public class PrincipalActivity extends AppCompatActivity
             goloinScreen();
         }
     }
+
+
+
     private void goloinScreen(){
         finish();
         Intent intent= new Intent(this, SingInActivity.class);
@@ -119,4 +125,10 @@ public class PrincipalActivity extends AppCompatActivity
                     return true;
                 }
             };
+
+
+
+
+
+
 }
