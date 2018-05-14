@@ -1,6 +1,5 @@
 package com.example.joserayo.myrestaurantev3.View;
 
-import com.example.joserayo.myrestaurantev3.Model.LocationData;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
