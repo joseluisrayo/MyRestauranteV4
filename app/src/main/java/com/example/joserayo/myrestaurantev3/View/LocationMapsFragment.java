@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -45,19 +46,34 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mMap;
     private Marker marcador;
     private LatLng locationLatLng;
+    double lat=0.0;
+    double lng=0.0;
+    private FloatingActionButton modal;
     private DatabaseReference mDatabase;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.location_maps_fragment, container, false);
+     final    View vista = inflater.inflate(R.layout.location_maps_fragment, container, false);
 
         SupportMapFragment supportMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         supportMapFragment.getMapAsync(this);
+
+        modal=(FloatingActionButton)vista.findViewById(R.id.create);
+        modal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),HomeActivity.class));
+
+            }
+        });
         //se inicializa el comienzo de la ubicaion
         startGettingLocations();
         //inicializamos la firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+
         //inicializamos los multiples markets
         getMarkers();
         return vista;
@@ -104,6 +120,10 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(locationLatLng);
         markerOptions.title("Location actual");
+
+
+
+
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.locatioimagen));
         marcador = mMap.addMarker(markerOptions);
@@ -114,7 +134,10 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         //Toast.makeText(getActivity(), "Localización Actualizada", Toast.LENGTH_SHORT).show();
         getMarkers();
 
+
     }
+
+
     private ArrayList findUnAskedPermissions(ArrayList<String> wanted) {
         ArrayList result = new ArrayList();
 
@@ -174,8 +197,8 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         ArrayList<String> permissions = new ArrayList<>();
         ArrayList<String> permissionsToRequest;
 
-        permissions.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-        permissions.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         permissionsToRequest = findUnAskedPermissions(permissions);
 
         //Check if GPS and Network are on, if not asks the user to turn on
@@ -197,8 +220,8 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
 
         //Checks if FINE LOCATION and COARSE Location were granted
         if (ActivityCompat.checkSelfPermission(getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
 
             Toast.makeText(getActivity(), "Permiso Denegado", Toast.LENGTH_SHORT).show();

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.LocationMapsFragment">
+    tools:context=".View.SelecUbicacion">
 
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/map1"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+    </fragment>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,17 +24,17 @@
         android:layout_alignParentTop="true">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/create"
+            android:id="@+id/atras"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="54dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginStart="12dp"
             android:clickable="true"
-            android:src="@drawable/ic_add_black_24dp"
-            app:backgroundTint="#07ed22" />
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            app:backgroundTint="#111111" />
 
 
     </RelativeLayout>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
