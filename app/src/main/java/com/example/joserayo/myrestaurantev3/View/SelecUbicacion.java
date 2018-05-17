@@ -53,8 +53,8 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
             public void onClick(View v) {
                 Intent intent=new Intent(SelecUbicacion.this,HomeActivity.class);
 
-                intent.putExtra("latitud",lat+ "");
-                intent.putExtra("longitud",longLt+ "");
+                intent.putExtra("latitud",lat);
+                intent.putExtra("longitud",longLt);
                 startActivity(intent);
                 finish();
             }
@@ -127,8 +127,7 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
                     marker.setTitle(address.getAddressLine(0));
                     marker.showInfoWindow();
                     Log.d("Lat","your lat"+lat);
-                    Log.d("Long","your long"+lat);
-
+                    Log.d("Long","your long"+longLt);
 
                 }catch (IOException e) {
                     e.printStackTrace();

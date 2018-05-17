@@ -2,8 +2,6 @@ package com.example.joserayo.myrestaurantev3.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.joserayo.myrestaurantev3.Interfaces.LoginInterfaces;
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,8 +20,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
- public TextView nombuser, user1;
-
+    public TextView nombuser;
+    private FirebaseAuth firebaseAuth;
 
 
 

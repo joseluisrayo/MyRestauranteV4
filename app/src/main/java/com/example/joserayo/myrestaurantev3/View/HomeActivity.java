@@ -58,10 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     private static int posicion;
     private String cate;
     private String dato;
-    private String lista[] = {"Escoge Categoria", "Restaurante", "Pizeria", "Chifa", "Cevicheria", "Polleria", "Cafeteria"};
+    private String lista[] = {"Escoge Categoria", "Restaurante", "Pizzeria", "Chifa", "Cevicheria", "Polleria", "Cafeteria"};
     private ArrayAdapter<String> adapter;
-    String valorLong;
-    String valorLat;
+    double valorLong;
+    double valorLat;
     public final int MY_PERMISSIONS_REQUEST = 1;
 
 
@@ -153,8 +153,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //Valor de ubicación desde la opción seleccionar ubicación
         Bundle datos = this.getIntent().getExtras();
-        valorLat = datos.getString("latitud");
-        valorLong = datos.getString("longitud");
+        valorLat = datos.getDouble("latitud");
+        valorLong = datos.getDouble("longitud");
 
         Log.d("Lat", "your lat" + valorLat);
 
@@ -187,10 +187,10 @@ public class HomeActivity extends AppCompatActivity {
                             @Override
                             public void onLocationChanged(Location location) {
 
-                                valorLat = (location.getLatitude()) + "";
-                                valorLong = (location.getLongitude()) + "";
-                                Log.i("Latitud1::", valorLat);
-                                Log.i("Longitud1::", valorLong);
+                                valorLat = (location.getLatitude());
+                                valorLong = (location.getLongitude());
+                                //Log.i("Latitud1::", valorLat);
+                                //Log.i("Longitud1::", valorLong);
                                 if (location.getLatitude() != 0.0 && location.getLongitude() != 0.0) {
                                     try {
                                         Geocoder geocoder = new Geocoder(HomeActivity.this, Locale.getDefault());
@@ -286,18 +286,18 @@ public class HomeActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(description2) && !TextUtils.isEmpty(date2) && !TextUtils.isEmpty(time2)
        && !TextUtils.isEmpty(nombre1) && !TextUtils.isEmpty(telefono)) {
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Restaurante");
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("location2"); ///se instancia el nombre a la base de datos
 
-            DatabaseReference reference = mDatabase.child(UUID.randomUUID().toString());
+            DatabaseReference reference = mDatabase.child(nombre1.toString());
 
-            reference.child("nombre").setValue(nombre1);
+            reference.child("nombreRest").setValue(nombre1);
             reference.child("direccion").setValue(description2);
             reference.child("telefono").setValue(telefono);
             reference.child("categoria").setValue(cate);
             reference.child("date").setValue(date2);
             reference.child("time").setValue(time2);
-            reference.child("latitudRes").setValue(valorLat);
-            reference.child("longitudRes").setValue(valorLong);
+            reference.child("latitude").setValue(valorLat);
+            reference.child("longitude").setValue(valorLong);
             Toast.makeText(HomeActivity.this, "Exito al registrar el evento", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -313,8 +313,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
 }
-
-
 
 
 

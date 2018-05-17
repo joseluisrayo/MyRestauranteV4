@@ -46,8 +46,6 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mMap;
     private Marker marcador;
     private LatLng locationLatLng;
-    double lat=0.0;
-    double lng=0.0;
     private FloatingActionButton modal;
     private DatabaseReference mDatabase;
 
@@ -104,8 +102,6 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-
-
     }
 
     @Override
@@ -119,9 +115,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         locationLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(locationLatLng);
-        markerOptions.title("Location actual");
-
-
+        markerOptions.title("Localización actual");
 
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
