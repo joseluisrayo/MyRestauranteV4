@@ -1,5 +1,36 @@
 package com.example.joserayo.myrestaurantev3.View;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.nfc.Tag;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,46 +47,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class LocationMapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
     private GoogleMap mMap;
     private Marker marcador;
+    private EditText search;
     private LatLng locationLatLng;
+    double lat=0.0;
+    double lng=0.0;
     private FloatingActionButton modal;
     private DatabaseReference mDatabase;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-     final    View vista = inflater.inflate(R.layout.location_maps_fragment, container, false);
+        final    View vista = inflater.inflate(R.layout.location_maps_fragment, container, false);
 
         SupportMapFragment supportMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         supportMapFragment.getMapAsync(this);
+
 
         modal=(FloatingActionButton)vista.findViewById(R.id.create);
         modal.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +77,15 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),HomeActivity.class));
 
+
             }
         });
+
+        //bucador restuarantes
+
+
+
+
         //se inicializa el comienzo de la ubicaion
         startGettingLocations();
         //inicializamos la firebase
@@ -76,6 +97,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         getMarkers();
         return vista;
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -102,6 +124,8 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
+
+
     }
 
     @Override
@@ -115,7 +139,9 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         locationLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(locationLatLng);
-        markerOptions.title("Localización actual");
+        markerOptions.title("Location actual");
+
+
 
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
@@ -268,7 +294,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         for (Map.Entry<String, Object> entry : locations.entrySet()){
             String newDate = new String(String.valueOf(entry.getKey()));
             Map singleLocation = (Map) entry.getValue();
-            LatLng latLng = new LatLng((Double) singleLocation.get("latitude"), (Double)singleLocation.get("longitude"));
+            LatLng latLng = new LatLng((double) singleLocation.get("latitude"), (double)singleLocation.get("longitude"));
             addGreenMarker(newDate,latLng);
         }
     }

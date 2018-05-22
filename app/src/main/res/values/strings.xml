@@ -14,4 +14,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_selec_ubicacion">SelecUbicacion</string>
     <string name="title_activity_main2">Main2Activity</string>
+
+
+    <string name="horarios">Presiona los dias que se indican
+        a continuacion para agregar el horario de atencion</string>
+    <string name="camara">Toma una foto en primer plano que muestre claramente el horaro para que EAT pueda escanearlo</string>
 </resources>

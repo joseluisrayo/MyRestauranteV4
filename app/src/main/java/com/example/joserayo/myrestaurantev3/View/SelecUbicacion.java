@@ -7,10 +7,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -18,11 +16,9 @@ import android.view.View;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,8 +29,11 @@ import java.util.List;
 public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap mMap;
     private FloatingActionButton btnatras;
-    private double lat;
-    private double longLt;
+
+    private String dato1;
+
+    double lat;
+    double longLt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +47,6 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map1);
         mapFragment.getMapAsync(this);
 
-        btnatras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(SelecUbicacion.this,HomeActivity.class);
-
-                intent.putExtra("latitud",lat);
-                intent.putExtra("longitud",longLt);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -68,6 +54,24 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
         int heint = metrics.heightPixels;
 
         getWindow().setLayout((int) (width * .8), (int) (heint * .6));
+
+
+        btnatras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            Intent intent=new Intent(SelecUbicacion.this,HomeActivity.class);
+            intent.putExtra("latitud",lat);
+            intent.putExtra("longitud",longLt);
+            intent.putExtra("direccion",dato1);
+
+                setResult(SelecUbicacion.RESULT_OK,intent);
+                finish();
+
+            }
+        });
+
+        ;
 
     }
 
@@ -103,16 +107,6 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
-
-            }
-
-            @Override
-            public void onMarkerDrag(Marker marker) {
-
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
                 Geocoder geocoder=new Geocoder(SelecUbicacion.this);
 
                 List<Address>list =null;
@@ -123,15 +117,35 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
 
                     list=geocoder.getFromLocation(latLng.latitude,latLng.longitude,1) ;
 
-                    Address address=list.get(0);
-                    marker.setTitle(address.getAddressLine(0));
-                    marker.showInfoWindow();
-                    Log.d("Lat","your lat"+lat);
-                    Log.d("Long","your long"+longLt);
+                    if(!list.isEmpty()){
+                        Address address=list.get(0);
+                       dato1=address.getAddressLine(0);
+                       Log.d("direccion1",dato1);
+                        marker.setTitle(address.getAddressLine(0));
+                        marker.showInfoWindow();
+                        Log.d("Lat","your lat"+lat);
+                        Log.d("Long","your long"+lat);
+
+
+
+                    }
+
+
 
                 }catch (IOException e) {
                     e.printStackTrace();
                 }
+
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+
 
 
             }
@@ -140,5 +154,21 @@ public class SelecUbicacion extends AppCompatActivity implements OnMapReadyCallb
     }
 
 
+  //  public void atras(View view) {
+     //   if(view!=null){
 
+    //   Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+         //   intent.putExtra("latitud",lat+"");
+    //   intent.putExtra("longitud",longLt+"");
+         //  intent.putExtra("Direccion",dato1+"");
+         //    startActivity(intent);
+    //   finish();
+    // } else {
+    //  Log.e("eror","errore:"+lat);
+    //    }
+
+
+
+//}
 }
+

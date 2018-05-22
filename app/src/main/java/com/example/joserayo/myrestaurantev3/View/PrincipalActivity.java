@@ -2,11 +2,6 @@ package com.example.joserayo.myrestaurantev3.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.example.joserayo.myrestaurantev3.R;
-import com.facebook.login.LoginManager;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -19,19 +14,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    public TextView nombuser;
-    private FirebaseAuth firebaseAuth;
+import com.example.joserayo.myrestaurantev3.R;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
+public class PrincipalActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private TextView nombuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,9 +61,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
             goloinScreen();
         }
     }
-
-
-
     private void goloinScreen(){
         finish();
         Intent intent= new Intent(this, SingInActivity.class);
@@ -123,10 +123,4 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
                     return true;
                 }
             };
-
-
-
-
-
-
 }
