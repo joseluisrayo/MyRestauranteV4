@@ -1,6 +1,10 @@
 package com.example.joserayo.myrestaurantev3.View;
 
 import android.Manifest;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,6 +19,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -55,7 +60,7 @@ public class HomeActivity extends AppCompatActivity  {
   private DatePickerDialog.OnDateSetListener onDateSetListener;
     private EditText direccion,numero,textview,etime1,etime2,mDisplayDate,nombre,web;
     private Spinner categoria;
-    private Button registrar;
+    private Button registrar,CargarFoto;
     private FloatingActionButton lugar1;
     private String nombre2;
     private Switch selectrestaurante;
@@ -82,6 +87,7 @@ public class HomeActivity extends AppCompatActivity  {
     private static final int SECACT_REQUEST_CODE=0;
     private static final int SECAC_REQUEST_CODE=0;
     private ImageView imagen;
+
    String direc;
      AlertDialog.Builder alertdialogbuilder;
      String[] AlertDialogItems = new String[]{
@@ -143,6 +149,8 @@ public class HomeActivity extends AppCompatActivity  {
          textview = (EditText) findViewById(R.id.horarios);
         mDisplayDate = (EditText) findViewById(R.id.tvDate);
         imagen=(ImageView)findViewById(R.id.idimagen);
+        CargarFoto=(Button)findViewById(R.id.tomarfoto);
+
           //este codigo es para desaparecer el teclado virtual de los editext
         direccion .setInputType(InputType.TYPE_NULL);
         textview.setInputType(InputType.TYPE_NULL);
@@ -156,6 +164,15 @@ public class HomeActivity extends AppCompatActivity  {
 
             }
         });
+//prendo o apago el boton segun los permisos que se hace
+        if(ValidarPermisos()){
+           CargarFoto.setEnabled(true);
+
+
+        }else{
+
+            CargarFoto.setEnabled(false);
+        }
 
 
         //Escoger Fecha  Restaurant
@@ -474,6 +491,42 @@ public class HomeActivity extends AppCompatActivity  {
         });
 
 
+    }
+
+    private boolean ValidarPermisos() {
+
+
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+            return true;
+        }
+
+        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
+            return true;
+        }
+
+        if((shouldShowRequestPermissionRationale(CAMERA)) ||
+                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
+            cargarDialogoRecomendacion();
+        }else{
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+        }
+
+        return false;
+    }
+
+    private void cargarDialogoRecomendacion() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(HomeActivity.this);
+        dialogo.setTitle("Permisos Desactivados");
+        dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dialogo.show();
     }
 
     @Override
