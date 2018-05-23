@@ -31,16 +31,9 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="35dp"
             android:layout_marginStart="12dp"
-            android:onClick="atras"
             android:clickable="true"
             android:src="@drawable/ic_fast_rewind_black_24dp"
-
             app:backgroundTint="#111111" />
-
-
-
-
-
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

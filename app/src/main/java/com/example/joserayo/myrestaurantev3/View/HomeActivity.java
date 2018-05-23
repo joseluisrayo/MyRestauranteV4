@@ -123,12 +123,6 @@ public class HomeActivity extends AppCompatActivity  {
 
         }
 
-
-
-
-
-
-
     }
 
     @Override
@@ -156,14 +150,6 @@ public class HomeActivity extends AppCompatActivity  {
         textview.setInputType(InputType.TYPE_NULL);
         mDisplayDate.setInputType(InputType.TYPE_NULL);
 
-        llevar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SeleccionarHorario.class);
-                startActivityForResult(intent,SECACT_REQUEST_CODE);
-
-            }
-        });
 //prendo o apago el boton segun los permisos que se hace
         if(ValidarPermisos()){
            CargarFoto.setEnabled(true);
@@ -562,12 +548,12 @@ public class HomeActivity extends AppCompatActivity  {
         final String description2 = direccion.getText().toString().trim();
         final String nombre1 = nombre.getText().toString().trim();
         final String web1=web.getText().toString().trim();
-        final String telefono = numero.getText().toString().trim();
+        final Long telefono = Long.valueOf(numero.getText().toString().trim());
         final String time1 = etime1.getText().toString().trim();
-       final String time2 = etime2.getText().toString().trim();
+        final String time2 = etime2.getText().toString().trim();
         final String fecha=mDisplayDate.getText().toString();
         if (!TextUtils.isEmpty(description2)  && !TextUtils.isEmpty(fecha) && !TextUtils.isEmpty(time1) && !TextUtils.isEmpty(fecha) && !TextUtils.isEmpty(time2)
-       && !TextUtils.isEmpty(nombre1) && !TextUtils.isEmpty(telefono)) {
+       && !TextUtils.isEmpty(nombre1)) {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
 
             DatabaseReference reference = mDatabase.child(nombre1);
@@ -583,6 +569,8 @@ public class HomeActivity extends AppCompatActivity  {
             reference.child("Abrir").setValue(time2);
             reference.child("latitude").setValue(valorLat);
             reference.child("longitude").setValue(valorLong);
+            String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
+            reference.child("url").setValue(imagen);
             Toast.makeText(HomeActivity.this, "Exito al registrar el Restaurante", Toast.LENGTH_SHORT).show();
 
             nombre.setText("");
@@ -597,7 +585,7 @@ public class HomeActivity extends AppCompatActivity  {
 
 
         } else {
-            Toast.makeText(HomeActivity.this, "Error al crear el Restaurante :( ...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, "Error al crear el Restaurante  ...", Toast.LENGTH_SHORT).show();
 
 
         }

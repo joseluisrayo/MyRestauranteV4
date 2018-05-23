@@ -3,20 +3,19 @@ package com.example.joserayo.myrestaurantev3.Model;
 public class LocationModel {
 
 
-    public LocationModel(String direccion, String nombreRest, String categoria, String url) {
+    public LocationModel(String direccion, String nombreRest, String categoria, String url, Long telefono) {
         this.direccion = direccion;
         this.nombreRest = nombreRest;
         this.categoria = categoria;
         this.url = url;
+        this.telefono = telefono;
     }
 
     private String direccion;
     private String nombreRest;
     private String categoria;
     private String url;
-
-    public LocationModel() {
-    }
+    private Long telefono;
 
     public String getDireccion() {
         return direccion;
@@ -48,5 +47,17 @@ public class LocationModel {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
+
+    public LocationModel() {
     }
 }

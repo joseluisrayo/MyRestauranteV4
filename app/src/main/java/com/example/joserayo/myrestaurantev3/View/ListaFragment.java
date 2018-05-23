@@ -1,6 +1,7 @@
 package com.example.joserayo.myrestaurantev3.View;
 
-import android.content.Context;
+
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
+import com.example.joserayo.myrestaurantev3.Presentador.MenuViewHolder;
 import com.example.joserayo.myrestaurantev3.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -23,62 +23,53 @@ import com.squareup.picasso.Picasso;
 public class ListaFragment extends Fragment{
     private RecyclerView recyclerView;
     private DatabaseReference  mDatabase;
+    FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>firebaseRecyclerAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         View vista = inflater.inflate(R.layout.lista_fragment,container,false);
+        View vista = inflater.inflate(R.layout.lista_fragment,container,false);
 
-         mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
-         mDatabase.keepSynced(true);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
+        mDatabase.keepSynced(true);
 
-         recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
-         recyclerView.setHasFixedSize(true);
-         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //llama al metodo de recycleview
+        recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-         return vista;
+        //Se llama al metodo en donde se liste los datos en cardwied
+        loadMenu();
+
+        //retorna los metodos que estamos utlizando
+        return vista;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerAdapter<LocationModel,BlogViewVolder>firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<LocationModel,
-                BlogViewVolder>(LocationModel.class,R.layout.blog_row, BlogViewVolder.class,mDatabase) {
+    private void loadMenu(){
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter
+                <LocationModel, MenuViewHolder>(LocationModel.class, R.layout.blog_row, MenuViewHolder.class, mDatabase) {
             @Override
-            protected void populateViewHolder(BlogViewVolder viewHolder, LocationModel model, int position) {
-                viewHolder.setNom_prod(model.getNombreRest());
-                viewHolder.setCategriaP(model.getCategoria());
-                viewHolder.setDireccion(model.getDireccion());
-                viewHolder.setImagen(getActivity().getApplicationContext(),model.getUrl());
+            protected void populateViewHolder(MenuViewHolder viewHolder, LocationModel model, int position) {
+                viewHolder.nomnrePro.setText(model.getNombreRest());
+                viewHolder.nombrecatego.setText(model.getCategoria());
+                viewHolder.direccion.setText(model.getDireccion());
+                Picasso.with(getContext()).load(model.getUrl()).into(viewHolder.imegenPro);
+
+                //Se instancia el metodo Model.LocationModel para utilizar para llamar los nombres
+                final LocationModel clickItem = model;
+
+                //Se utiliza el onclick al precionar el nombre del cardview
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Intent intent= new Intent(getActivity(), DetallesFoodActivity.class);
+                        intent.putExtra("idRest",firebaseRecyclerAdapter.getRef(position).getKey());
+                        startActivity(intent);
+                    }
+                });
             }
-        };
+        } ;
+        //devuelve el metodo para que paresca los datos en el recyclerView
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
-
-    public static class BlogViewVolder extends RecyclerView.ViewHolder{
-        View view;
-        public BlogViewVolder(View itemView) {
-            super(itemView);
-            view = itemView;
-        }
-        public void setNom_prod(String nombreRest){
-            TextView post_nombreResta = (TextView)view.findViewById(R.id.post_nombreRest);
-            post_nombreResta.setText(nombreRest);
-        }
-        public void setCategriaP(String categoria){
-            TextView post_categotiap = (TextView)view.findViewById(R.id.post_categoria);
-            post_categotiap.setText(categoria);
-
-        }
-        public void setDireccion(String direccion){
-            TextView post_cantidad = (TextView)view.findViewById(R.id.post_direccion);
-            post_cantidad.setText(direccion);
-        }
-        public void setImagen(Context ctx,String image){
-            ImageView post_Imagen = (ImageView)view.findViewById(R.id.postImgen);
-            Picasso.with(ctx).load(image).into(post_Imagen);
-        }
-    }
-
 }
