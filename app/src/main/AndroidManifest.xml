@@ -79,7 +79,7 @@
         <activity
             android:name=".View.DetallesFoodActivity"
             android:label="@string/title_activity_detalles_food"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

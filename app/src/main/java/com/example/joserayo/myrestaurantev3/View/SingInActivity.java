@@ -28,6 +28,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SingInActivity extends AppCompatActivity implements LoginInterfaces.View{
     private EditText user2,pass2;
@@ -46,20 +47,10 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
         setContentView(R.layout.activity_sing_in);
 
         //login normal
-
-
         setvie();
-
-
-
 
         //add dependenci facebook
         callbackManager = CallbackManager.Factory.create();
-
-
-
-
-
         //login por facebook
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -83,12 +74,24 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
             }
         });
 
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user!=null){
+                    goMainScreem();
+                }
+            }
+        };
 
         }
-
-
-
+        private void goMainScreem(){
+        finish();
+        Intent intent = new Intent(SingInActivity.this,PrincipalActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
@@ -104,7 +107,26 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
             }
         });
     }
-//declara los id a las etiquetas
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+    }
+
+
+    //declara los id a las etiquetas
     private void setvie() {
         presenter= new LoginPresenter(this);
         user2 = (EditText) findViewById(R.id.signin_user_id);
@@ -176,9 +198,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
       Intent intent=new Intent(SingInActivity.this,PrincipalActivity.class);
       intent.putExtra("user",user2.getText().toString().trim());
       startActivity(intent);
-
         finish();
-
     }
 
     @Override

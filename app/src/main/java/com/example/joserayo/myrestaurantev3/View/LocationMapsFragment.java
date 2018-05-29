@@ -77,21 +77,15 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),HomeActivity.class));
 
-
             }
         });
 
         //bucador restuarantes
 
-
-
-
         //se inicializa el comienzo de la ubicaion
         startGettingLocations();
         //inicializamos la firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
 
         //inicializamos los multiples markets
         getMarkers();
@@ -124,8 +118,6 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-
-
     }
 
     @Override
@@ -140,8 +132,6 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(locationLatLng);
         markerOptions.title("Location actual");
-
-
 
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
@@ -307,6 +297,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         //markerOptions.title("Restaurantes");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(markerOptions);
+
     }
 
 
