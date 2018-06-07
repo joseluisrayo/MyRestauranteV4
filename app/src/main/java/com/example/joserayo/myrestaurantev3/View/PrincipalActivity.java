@@ -50,24 +50,21 @@ public class PrincipalActivity extends AppCompatActivity
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListaFragment()).commit();
 
-
+/*
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user !=null){
-            //profile activity here
-            //  finish();
-            // startActivity(new Intent(this,SingInActivity.class));
-            nombuser = (TextView) findViewById(R.id.nombreUser);
-            //nombuser.setText(user.getEmail());
+       if (user !=null){
+
         }else {
+
             goloinScreen();
-        }
+        } */
     }
+
     private void goloinScreen(){
         finish();
-        Intent intent= new Intent(this, SingInActivity.class);
+        Intent intent= new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
     }
 
     @Override
@@ -84,17 +81,12 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment selectedFrament = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_about) {
-
-        } else if (id == R.id.nav_category) {
-
-        } else if (id == R.id.nav_location) {
-
-        } else if (id == R.id.nav_RegisterResta) {
 
         } else if (id == R.id.nav_exit) {
             FirebaseAuth.getInstance().signOut();

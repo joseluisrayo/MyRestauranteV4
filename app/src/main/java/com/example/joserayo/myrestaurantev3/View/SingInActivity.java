@@ -33,10 +33,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class SingInActivity extends AppCompatActivity implements LoginInterfaces.View{
     private EditText user2,pass2;
     private ProgressDialog progressDialog;
-    private CallbackManager callbackManager;
-    private LoginButton loginButton;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    private FirebaseAuth firebaseAuth;
     private LoginInterfaces.Presenter presenter;
     private Button btnlogin;
     private MaterialDialog dialog;
@@ -45,86 +41,9 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_in);
-
         //login normal
         setvie();
-
-        //add dependenci facebook
-        callbackManager = CallbackManager.Factory.create();
-        //login por facebook
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        // If using in a fragment
-        //loginButton.setFragment(this);
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getApplicationContext(),"Se Canceló la Operación",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(),"Ocurrió un problema al Ingresar",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user!=null){
-                    goMainScreem();
-                }
-            }
-        };
-
-        }
-        private void goMainScreem(){
-        finish();
-        Intent intent = new Intent(SingInActivity.this,PrincipalActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        }
-
-    private void handleFacebookAccessToken(AccessToken accessToken) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        //loginButton.setVisibility(View.GONE);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Error en login",Toast.LENGTH_SHORT).show();
-                }
-
-                //loginButton.setVisibility(View.VISIBLE);
-            }
-        });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-       firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-    }
-
 
     //declara los id a las etiquetas
     private void setvie() {
@@ -132,26 +51,24 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
         user2 = (EditText) findViewById(R.id.signin_user_id);
         pass2 = (EditText) findViewById(R.id.signin_pass_id);
 
-//creo el progresbar
+      //creo el progresbar
         btnlogin=(Button)findViewById(R.id.btnlogin);
         MaterialDialog.Builder builder=new MaterialDialog.Builder(this)
                 .title("Cargando")
                 .content("Espere Porfavor")
                 .cancelable(false)
                 .progress(true,0);
-         dialog=builder.build();
+        dialog=builder.build();
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Ejecutar();
+                Ejecutar();
             }
         });
 
     }
 //  Inicio login normal
-
-
 
     @Override
     public void showprogres() {
@@ -161,13 +78,13 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
 
     @Override
     public void hideprogres() {
-       dialog.dismiss();
+        dialog.dismiss();
     }
 
     @Override
     public void Ejecutar() {
         if(!isValidEmail()){
-           Toast.makeText(this,"Correo Invalido",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Correo Invalido",Toast.LENGTH_LONG).show();
         } else if(isValidPass()){
             Toast.makeText(this,"Password Invalido",Toast.LENGTH_LONG).show();
         } else{
@@ -193,17 +110,17 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
 
     @Override
     public void loginValidacion() {
-      Toast.makeText(this,"Bienvenido al Prinsipal SÑR(@): "+user2.getText().toString().trim(),Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Bienvenido al Prinsipal SÑR(@): "+user2.getText().toString().trim(),Toast.LENGTH_LONG).show();
 
-      Intent intent=new Intent(SingInActivity.this,PrincipalActivity.class);
-      intent.putExtra("user",user2.getText().toString().trim());
-      startActivity(intent);
+        Intent intent=new Intent(SingInActivity.this,PrincipalActivity.class);
+        intent.putExtra("user",user2.getText().toString().trim());
+        startActivity(intent);
         finish();
     }
 
     @Override
     public void Error(String error) {
-       Toast.makeText(this,error,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,error,Toast.LENGTH_LONG).show();
     }
 
     @Override

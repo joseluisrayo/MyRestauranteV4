@@ -116,8 +116,8 @@ public class HomeActivity extends AppCompatActivity  {
                 cerrado=data.getStringExtra("cerrado");
 
                 //foto
-                Uri path=data.getData();
-                imagen.setImageURI(path);
+                //Uri path=data.getData();
+                //imagen.setImageURI(path);
 
             }
 
@@ -142,24 +142,13 @@ public class HomeActivity extends AppCompatActivity  {
         categoria = (Spinner) findViewById(R.id.categoria);
          textview = (EditText) findViewById(R.id.horarios);
         mDisplayDate = (EditText) findViewById(R.id.tvDate);
-        imagen=(ImageView)findViewById(R.id.idimagen);
-        CargarFoto=(Button)findViewById(R.id.tomarfoto);
+        //imagen=(ImageView)findViewById(R.id.idimagen);
+        //CargarFoto=(Button)findViewById(R.id.tomarfoto);
 
           //este codigo es para desaparecer el teclado virtual de los editext
         direccion .setInputType(InputType.TYPE_NULL);
         textview.setInputType(InputType.TYPE_NULL);
         mDisplayDate.setInputType(InputType.TYPE_NULL);
-
-//prendo o apago el boton segun los permisos que se hace
-        if(ValidarPermisos()){
-           CargarFoto.setEnabled(true);
-
-
-        }else{
-
-            CargarFoto.setEnabled(false);
-        }
-
 
         //Escoger Fecha  Restaurant
         mDisplayDate.setOnClickListener(new View.OnClickListener() {

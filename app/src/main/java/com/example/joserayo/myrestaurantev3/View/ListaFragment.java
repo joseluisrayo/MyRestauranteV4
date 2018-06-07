@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
 import com.example.joserayo.myrestaurantev3.Presentador.MenuViewHolder;
@@ -21,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 public class ListaFragment extends Fragment{
+    private TextView ico_megusta;
     private RecyclerView recyclerView;
     private DatabaseReference  mDatabase;
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>firebaseRecyclerAdapter;
@@ -37,7 +41,8 @@ public class ListaFragment extends Fragment{
         recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        //muestra el icono
+        ico_megusta = (TextView)vista.findViewById(R.id.ico_favorite);
         //Se llama al metodo en donde se liste los datos en cardwied
         loadMenu();
 
@@ -72,4 +77,5 @@ public class ListaFragment extends Fragment{
         //devuelve el metodo para que paresca los datos en el recyclerView
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
+
 }

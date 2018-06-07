@@ -16,8 +16,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="270dp">
-
+            android:layout_height="250dp">
             <ImageView
                 android:id="@+id/hola"
                 android:layout_marginTop="20dp"
@@ -30,8 +29,16 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="260dp">
+            android:layout_height="280dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Iniciar sesión"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#fff"
+                android:textSize="20dp"/>
             <EditText
+                android:layout_marginTop="18dp"
                 android:id="@+id/signin_user_id"
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:textColor="#fff"
@@ -64,34 +71,6 @@
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:text="INICIAR SESIÓN" />
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="40dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="16sp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="20dp">
-            <TextView
-                android:id="@+id/btnCreatAcco_id"
-                android:onClick="registrar"
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:text="Create an Account"/>
-            <TextView
-                android:id="@+id/btnForgPass_id"
-                android:layout_marginLeft="100dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:text="Forgot Password?"/>
         </LinearLayout>
 
     </LinearLayout>

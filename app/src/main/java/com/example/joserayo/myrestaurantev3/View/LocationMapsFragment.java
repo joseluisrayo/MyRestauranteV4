@@ -176,14 +176,14 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("GPS desativado!");
         alertDialog.setMessage("Ativar GPS?");
-        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
         });
 
-        alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

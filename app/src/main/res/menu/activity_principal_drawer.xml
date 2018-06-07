@@ -7,28 +7,16 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Principal" />
+            android:title="Página principal" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_supervisor_account_black_24dp"
-            android:title="Acerca de Nosotros" />
-        <item
-            android:id="@+id/nav_category"
-            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
-            android:title="Categoria" />
-        <item
-            android:id="@+id/nav_location"
-            android:icon="@drawable/ic_location_on_black_24dp"
-            android:title="Localización" />
-        <item
-            android:id="@+id/nav_RegisterResta"
-            android:icon="@drawable/ic_edit_location_black_24dp"
-            android:title="Registra tu Restaurante" />
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Ajustes" />
 
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
-            android:title="Salir" />
+            android:title="Cerrar sesión" />
     </group>
 
 </menu>
