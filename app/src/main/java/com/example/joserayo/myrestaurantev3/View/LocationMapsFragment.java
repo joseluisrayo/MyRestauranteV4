@@ -61,7 +61,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private LatLng locationLatLng;
     double lat=0.0;
     double lng=0.0;
-    private FloatingActionButton modal,menu,bebidas,restaurante;
+    private FloatingActionButton modal;
     private DatabaseReference mDatabase;
 
     @Nullable
@@ -74,54 +74,17 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
 
 
         modal=(FloatingActionButton)vista.findViewById(R.id.create);
-        menu=(FloatingActionButton)vista.findViewById(R.id.createmenu);
-        bebidas=(FloatingActionButton)vista.findViewById(R.id.re_bebidas);
-        restaurante=(FloatingActionButton)vista.findViewById(R.id.re_restau);
-        bebidas1=(LinearLayout)vista.findViewById(R.id.bebidaslayout);
-        menu1=(LinearLayout)vista.findViewById(R.id.menulayout);
-        restau=(LinearLayout)vista.findViewById(R.id.restaurantelayout);
 
         modal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(bebidas1.getVisibility()==View.VISIBLE && menu1.getVisibility()==View.VISIBLE&& restau.getVisibility()==View.VISIBLE){
-                  bebidas1.setVisibility(View.GONE);
-                  menu1.setVisibility(View.GONE);
-                  restau.setVisibility(View.GONE);
-              } else {
 
-
-
-                  bebidas1.setVisibility(View.VISIBLE);
-                  menu1.setVisibility(View.VISIBLE);
-                  restau.setVisibility(View.VISIBLE);
-
-              }
-
-
-
-            }
-        });
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              startActivity(new Intent(getActivity(),RegistroMenu.class));
-            }
-        });
-
-        bebidas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        restaurante.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 startActivity(new Intent(getActivity(),HomeActivity.class));
+
+
             }
         });
+
 
         //bucador restuarantes
 

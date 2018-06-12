@@ -175,7 +175,7 @@
 
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Registrar"
+                    android:text="Foto"
                     android:textColor="#ffffff" />
 
 
