@@ -80,6 +80,8 @@
             android:name=".View.DetallesFoodActivity"
             android:label="@string/title_activity_detalles_food"
             android:theme="@style/AppTheme" />
+        <activity android:name=".View.RegistroFragment" />
+        <activity android:name=".View.MegustaFragment"></activity>
     </application>
 
 </manifest>
