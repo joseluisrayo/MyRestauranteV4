@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,24 +11,109 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-        <android.support.design.widget.FloatingActionButton
+     <android.support.design.widget.FloatingActionButton
             android:id="@+id/create"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
+         android:layout_marginEnd="16dp"
+         android:layout_marginRight="16dp"
             android:clickable="true"
             android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="#f2f9f3" />
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/menulayout"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Registro Menu"
+                />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/createmenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:backgroundTint="#f2f9f3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bebidaslayout"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="140dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Registro Menu"
+                />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/re_bebidas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:backgroundTint="#f2f9f3" />
+
+
+
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/restaurantelayout"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="200dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Registro Menu"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/re_restau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            app:backgroundTint="#f2f9f3" />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

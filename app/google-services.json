@@ -1,35 +1,31 @@
 {
   "project_info": {
-    "project_number": "345916696256",
-    "firebase_url": "https://myapprestaurantv3.firebaseio.com",
-    "project_id": "myapprestaurantv3",
-    "storage_bucket": "myapprestaurantv3.appspot.com"
+    "project_number": "1025494692552",
+    "firebase_url": "https://restaurantev2-23a9a.firebaseio.com",
+    "project_id": "restaurantev2-23a9a",
+    "storage_bucket": "restaurantev2-23a9a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:345916696256:android:59187ccbf3d3313d",
+        "mobilesdk_app_id": "1:1025494692552:android:01815b08b899dd3e",
         "android_client_info": {
-          "package_name": "com.example.joserayo.myrestaurantev3"
+          "package_name": "com.example.deyvis.restaurantev2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "345916696256-gignhorcttg1g7p8nvna64jjm37gnjrr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.joserayo.myrestaurantev3",
-            "certificate_hash": "e80e14aa06fcbf52f458457d2f54fcfd27b4a2dc"
-          }
+          "client_id": "1025494692552-bou39umqjios0942dbtma35v89qrv76h.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
-          "client_id": "345916696256-nfem3udgb2vfur96em19nfdhkk3in4od.apps.googleusercontent.com",
+          "client_id": "1025494692552-bou39umqjios0942dbtma35v89qrv76h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA1y4cizOw35UBmJWn1MrKEAK8TTIjDc8g"
+          "current_key": "AIzaSyDaZI5AYP1nOm0xd_4DcqbrMV52Tj7Wzvw"
         }
       ],
       "services": {
@@ -37,13 +33,43 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "345916696256-nfem3udgb2vfur96em19nfdhkk3in4od.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025494692552:android:59187ccbf3d3313d",
+        "android_client_info": {
+          "package_name": "com.example.joserayo.myrestaurantev3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025494692552-bou39umqjios0942dbtma35v89qrv76h.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1025494692552-bou39umqjios0942dbtma35v89qrv76h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaZI5AYP1nOm0xd_4DcqbrMV52Tj7Wzvw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
