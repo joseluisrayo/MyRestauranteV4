@@ -1,11 +1,14 @@
 package com.example.joserayo.myrestaurantev3.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -26,10 +29,12 @@ public class DetallesFoodActivity extends AppCompatActivity {
     TextView nombreRes,categoriRest,numerocel;
     ImageView imageRest;
     CardView call;
+    Entrada entrada;
     String foodid="";
     FirebaseDatabase firebaseDatabase ;
     DatabaseReference location2;
     CollapsingToolbarLayout collapsingToolbarLayout;
+
 
 
     @Override
@@ -59,7 +64,6 @@ public class DetallesFoodActivity extends AppCompatActivity {
         categoriRest = (TextView)findViewById(R.id.nombreCategoria);
         numerocel = (TextView)findViewById(R.id.layout_llamar);
         imageRest = (ImageView)findViewById(R.id.imag_food);
-
         //Se cambia los nombre s en el collagse
         collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppbar);
@@ -104,4 +108,6 @@ public class DetallesFoodActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

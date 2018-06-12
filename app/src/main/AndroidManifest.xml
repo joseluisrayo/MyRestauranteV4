@@ -80,6 +80,21 @@
             android:name=".View.DetallesFoodActivity"
             android:label="@string/title_activity_detalles_food"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".View.RegistroMenu"
+            android:label="@string/title_activity_registro_restaurante"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".View.RegistroMenu1"
+            android:label="@string/title_activity_registro_menu1"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".View.Entrada" />
+        <activity android:name=".View.Extras" />
+        <activity android:name=".View.Bebidas" />
+        <activity
+            android:name=".View.RegistroMenus"
+            android:label="@string/title_activity_registro_menus"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

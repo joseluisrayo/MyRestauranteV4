@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,10 +57,11 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private GoogleMap mMap;
     private Marker marcador;
     private EditText search;
+    private LinearLayout bebidas1,menu1,restau;
     private LatLng locationLatLng;
     double lat=0.0;
     double lng=0.0;
-    private FloatingActionButton modal;
+    private FloatingActionButton modal,menu,bebidas,restaurante;
     private DatabaseReference mDatabase;
 
     @Nullable
@@ -72,11 +74,52 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
 
 
         modal=(FloatingActionButton)vista.findViewById(R.id.create);
+        menu=(FloatingActionButton)vista.findViewById(R.id.createmenu);
+        bebidas=(FloatingActionButton)vista.findViewById(R.id.re_bebidas);
+        restaurante=(FloatingActionButton)vista.findViewById(R.id.re_restau);
+        bebidas1=(LinearLayout)vista.findViewById(R.id.bebidaslayout);
+        menu1=(LinearLayout)vista.findViewById(R.id.menulayout);
+        restau=(LinearLayout)vista.findViewById(R.id.restaurantelayout);
+
         modal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),HomeActivity.class));
+              if(bebidas1.getVisibility()==View.VISIBLE && menu1.getVisibility()==View.VISIBLE&& restau.getVisibility()==View.VISIBLE){
+                  bebidas1.setVisibility(View.GONE);
+                  menu1.setVisibility(View.GONE);
+                  restau.setVisibility(View.GONE);
+              } else {
 
+
+
+                  bebidas1.setVisibility(View.VISIBLE);
+                  menu1.setVisibility(View.VISIBLE);
+                  restau.setVisibility(View.VISIBLE);
+
+              }
+
+
+
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              startActivity(new Intent(getActivity(),RegistroMenu.class));
+            }
+        });
+
+        bebidas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        restaurante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),HomeActivity.class));
             }
         });
 
@@ -176,14 +219,14 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("GPS desativado!");
         alertDialog.setMessage("Ativar GPS?");
-        alertDialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
         });
 
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

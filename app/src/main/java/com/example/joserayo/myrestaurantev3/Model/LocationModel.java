@@ -2,20 +2,70 @@ package com.example.joserayo.myrestaurantev3.Model;
 
 public class LocationModel {
 
+    private String IdRestaurante;
+    private String nombreRest;
+    private String url;
+    private Long Telefono;
+    private String direccion;
+    private String categoria;
+    Double latitude;
+    Double longitude;
 
-    public LocationModel(String direccion, String nombreRest, String categoria, String url, Long telefono) {
-        this.direccion = direccion;
-        this.nombreRest = nombreRest;
-        this.categoria = categoria;
-        this.url = url;
-        this.telefono = telefono;
+    public void setIdRestaurante(String idRestaurante) {
+        IdRestaurante = idRestaurante;
     }
 
-    private String direccion;
-    private String nombreRest;
-    private String categoria;
-    private String url;
-    private Long telefono;
+    public String getIdRestaurante() {
+        return IdRestaurante;
+    }
+
+
+    public LocationModel() {
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    private String horarios;
+
+    public LocationModel(Long telefono) {
+        Telefono = telefono;
+    }
+
+    public Long getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        Telefono = telefono;
+    }
+
+    public String getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(String horarios) {
+        this.horarios = horarios;
+    }
+
+    public LocationModel(String horarios) {
+        this.horarios = horarios;
+    }
+
+
 
     public String getDireccion() {
         return direccion;
@@ -23,14 +73,6 @@ public class LocationModel {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getNombreRest() {
-        return nombreRest;
-    }
-
-    public void setNombreRest(String nombreRest) {
-        this.nombreRest = nombreRest;
     }
 
     public String getCategoria() {
@@ -41,6 +83,28 @@ public class LocationModel {
         this.categoria = categoria;
     }
 
+
+
+    public LocationModel(String numero, String direccion, String categoria, double latitude, double longitude) {
+
+        this.direccion = direccion;
+        this.categoria = categoria;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public String getNombreRest() {
+        return nombreRest;
+    }
+
+    public void setNombreRest(String nombreRest) {
+        this.nombreRest = nombreRest;
+    }
+
+
+
+
+
     public String getUrl() {
         return url;
     }
@@ -49,15 +113,16 @@ public class LocationModel {
         this.url = url;
     }
 
-    public Long getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Long telefono) {
-        this.telefono = telefono;
-    }
 
 
-    public LocationModel() {
+
+
+    public LocationModel(String nombreRest,  String url) {
+        this.nombreRest = nombreRest;
+
+        this.url = url;
+
+
     }
+
 }

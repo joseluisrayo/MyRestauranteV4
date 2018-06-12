@@ -110,6 +110,26 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_principal2">Principal2Activity</string>
-    <string name="title_activity_registro_restaurante">RegistroRestaurante</string>
-    <string name="title_activity_registro_menus">RegistroMenus</string>
+    <string name="dialog_title">Seleccion Horario</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+    <string-array name="shopping_item">
+        <item>Domingo</item>
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sabado</item>
+        <item>24 Horas</item>
+
+    </string-array>
+    <string name="title_activity_registro_menu">RegistroMenu</string>
+    <string name="title_activity_registro_menu1">RegistroMenu1</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
 </resources>
