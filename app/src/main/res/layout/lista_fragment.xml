@@ -21,4 +21,11 @@
         android:id="@+id/myreclicleview">
     </android.support.v7.widget.RecyclerView>
 
+    <ImageView
+        android:id="@+id/imagenSinConexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/errorconection" />
+
 </RelativeLayout>

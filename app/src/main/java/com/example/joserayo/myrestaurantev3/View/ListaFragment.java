@@ -1,7 +1,11 @@
 package com.example.joserayo.myrestaurantev3.View;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
@@ -32,6 +37,7 @@ import java.util.List;
 public class ListaFragment extends Fragment{
 
     private TextView ico_megusta;
+    private ImageView imagensinConexion;
     private RecyclerView recyclerView;
     private DatabaseReference  mDatabase;
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>firebaseRecyclerAdapter;
@@ -47,12 +53,27 @@ public class ListaFragment extends Fragment{
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
         mDatabase.keepSynced(true);
+
         //llama al metodo de recycleview
         recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         //muestra el icono
         ico_megusta = (TextView)vista.findViewById(R.id.ico_favorite);
+
+        //se instacion al id de imagensinconexion
+        imagensinConexion = (ImageView)vista.findViewById(R.id.imagenSinConexion);
+        imagensinConexion.setVisibility(View.INVISIBLE);
+
+        //se carga la instacion de conexion
+        ConnectivityManager con=(ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = con.getActiveNetworkInfo();
+        if (networkInfo!=null && networkInfo.isConnected()){
+            imagensinConexion.setVisibility(View.INVISIBLE);
+        }else{
+            imagensinConexion.setVisibility(View.VISIBLE);
+        }
 
         //Se llama al metodo en donde se liste los datos en cardwied
         loadMenu();
