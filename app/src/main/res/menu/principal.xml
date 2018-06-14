@@ -5,7 +5,8 @@
     <item
         android:icon="@drawable/ic_search_black_24dp"
         android:id="@+id/action_search"
-        android:title="Me gusta"
+        android:orderInCategory="100"
+        android:title="Search..."
         app:showAsAction="always" />
 
 </menu>

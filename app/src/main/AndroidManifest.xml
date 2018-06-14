@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.joserayo.myrestaurantev3">
 
     <!-- Permisos de acceso a intermet por medio de gps y local -->
@@ -19,7 +20,8 @@
         android:label="Buscador de Restaurantes"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,7 +83,10 @@
             android:label="@string/title_activity_detalles_food"
             android:theme="@style/AppTheme" />
         <activity android:name=".View.RegistroFragment" />
-        <activity android:name=".View.MegustaFragment"></activity>
+        <activity android:name=".View.MegustaFragment" />
+        <activity android:name=".View.Bebidas" />
+        <activity android:name=".View.Extras" />
+        <activity android:name=".View.RegistroMenu1" />
     </application>
 
 </manifest>
