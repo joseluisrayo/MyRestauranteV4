@@ -16,8 +16,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
+import com.example.joserayo.myrestaurantev3.Model.Categorias;
+import com.example.joserayo.myrestaurantev3.Model.CategoriasHolder;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
+import com.example.joserayo.myrestaurantev3.Presentador.MenuViewHolder;
 import com.example.joserayo.myrestaurantev3.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +42,7 @@ public class DetallesFoodActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +55,13 @@ public class DetallesFoodActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+           Intent intent=new Intent(DetallesFoodActivity.this,MenuActivity.class);
+           intent.putExtra("id",foodid);
+           startActivity(intent);
+           finish();
+
+            //    startActivity(new Intent(DetallesFoodActivity.this,ListarCategorias.class));
             }
         });
 
@@ -107,7 +118,10 @@ public class DetallesFoodActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
 
 
 }

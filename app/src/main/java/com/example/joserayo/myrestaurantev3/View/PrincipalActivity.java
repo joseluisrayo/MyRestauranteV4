@@ -87,7 +87,7 @@ public class PrincipalActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_about) {
-
+           startActivity(new Intent(PrincipalActivity.this,MenuActivity.class));
         } else if (id == R.id.nav_exit) {
             FirebaseAuth.getInstance().signOut();
             LoginManager.getInstance().logOut();

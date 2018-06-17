@@ -163,14 +163,7 @@
                 android:src="@drawable/img_base"
                 android:layout_height="100dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
 
-
-        </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="match_parent"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"

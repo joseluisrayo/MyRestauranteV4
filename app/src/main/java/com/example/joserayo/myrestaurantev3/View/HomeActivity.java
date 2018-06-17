@@ -393,7 +393,7 @@ public class HomeActivity extends AppCompatActivity {
                         Intent intent=new Intent(HomeActivity.this,RegistroMenu1.class);
                           Bundle bundle=new Bundle();
                         bundle.putString("nombre",nombre);
-                          bundle.putString("idrestaurante",uid);
+
                          intent.putExtras(bundle);
                          startActivity(intent);
 

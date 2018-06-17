@@ -3,10 +3,6 @@ package com.example.joserayo.myrestaurantev3.Model;
 public class Categorias {
 private String idcategoria;
 private String nombre;
-private String categoria;
-private String marca;
-private String precio;
-private String descripcion;
 private String Url;
 
     public String getIdcategoria() {
@@ -23,6 +19,14 @@ private String Url;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 
     public String getCategoria() {
@@ -57,24 +61,58 @@ private String Url;
         this.descripcion = descripcion;
     }
 
-    public String getUrl() {
-        return Url;
+    public String getCantidad() {
+        return cantidad;
     }
 
-    public void setUrl(String url) {
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getNombreRest() {
+        return nombreRest;
+    }
+
+    public void setNombreRest(String nombreRest) {
+        this.nombreRest = nombreRest;
+    }
+
+    public String getIdMenu() {
+        return idMenu;
+    }
+
+    public void setIdMenu(String idMenu) {
+        this.idMenu = idMenu;
+    }
+
+    public Categorias(String nombre, String url) {
+        this.nombre = nombre;
         Url = url;
     }
 
-    public Categorias(String idcategoria, String nombre, String categoria, String marca, String precio, String descripcion, String url) {
-        this.idcategoria = idcategoria;
-        this.nombre = nombre;
+    public Categorias(String categoria, String marca, String precio, String descripcion, String cantidad, String nombreRest, String idMenu) {
         this.categoria = categoria;
         this.marca = marca;
         this.precio = precio;
         this.descripcion = descripcion;
-        Url = url;
+        this.cantidad = cantidad;
+        this.nombreRest = nombreRest;
+        this.idMenu = idMenu;
     }
+
+    private String categoria;
+private String marca;
+private String precio;
+private String descripcion;
+private String cantidad;
+private String nombreRest;
+private String idMenu;
 
     public Categorias() {
     }
+
+
+
+
+
 }
