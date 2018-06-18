@@ -58,7 +58,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private LatLng locationLatLng;
     double lat=0.0;
     double lng=0.0;
-    private FloatingActionButton modal;
+
     private DatabaseReference mDatabase;
 
     @Nullable
@@ -70,17 +70,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         supportMapFragment.getMapAsync(this);
 
 
-        modal=(FloatingActionButton)vista.findViewById(R.id.create);
 
-        modal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(getActivity(),HomeActivity.class));
-
-
-            }
-        });
 
 
         //bucador restuarantes

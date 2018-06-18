@@ -71,7 +71,7 @@ public class Entrada extends Fragment {
         entrada = (EditText)v. findViewById(R.id.entrada1);
         segundo = (EditText)v. findViewById(R.id.segundo);
         precio = (EditText) v.findViewById(R.id.precio);
-        cantidad = (EditText) v.findViewById(R.id.cantidad);
+
         descripcion = (EditText) v.findViewById(R.id.descripcion);
     imagen=(ImageView)v.findViewById(R.id.fotoentrada);
         ImageView  registrar=(ImageView)v.findViewById(R.id.Registrar);
@@ -129,11 +129,7 @@ public class Entrada extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    public String getImageEx(Uri foto1) {
-        ContentResolver contentResolver = getActivity().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(foto1));
-    }
+
 
 
 
@@ -184,9 +180,11 @@ public class Entrada extends Fragment {
         final Bundle bundle = getActivity().getIntent().getExtras();
 
         final String dato = bundle.getString("nombre");
-        final String dato1 = bundle.getString("idrestaurante");
+        final String dato1 = bundle.getString("idres");
 
-        if ( imgUri!=null&&path!=null) {
+        Log.d("legoaa",""+dato1);
+
+        if ( imgUri!=null) {
 
 
             final ProgressDialog dialog = new ProgressDialog(getActivity());
@@ -199,22 +197,23 @@ public class Entrada extends Fragment {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     final String entrada1 = entrada.getText().toString().trim();
                     final String segundo1 = segundo.getText().toString().trim();
-                    final String precio1 = precio.getText().toString().trim();
-                    final String canti = cantidad.getText().toString().trim();
+                    final Long prec =Long.valueOf(precio.getText().toString());
+
                     final String descrip = descripcion.getText().toString().trim();
 
-                    if (!TextUtils.isEmpty(entrada1) && !TextUtils.isEmpty(segundo1) && !TextUtils.isEmpty(precio1) && !TextUtils.isEmpty(canti) && !TextUtils.isEmpty(descrip)) {
+                    if (!TextUtils.isEmpty(entrada1) && !TextUtils.isEmpty(segundo1) && !TextUtils.isEmpty(prec.toString())  && !TextUtils.isEmpty(descrip)) {
 
                         Comidas comidas = new Comidas(entrada1, taskSnapshot.getDownloadUrl().toString());
                         comidas.setSegundo(segundo1);
-                        comidas.setCantidad(canti);
-                        comidas.setDescripcion1(descrip);
-                        comidas.setPrecio(precio1);
+
+                        comidas.setDescripcion(descrip);
+                        comidas.setPrecio1(prec);
                         comidas.setNombreRest(dato);
+                        comidas.setIdRestaurante(dato1);
                         entrada.setText("");
                         segundo.setText("");
                         precio.setText("");
-                        cantidad.setText("");
+
                         descripcion.setText("");
                         String id = mDatabaseRef.push().getKey();
                         comidas.setIdmenu(id);
@@ -223,6 +222,8 @@ public class Entrada extends Fragment {
 
 
                     }
+
+
                 }
             })
 
@@ -254,8 +255,8 @@ public class Entrada extends Fragment {
 
            final String entrada2=entrada.getText().toString().trim();
        final String segundo2=segundo.getText().toString().trim();
-            final String precio2=precio.getText().toString().trim();
-              final String cant2=cantidad.getText().toString().trim();
+            final Long prec1 =Long.valueOf(precio.getText().toString());
+
           final String descrip2=descripcion.getText().toString().trim();
            String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
            Comidas comida=new Comidas();
@@ -263,12 +264,12 @@ public class Entrada extends Fragment {
             comida.setIdmenu(id);
             comida.setEntrada(entrada2);
             comida.setSegundo(segundo2);
-            comida.setPrecio(precio2);
-            comida.setCantidad(cant2);
-            comida.setDescripcion1(descrip2);
-            comida.setIdRestaurante(dato1);
+            comida.setPrecio1(prec1);
+
+            comida.setDescripcion(descrip2);
+            comida.setNombreRest(dato);
             comida.setUrl(imagen);
-         mDatabaseRef.child(entrada2).setValue(comida);
+            mDatabaseRef.child("Entrada").child(entrada2).setValue(comida);
 
             //    final String entrada2=entrada.getText().toString().trim();
             //   final String segundo2=segundo.getText().toString().trim();
@@ -291,7 +292,7 @@ public class Entrada extends Fragment {
             entrada.setText("");
             segundo.setText("");
             precio.setText("");
-            cantidad.setText("");
+
             descripcion.setText("");
 
         } else {
@@ -315,11 +316,9 @@ public class Entrada extends Fragment {
         } else if (TextUtils.isEmpty(precio.getText())) {
             precio.setError("campo obligatorio");
             valida = false;
-        } else if (TextUtils.isEmpty(cantidad.getText())) {
-            cantidad.setError("campo obligatorio");
-            valida = false;
+
         } else if (TextUtils.isEmpty(descripcion.getText())){
-            cantidad.setError("campo obligatorio");
+            descripcion.setError("campo obligatorio");
             valida = false;
         }
 

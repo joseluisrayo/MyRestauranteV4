@@ -4,30 +4,11 @@ public class Comidas {
     private String entrada;
     private String url;
     private String idmenu;
-
-    public String getIdmenu() {
-        return idmenu;
-    }
-
-    public void setIdmenu(String idmenu) {
-        this.idmenu = idmenu;
-    }
-
-    private String segundo;
-    private String precio;
-    private String cantidad;
+    private long precio1;
+    private  String segundo;
+    private String descripcion;
     private String nombreRest;
-
-    public String getNombreRest() {
-        return nombreRest;
-    }
-
-    public void setNombreRest(String nombreRest) {
-        this.nombreRest = nombreRest;
-    }
-
-    private String descripcion1;
-private String idRestaurante;
+    private String idRestaurante;
 
     public String getIdRestaurante() {
         return idRestaurante;
@@ -57,6 +38,22 @@ private String idRestaurante;
         this.url = url;
     }
 
+    public String getIdmenu() {
+        return idmenu;
+    }
+
+    public void setIdmenu(String idmenu) {
+        this.idmenu = idmenu;
+    }
+
+    public long getPrecio1() {
+        return precio1;
+    }
+
+    public void setPrecio1(long precio1) {
+        this.precio1 = precio1;
+    }
+
     public String getSegundo() {
         return segundo;
     }
@@ -65,37 +62,28 @@ private String idRestaurante;
         this.segundo = segundo;
     }
 
-    public String getPrecio() {
-        return precio;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setPrecio(String precio) {
-        this.precio = precio;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getCantidad() {
-        return cantidad;
+    public String getNombreRest() {
+        return nombreRest;
     }
 
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
+    public void setNombreRest(String nombreRest) {
+        this.nombreRest = nombreRest;
     }
 
-    public String getDescripcion1() {
-        return descripcion1;
-    }
-
-    public void setDescripcion1(String descripcion1) {
-        this.descripcion1 = descripcion1;
-    }
-
-    public Comidas(String entrada, String url, String segundo, String precio, String cantidad, String descripcion1) {
-        this.entrada = entrada;
-        this.url = url;
+    public Comidas(String idmenu, long precio1, String segundo, String descripcion, String nombreRest) {
+        this.idmenu = idmenu;
+        this.precio1 = precio1;
         this.segundo = segundo;
-        this.precio = precio;
-        this.cantidad = cantidad;
-        this.descripcion1 = descripcion1;
+        this.descripcion = descripcion;
+        this.nombreRest = nombreRest;
     }
 
     public Comidas(String entrada, String url) {

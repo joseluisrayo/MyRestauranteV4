@@ -32,9 +32,7 @@
         </activity>
         <activity android:name=".View.SingInActivity" />
         <activity android:name=".View.SingUpActivity" />
-        <activity
-            android:name=".View.HomeActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".View.HomeActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -85,14 +83,14 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".View.Bebidas" />
         <activity android:name=".View.Extras" />
-        <activity android:name=".View.FragmentLisBebidas" />
         <activity android:name=".View.FragmentLisComidas" />
+        <activity android:name=".View.FragmentLisBebidas" />
         <activity android:name=".View.FragmentLisExtras" />
         <activity android:name=".View.RegistroMenu1" />
         <activity
             android:name=".View.MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

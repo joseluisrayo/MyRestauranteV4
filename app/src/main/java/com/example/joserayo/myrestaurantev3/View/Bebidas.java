@@ -82,7 +82,7 @@ public class Bebidas extends Fragment  {
        nombre=(EditText)view.findViewById(R.id.nombre);
        marca=(EditText)view.findViewById(R.id.marca);
        precio=(EditText)view.findViewById(R.id.bebidaprecio);
-       cantidad1=(EditText)view.findViewById(R.id.cantidadbebida);
+
        descripcion=(EditText)view.findViewById(R.id.comentariobebida);
        registrar=(FloatingActionButton)view.findViewById(R.id.registrar1);
        categoria=(Spinner)view.findViewById(R.id.categoria);
@@ -176,6 +176,8 @@ registrar.setOnClickListener(new View.OnClickListener() {
         final Bundle bundle=getActivity().getIntent().getExtras();
 
         final  String dato=bundle.getString("nombre");
+        final  String dato1=bundle.getString("idrestaurante");
+
 
         if(imgUri!=null){
 
@@ -192,32 +194,30 @@ registrar.setOnClickListener(new View.OnClickListener() {
                   final String nombre1=nombre.getText().toString().trim();
                   final String marca1=marca.getText().toString().trim();
                   final String precio1=precio.getText().toString().trim();
-                  final String canti=cantidad1.getText().toString().trim();
+
                   final String descrip=descripcion.getText().toString().trim();
 
 
-                    if(!TextUtils.isEmpty(nombre1)&& !TextUtils.isEmpty(marca1)&&!TextUtils.isEmpty(precio1)&&!TextUtils.isEmpty(canti)&&!TextUtils.isEmpty(descrip))
+                    if(!TextUtils.isEmpty(nombre1)&& !TextUtils.isEmpty(marca1)&&!TextUtils.isEmpty(precio1)&&!TextUtils.isEmpty(descrip))
                     {
 
                         Categorias categorias=new Categorias(nombre1,taskSnapshot.getDownloadUrl().toString());
                         categorias.setMarca(marca1);
                         categorias.setCategoria(cate);
                         categorias.setPrecio(precio1);
-                       categorias.setCantidad(canti);
-                        categorias.setDescripcion(descrip);
+                        categorias.setIdRestaurante(dato1);
+                        categorias.setDescribebidas(descrip);
                         categorias.setNombreRest(dato);
                          nombre.setText("");
                          marca.setText("");
                          precio.setText("");
-                         cantidad1.setText("");
+
                          descripcion.setText("");
-                        mDatabaseRef.child(marca1).setValue(categorias);
+                        mDatabaseRef.child("bebidas").child(nombre1).setValue(categorias);
                         Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
 
 
 
-
-                    }else {
 
                     }
                 }
@@ -238,7 +238,7 @@ registrar.setOnClickListener(new View.OnClickListener() {
                         }
 
                     });
-            Toast.makeText(getActivity(),"Error al registrar",Toast.LENGTH_LONG).show();
+
 
 
         }
@@ -256,9 +256,9 @@ registrar.setOnClickListener(new View.OnClickListener() {
            categorias.setMarca(marca2);
            categorias.setPrecio(precio2);
            categorias.setCantidad(canti2);
-           categorias.setDescripcion(descrip2);
-           categorias.setUrl(imagen);
-            mDatabaseRef.child(nombre2).setValue(categorias);
+           categorias.setDescribebidas(descrip2);
+           categorias.setUrl1(imagen);
+
 
             Toast.makeText(getActivity(),"Registrado Correctamente",Toast.LENGTH_LONG).show();
 

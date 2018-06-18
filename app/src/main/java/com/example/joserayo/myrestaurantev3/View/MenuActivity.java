@@ -11,13 +11,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import com.example.joserayo.myrestaurantev3.R;
 
@@ -45,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("LISTA DE COMIDAS Y BEBIDAS");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -113,12 +110,12 @@ public class MenuActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    FragmentLisBebidas bebidas=new FragmentLisBebidas();
+                    FragmentLisComidas bebidas=new FragmentLisComidas();
 
                     return bebidas;
 
                 case 1:
-                    FragmentLisComidas comidas=new FragmentLisComidas();
+                    FragmentLisBebidas comidas=new FragmentLisBebidas();
                     return comidas;
                 case 2:
                     FragmentLisExtras extras =new FragmentLisExtras();

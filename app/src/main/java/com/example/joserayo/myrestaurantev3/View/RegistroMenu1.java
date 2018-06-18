@@ -63,6 +63,7 @@ public class RegistroMenu1 extends AppCompatActivity  {
         Bundle bundle1=this.getIntent().getExtras();
         if(bundle1!=null){
             String iddato=bundle1.getString("nombre");
+            String dato=bundle1.getString("idrestaurante");
             Toast.makeText(RegistroMenu1.this,"llego id"+iddato,Toast.LENGTH_LONG).show();
 
         }else{

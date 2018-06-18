@@ -1,28 +1,18 @@
 package com.example.joserayo.myrestaurantev3.View;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
-import com.example.joserayo.myrestaurantev3.Model.Categorias;
-import com.example.joserayo.myrestaurantev3.Model.CategoriasHolder;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
-import com.example.joserayo.myrestaurantev3.Presentador.MenuViewHolder;
 import com.example.joserayo.myrestaurantev3.R;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +45,9 @@ public class DetallesFoodActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String idres=location2.push().getKey();
+
 
            Intent intent=new Intent(DetallesFoodActivity.this,MenuActivity.class);
            intent.putExtra("id",foodid);
