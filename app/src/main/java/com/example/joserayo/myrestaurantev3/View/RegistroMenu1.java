@@ -23,19 +23,9 @@ import com.example.joserayo.myrestaurantev3.R;
 
 public class RegistroMenu1 extends AppCompatActivity  {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
     private ViewPager mViewPager;
 
 
@@ -49,12 +39,11 @@ public class RegistroMenu1 extends AppCompatActivity  {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 
-        // Set up the ViewPager with the sections adapter.
+
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -64,10 +53,10 @@ public class RegistroMenu1 extends AppCompatActivity  {
         if(bundle1!=null){
             String iddato=bundle1.getString("nombre");
             String dato=bundle1.getString("idrestaurante");
-            Toast.makeText(RegistroMenu1.this,"llego id"+iddato,Toast.LENGTH_LONG).show();
+
 
         }else{
-            Toast.makeText(RegistroMenu1.this,"no llego",Toast.LENGTH_LONG).show();
+
 
         }
 
@@ -95,9 +84,7 @@ public class RegistroMenu1 extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -108,9 +95,6 @@ public class RegistroMenu1 extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void prueba(View view) {
-        Toast.makeText(RegistroMenu1.this,"hola dayana",Toast.LENGTH_LONG).show();
-    }
 
 
 
@@ -142,11 +126,17 @@ public class RegistroMenu1 extends AppCompatActivity  {
                   return marino;
 
               case 1:
+                  SegundoFragment segundoFragment=new SegundoFragment();
+                  return segundoFragment;
+
+              case 2:
                   Bebidas criollo=new Bebidas();
                   return criollo;
-              case 2:
+              case 3:
                   Extras vegetariano=new Extras();
                   return vegetariano;
+
+
 
                   default:
                       return null;
@@ -157,14 +147,11 @@ public class RegistroMenu1 extends AppCompatActivity  {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+
 
 
 

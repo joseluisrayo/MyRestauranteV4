@@ -18,12 +18,11 @@
                 tools:context="com.adroitminds.tabbedview.Section2">
                 <TextView
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="cursive"
                     android:paddingTop="5dp"
-                    android:text="Entrada"
+                    android:text="Segundo"
                     android:textColor="#111111"
                     android:textSize="40dp" />
                 <ImageView
@@ -47,26 +46,38 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
+                            android:gravity="center_horizontal">
+                        </android.support.design.widget.TextInputLayout>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
 
                             android:gravity="center_horizontal">
 
                             <EditText
-                                android:id="@+id/entrada1"
+                                android:id="@+id/segundo"
                                 android:layout_width="282dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true"
                                 android:drawableStart="@drawable/breakfast"
                                 android:ems="10"
-                                android:hint="Entrada"
+                                android:hint="Segundo"
                                 android:inputType="textPersonName"
                                 android:textColorHint="#fc050000" />
-
-
-
-
                         </android.support.design.widget.TextInputLayout>
                     </RelativeLayout>
+
+
+
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -119,34 +130,25 @@
                     android:layout_gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/fotoentrada"
+                        android:id="@+id/fotosegundo"
                         android:layout_marginTop="5dp"
                         android:layout_width="100dp"
                         android:src="@drawable/img_base"
                         android:layout_height="100dp" />
                 </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/registrarsegundo"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Registrar"
+                    android:textColor="#ffffff" />
             </LinearLayout>
         </ScrollView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fotos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="450dp"
-
-            app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageView
-        android:id="@+id/Registrar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:paddingStart="10dp"
-        android:layout_gravity="bottom|start"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="450dp"
-        android:src="@drawable/ic_check_black_24dp"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
