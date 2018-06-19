@@ -51,14 +51,14 @@
                         android:gravity="center_horizontal">
 
                         <EditText
-                            android:id="@+id/entrada1"
+                            android:id="@+id/Plato"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:drawableStart="@drawable/breakfast"
                             android:ems="10"
-                            android:hint="Entrada"
+                            android:hint="Plato"
                             android:inputType="textPersonName"
                             android:textColorHint="#fc050000" />
 
