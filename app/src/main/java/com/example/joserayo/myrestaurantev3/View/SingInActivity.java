@@ -90,7 +90,6 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
         } else{
             presenter.toLogin(user2.getText().toString(),pass2.getText().toString());
         }
-
     }
 
     @Override
@@ -128,6 +127,7 @@ public class SingInActivity extends AppCompatActivity implements LoginInterfaces
         super.onDestroy();
         presenter.onDestoy();
     }
+
     public void registrar(View view){
         startActivity(new Intent(this,SingUpActivity.class));
 

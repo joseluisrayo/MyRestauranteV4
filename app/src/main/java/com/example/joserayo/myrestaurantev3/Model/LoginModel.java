@@ -18,6 +18,7 @@ public class LoginModel implements LoginInterfaces.Model{
     public LoginModel(LoginInterfaces.TaskListener listener) {
         this.listener = listener;
         firebaseAuth=FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -30,7 +31,6 @@ public class LoginModel implements LoginInterfaces.Model{
                 } else
                 if(task.getException()!=null){
                     listener.onError(task.getException().getMessage());
-
                 }
             }
         });

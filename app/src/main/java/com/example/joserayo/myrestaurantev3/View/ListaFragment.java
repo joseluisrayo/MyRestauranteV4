@@ -36,7 +36,7 @@ import java.util.List;
 
 public class ListaFragment extends Fragment{
 
-    private TextView ico_megusta;
+
     private ImageView imagensinConexion;
     private RecyclerView recyclerView;
     private DatabaseReference  mDatabase;
@@ -58,9 +58,6 @@ public class ListaFragment extends Fragment{
         recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //muestra el icono
-        ico_megusta = (TextView)vista.findViewById(R.id.ico_favorite);
 
         //se instacion al id de imagensinconexion
         imagensinConexion = (ImageView)vista.findViewById(R.id.imagenSinConexion);

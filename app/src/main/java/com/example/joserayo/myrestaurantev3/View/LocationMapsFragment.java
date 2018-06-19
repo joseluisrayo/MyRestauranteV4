@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.joserayo.myrestaurantev3.Model.LocationModel;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -179,14 +180,14 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("GPS desativado!");
         alertDialog.setMessage("Ativar GPS?");
-        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
         });
 
-        alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -237,7 +238,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(getActivity(), "Permiso Denegado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Permiso Denegado", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -271,7 +272,7 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of users in datasnapshot
+                        //Get map of users in
                         if (dataSnapshot.getValue() != null)
                             getAllLocations((Map<String,Object>) dataSnapshot.getValue());
                     }
@@ -285,8 +286,8 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private void getAllLocations(Map<String,Object> locations) {
 
         for (Map.Entry<String, Object> entry : locations.entrySet()){
-            String newDate = new String(String.valueOf(entry.getKey()));
             Map singleLocation = (Map) entry.getValue();
+            String newDate = new String((String) singleLocation.get("nombreRest"));
             LatLng latLng = new LatLng((double) singleLocation.get("latitude"), (double)singleLocation.get("longitude"));
             addGreenMarker(newDate,latLng);
         }

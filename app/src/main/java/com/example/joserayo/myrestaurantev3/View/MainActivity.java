@@ -15,6 +15,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
         callbackManager = CallbackManager.Factory.create();
         //login por facebook
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("email","public_profile");
         // If using in a fragment
         //loginButton.setFragment(this);
         // Callback registration
@@ -132,8 +133,14 @@ public class MainActivity extends AppCompatActivity{
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()){
+                if (task.isSuccessful()){
+                    //Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    loginButton.setEnabled(true);
+                    goMainScreem();
+                }else{
                     Toast.makeText(getApplicationContext(),"Error en login",Toast.LENGTH_SHORT).show();
+                    loginButton.setEnabled(true);
                 }
 
                 //loginButton.setVisibility(View.VISIBLE);

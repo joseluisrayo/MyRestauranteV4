@@ -233,20 +233,20 @@ public class HomeActivity extends AppCompatActivity {
                         cate = "Restaurantes";
                         break;
                     case 2:
-                        cate = "Pizeria";
+                        cate = "Pizzerías";
                         break;
                     case 3:
-                        cate = "Chifa";
+                        cate = "Chiferias";
                         break;
                     case 4:
                         cate = "Cevicheria";
                         break;
 
                     case 5:
-                        cate = "Polleria";
+                        cate = "Pollerias";
                         break;
                     case 6:
-                        cate = "Cafeteria";
+                        cate = "Cafeterias";
 
                 }
                 if (firstame) {
@@ -378,7 +378,7 @@ public class HomeActivity extends AppCompatActivity {
                          String uid = mDatabaseRef.child("location2").push().getKey();
                          imageUpload.setIdRestaurante(uid);
                          String uploadId = mDatabaseRef.push().getKey();
-                         mDatabaseRef.child(nombreRest.getText().toString()).setValue(imageUpload);
+                         mDatabaseRef.child(uploadId).setValue(imageUpload);
 
 
                          //ocultar dialogo cuando se registra

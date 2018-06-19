@@ -14,22 +14,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView nombuser;
+    private ImageView imagenPhoto;
+    String userid="";
+    FirebaseDatabase firebaseDatabase ;
+    DatabaseReference users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        //instanciamos la base de datos
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        users = firebaseDatabase.getReference("users");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,6 +55,12 @@ public class PrincipalActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        ///validamos el iduser recibido
+        View hView = navigationView.getHeaderView(0);
+        nombuser = (TextView) hView.findViewById(R.id.nombreUser);
+        imagenPhoto = (ImageView)hView.findViewById(R.id.imageView);
+        userid = getIntent().getStringExtra("idUser");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navegation);
@@ -50,14 +68,6 @@ public class PrincipalActivity extends AppCompatActivity
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListaFragment()).commit();
 
-/*
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-       if (user !=null){
-
-        }else {
-
-            goloinScreen();
-        } */
     }
 
     private void goloinScreen(){

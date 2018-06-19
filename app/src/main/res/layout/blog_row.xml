@@ -51,16 +51,15 @@
                         android:layout_height="wrap_content"
                         android:text="Categoria"
                         android:textColor="#FFF"/>
-                    <LinearLayout
+
+                    <ImageView
+                        android:onClick="like"
+                        android:id="@+id/favorite1"
+                        android:layout_marginLeft="170dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/ico_favorite"
-                            android:drawableStart="@drawable/ic_favorite_border_black_24dp"
-                            android:layout_marginLeft="170dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_favorite_border_black_24dp"
+                        />
 
                 </LinearLayout>
                 <TextView
