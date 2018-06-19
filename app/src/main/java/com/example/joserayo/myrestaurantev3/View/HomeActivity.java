@@ -467,47 +467,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
-    //  private void crearRestaurant() {
-
-    //     final String description2 = direccion.getText().toString().trim();
-    //   final String nombre1 = nombre.getText().toString().trim();
-
-    //  final Long telefono = Long.valueOf(numero.getText().toString().trim());
-
-    //  if (!TextUtils.isEmpty(description2) && !TextUtils.isEmpty(nombre1)) {
-    //       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
-
-    //     DatabaseReference reference = mDatabase.child(nombre1);
-
-    //   reference.child("nombreRest").setValue(nombre1);
-    //   reference.child("direccion").setValue(description2);
-    //   reference.child("telefono").setValue(telefono);
-    //  reference.child("categoria").setValue(cate);
-    // reference.child("horarios").setValue(horario2);
-    // reference.child("latitude").setValue(valorLat);
-    // reference.child("longitude").setValue(valorLong);
-    //  String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
-    //  reference.child("url").setValue(imagen);
-    //   Toast.makeText(HomeActivity.this, "Exito al registrar el Restaurante", Toast.LENGTH_SHORT).show();
-
-    //   nombre.setText("");
-    //   direccion.setText("");
-    //   numero.setText("");
-
-    //   textview.setText("");
-
-
-    //   } else {
-    //   Toast.makeText(HomeActivity.this, "Error al crear el Restaurante  ...", Toast.LENGTH_SHORT).show();
-
-
-    //  }
-
-
-    //  }
-
-
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -538,11 +497,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
-    public void ENVIAR(View view) {
-        Intent intent=new Intent(HomeActivity.this,RegistroMenu.class);
-        startActivity(intent);
-    }
 }
 
 
