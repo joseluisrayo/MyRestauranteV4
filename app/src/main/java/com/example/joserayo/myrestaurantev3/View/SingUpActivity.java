@@ -222,7 +222,11 @@ public class SingUpActivity extends AppCompatActivity implements SignupInterface
     public void onSingup() {
         Toast.makeText(this,"Registrado Correctamente",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this,PrincipalActivity.class);
-        intent.putExtra("idUser",uplodId);
+        ///se envia el iduser con bundle
+        Bundle bundle=new Bundle();
+        bundle.putString("nombre", uplodId);
+        intent.putExtras(bundle);
+        startActivity(intent);
         finish();
     }
 

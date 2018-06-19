@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,10 +61,14 @@ public class PrincipalActivity extends AppCompatActivity
         View hView = navigationView.getHeaderView(0);
         nombuser = (TextView) hView.findViewById(R.id.nombreUser);
         imagenPhoto = (ImageView)hView.findViewById(R.id.imageView);
-        userid = getIntent().getStringExtra("idUser");
+
+        //Bundle para obtener el id que se envia
+        Bundle bundle1=PrincipalActivity.this.getIntent().getExtras();
+        if(bundle1!=null){
+            userid = bundle1.getString("nombre");
+        }
 
         navigationView.setNavigationItemSelectedListener(this);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navegation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
@@ -96,15 +102,26 @@ public class PrincipalActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_about) {
+        }
+        else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_exit) {
+        }
+        else if (id == R.id.nav_MiRest) {
+
+
+        }
+        else if (id==R.id.nav_Restau){
+            Intent intent= new Intent(PrincipalActivity.this,HomeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("idUsers", userid);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            //startActivity(new Intent(PrincipalActivity.this,HomeActivity.class));
+        }
+        else if (id == R.id.nav_exit) {
             FirebaseAuth.getInstance().signOut();
             LoginManager.getInstance().logOut();
             goloinScreen();
-
-        } else if (id==R.id.nav_Restau){
-            startActivity(new Intent(PrincipalActivity.this,HomeActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

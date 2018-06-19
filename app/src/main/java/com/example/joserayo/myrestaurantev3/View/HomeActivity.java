@@ -66,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
     private CheckBox selectrestaurante;
     private boolean firstame = true;
     private FirebaseAuth mAuth;
-
     private FirebaseAuth.AuthStateListener fireAuthStateListener;
     private String cate,cate1;
     private String dato;
@@ -86,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
 
     String direc;
+    String Idser="";
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
@@ -94,18 +94,19 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ///Se resive el putExtra por medio del bundle con el iddel User;
+        Bundle bundle1=this.getIntent().getExtras();
+        if(bundle1!=null){
+            Idser = bundle1.getString("idUsers");
+        }
 
         if (requestCode == SECACT_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 valorLat = data.getDoubleExtra("latitud", 0);
                 valorLong = data.getDoubleExtra("longitud", 0);
                 direc = data.getStringExtra("direccion");
-
                 direccion.setText(direc);
-
-
             }
-
         }
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imgUri = data.getData();
@@ -350,7 +351,7 @@ public class HomeActivity extends AppCompatActivity {
     private void Registrar() {
         if (imgUri != null) {
             final ProgressDialog dialog = new ProgressDialog(this);
-            dialog.setTitle("registrando imagen");
+            dialog.setTitle("Registrando....");
             dialog.show();
             //pongo el nombre que ba tener en el torag
             StorageReference ref = mStorageRef.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
@@ -370,8 +371,8 @@ public class HomeActivity extends AppCompatActivity {
                         imageUpload.setCategoria(cate);
                         imageUpload.setHorarios(horario1);
                         imageUpload.setLongitude(valorLong);
-
                         imageUpload.setLatitude(valorLat);
+                        imageUpload.setIdUser(Idser);
 
                         //     //Save image info in to firebase database
                         //    String ultimoCliente = mDatabaseRef.getKey();
@@ -485,13 +486,7 @@ public class HomeActivity extends AppCompatActivity {
         direccion.setText(direcc3);
         super.onRestoreInstanceState(savedInstanceState);
         Toast.makeText(this, "llego12" + direcc3, Toast.LENGTH_LONG).show();
-
-
     }
-
-
-
-
 
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
