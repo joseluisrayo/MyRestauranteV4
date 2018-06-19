@@ -176,7 +176,7 @@ registrar.setOnClickListener(new View.OnClickListener() {
         final Bundle bundle=getActivity().getIntent().getExtras();
 
         final  String dato=bundle.getString("nombre");
-        final  String dato1=bundle.getString("idrestaurante");
+        final  String dato1=bundle.getString("idres");
 
 
         if(imgUri!=null){
@@ -219,6 +219,8 @@ registrar.setOnClickListener(new View.OnClickListener() {
 
 
 
+                    } else {
+                        Toast.makeText(getActivity(),"Error",Toast.LENGTH_LONG).show();
                     }
                 }
             })
@@ -255,6 +257,7 @@ registrar.setOnClickListener(new View.OnClickListener() {
            categorias.setNombre(nombre2);
            categorias.setMarca(marca2);
            categorias.setPrecio(precio2);
+           categorias.setIdRestaurante(dato1);
            categorias.setCantidad(canti2);
            categorias.setDescribebidas(descrip2);
            categorias.setUrl1(imagen);
@@ -264,7 +267,7 @@ registrar.setOnClickListener(new View.OnClickListener() {
 
         }
 
-        Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
+
     }
 
     private boolean valida() {

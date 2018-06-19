@@ -3,21 +3,25 @@ package com.example.joserayo.myrestaurantev3.Model;
 public class ExtrasModel {
     private String idextras;
     private String extra;
-    private String url;
+    private String url2;
     private Long precioExtra;
     private String nombreRest;
-    private String descripcion;
+    private String descripcionextra;
+    private String idRestaurante;
 
-    public Long getPrecioExtra() {
-        return precioExtra;
+    public String getIdRestaurante() {
+        return idRestaurante;
     }
 
-    public void setPrecioExtra(Long precioExtra) {
-        this.precioExtra = precioExtra;
+    public void setIdRestaurante(String idRestaurante) {
+        this.idRestaurante = idRestaurante;
     }
 
-    public ExtrasModel(Long precioExtra) {
-        this.precioExtra = precioExtra;
+    public ExtrasModel(String idRestaurante) {
+        this.idRestaurante = idRestaurante;
+    }
+
+    public ExtrasModel() {
     }
 
     public String getIdextras() {
@@ -36,15 +40,21 @@ public class ExtrasModel {
         this.extra = extra;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUrl2() {
+        return url2;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrl2(String url2) {
+        this.url2 = url2;
     }
 
+    public Long getPrecioExtra() {
+        return precioExtra;
+    }
 
+    public void setPrecioExtra(Long precioExtra) {
+        this.precioExtra = precioExtra;
+    }
 
     public String getNombreRest() {
         return nombreRest;
@@ -54,26 +64,23 @@ public class ExtrasModel {
         this.nombreRest = nombreRest;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescripcionextra() {
+        return descripcionextra;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcionextra(String descripcionextra) {
+        this.descripcionextra = descripcionextra;
     }
 
-    public ExtrasModel(String idextras, String precioExtra, String nombreRest, String descripcion) {
+    public ExtrasModel(String idextras, Long precioExtra, String nombreRest, String descripcionextra) {
         this.idextras = idextras;
-
+        this.precioExtra = precioExtra;
         this.nombreRest = nombreRest;
-        this.descripcion = descripcion;
+        this.descripcionextra = descripcionextra;
     }
 
-    public ExtrasModel(String extra, String url) {
+    public ExtrasModel(String extra, String url2) {
         this.extra = extra;
-        this.url = url;
-    }
-
-    public ExtrasModel() {
+        this.url2 = url2;
     }
 }

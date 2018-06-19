@@ -217,7 +217,7 @@ public class Entrada extends Fragment {
                         descripcion.setText("");
                         String id = mDatabaseRef.push().getKey();
                         comidas.setIdmenu(id);
-                        mDatabaseRef.child(entrada1).setValue(comidas);
+                        mDatabaseRef.child("Menu").child(entrada1).setValue(comidas);
                         Toast.makeText(getActivity(), "exito", Toast.LENGTH_LONG).show();
 
 
@@ -265,12 +265,12 @@ public class Entrada extends Fragment {
             comida.setEntrada(entrada2);
             comida.setSegundo(segundo2);
             comida.setPrecio1(prec1);
-
+           comida.setIdRestaurante(dato1);
             comida.setDescripcion(descrip2);
             comida.setNombreRest(dato);
             comida.setUrl(imagen);
-            mDatabaseRef.child("Entrada").child(entrada2).setValue(comida);
 
+            mDatabaseRef.child("Menu").child(entrada2).setValue(comida);
             //    final String entrada2=entrada.getText().toString().trim();
             //   final String segundo2=segundo.getText().toString().trim();
             //   final String precio2=precio.getText().toString().trim();

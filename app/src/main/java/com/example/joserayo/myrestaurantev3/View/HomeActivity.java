@@ -378,7 +378,7 @@ public class HomeActivity extends AppCompatActivity {
                         String uid = mDatabaseRef.child("location2").push().getKey();
                         imageUpload.setIdRestaurante(uid);
                         String uploadId = mDatabaseRef.push().getKey();
-                        mDatabaseRef.child(nombreRest.getText().toString()).setValue(imageUpload);
+                        mDatabaseRef.child(uploadId).setValue(imageUpload);
 
 
                         //ocultar dialogo cuando se registra
@@ -390,7 +390,7 @@ public class HomeActivity extends AppCompatActivity {
                                     Intent intent = new Intent(HomeActivity.this, RegistroMenu1.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("nombre", nombre);
-                                    bundle.putString("idres",uid);
+                                    bundle.putString("idres",uploadId);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
 

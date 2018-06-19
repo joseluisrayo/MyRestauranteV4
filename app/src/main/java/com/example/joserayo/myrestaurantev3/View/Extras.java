@@ -177,7 +177,7 @@ public class Extras extends  Fragment{
         final Bundle bundle = getActivity().getIntent().getExtras();
 
         final String dato = bundle.getString("nombre");
-        final String dato1 = bundle.getString("idrestaurante");
+        final String dato1 = bundle.getString("idres");
 
         if ( imgUri!=null) {
 
@@ -198,15 +198,30 @@ public class Extras extends  Fragment{
 
                     if (!TextUtils.isEmpty(extra1) && !TextUtils.isEmpty(pre.toString())  && !TextUtils.isEmpty(descrip)) {
 
-                      ExtrasModel extras=new ExtrasModel(extra1,taskSnapshot.getDownloadUrl().toString());
-                      extras.setDescripcion(descrip);
-                      extras.setNombreRest(dato);
-                      extras.setPrecioExtra(pre);
+                      ExtrasModel extra=new ExtrasModel(extra1,taskSnapshot.getDownloadUrl().toString());
+                        extra.setDescripcionextra(descrip);
+                        extra.setNombreRest(dato);
+                        extra.setPrecioExtra(pre);
+                        extra.setIdRestaurante(dato1);
+                        mDatabaseRef.child("Extras").child(extra1).setValue(extra);
+                        extras.setText("");
+                        precio.setText("");
+                        descripcion.setText("");
+
+                        Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), ListaFragment.class);
+                        Bundle bundle = new Bundle();
+
+                        bundle.putString("idres",dato1);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 
 
 
 
+                    } else {
 
+                        Toast.makeText(getActivity(), "error al registrar", Toast.LENGTH_SHORT).show();
                     }
                 }
             })
@@ -246,9 +261,10 @@ public class Extras extends  Fragment{
          //   comida.ser(id);
 
             comida.setPrecioExtra(pre1);
-            comida.setDescripcion(descrip2);
+            comida.setDescripcionextra(descrip2);
             comida.setNombreRest(dato);
-            comida.setUrl(imagen);
+            comida.setIdRestaurante(dato1);
+            comida.setUrl2(imagen);
             mDatabaseRef.child("Extras").child(extras2).setValue(comida);
 
             //    final String entrada2=entrada.getText().toString().trim();
@@ -269,6 +285,13 @@ public class Extras extends  Fragment{
 
 
             Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ListaFragment.class);
+            Bundle bundle1 = new Bundle();
+
+            bundle1.putString("idres",dato1);
+            intent.putExtras(bundle1);
+            startActivity(intent);
             extras.setText("");
 
             precio.setText("");

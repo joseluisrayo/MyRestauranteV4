@@ -31,20 +31,19 @@ public class FragmentLisComidas extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_comidas, container, false);
         database=FirebaseDatabase.getInstance();
-        reference=database.getReference("Categorias/Entrada");
+        reference=database.getReference("Categorias/Menu");
 
         recyclerView = (RecyclerView)rootView. findViewById(R.id.myreclicleview);
 
         manager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
+        Bundle bundle=getActivity().getIntent().getExtras();
 
+        if(getActivity().getIntent()!=null){
+            id =getActivity(). getIntent().getStringExtra("id");
 
-       if (getActivity().getIntent()!=null){
-         id= getActivity().getIntent().getStringExtra("id");
-         if (!id.isEmpty()&&id!=null){
-             listar(id);
-
-             }
+        }if (!id.isEmpty()){
+            listar(id);
         }
 
         return rootView;
@@ -54,11 +53,11 @@ public class FragmentLisComidas extends Fragment {
 
 
         recyclerAdapter=new FirebaseRecyclerAdapter<Comidas, ComidasHolder>(Comidas.class,R.layout.item_categoria,
-                ComidasHolder.class,reference.orderByChild("nombreRest").equalTo(id)){
+                ComidasHolder.class,reference.orderByChild("idRestaurante").equalTo(id)){
             @Override
             protected void populateViewHolder(ComidasHolder viewHolder, Comidas model, int position) {
                 viewHolder.nombre.setText(model.getEntrada());
-                viewHolder.precio.setText(String.valueOf(model.getPrecio1()));
+
                 viewHolder.descripio.setText(model.getDescripcion());
                 Picasso.with(getContext()).load(model.getUrl()).fit()
                         .into(viewHolder.foto);

@@ -275,8 +275,9 @@ public class LocationMapsFragment extends Fragment implements OnMapReadyCallback
     private void getAllLocations(Map<String,Object> locations) {
 
         for (Map.Entry<String, Object> entry : locations.entrySet()){
-            String newDate = new String(String.valueOf(entry.getKey()));
+
             Map singleLocation = (Map) entry.getValue();
+            String newDate = new String((String)singleLocation.get("nombreRest"));
             LatLng latLng = new LatLng((double) singleLocation.get("latitude"), (double)singleLocation.get("longitude"));
             addGreenMarker(newDate,latLng);
         }

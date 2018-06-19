@@ -41,13 +41,16 @@ public class FragmentLisBebidas extends Fragment{
         manager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
 
-        if (getActivity().getIntent()!=null){
-            id= getActivity().getIntent().getStringExtra("id");
-            if (!id.isEmpty()&&id!=null){
-                listar(id);
-            }
-        }
 
+
+
+//Get foodid from Intent
+        if(getActivity().getIntent()!=null){
+            id =getActivity(). getIntent().getStringExtra("id");
+
+        }if (!id.isEmpty()){
+            listar(id);
+        }
 
 
 
@@ -57,12 +60,12 @@ public class FragmentLisBebidas extends Fragment{
 
     private void listar(String id) {
         recyclerAdapter=new FirebaseRecyclerAdapter<Categorias, BebidasHolder>(Categorias.class,R.layout.item_categoria,BebidasHolder.class,
-                reference.orderByChild("nombreRest").equalTo(id)) {
+                reference.orderByChild("idRestaurante").equalTo(id)) {
             @Override
             protected void populateViewHolder(BebidasHolder viewHolder, Categorias model, int position) {
 
                 viewHolder.nombre.setText(model.getNombre());
-                viewHolder.precio.setText(model.getPrecio());
+
                 viewHolder.descripio.setText(model.getDescribebidas());
                 Picasso.with(getContext()).load(model.getUrl1()).fit()
                         .into(viewHolder.foto);
