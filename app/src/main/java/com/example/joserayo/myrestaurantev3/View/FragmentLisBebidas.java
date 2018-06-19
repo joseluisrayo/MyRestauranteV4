@@ -65,7 +65,6 @@ public class FragmentLisBebidas extends Fragment{
             protected void populateViewHolder(BebidasHolder viewHolder, Categorias model, int position) {
 
                 viewHolder.nombre.setText(model.getNombre());
-
                 viewHolder.descripio.setText(model.getDescribebidas());
                 Picasso.with(getContext()).load(model.getUrl1()).fit()
                         .into(viewHolder.foto);

@@ -39,10 +39,16 @@
                 android:text="Comidas" />
 
             <android.support.design.widget.TabItem
+                android:id="@+id/tabItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segundo" />
+
+            <android.support.design.widget.TabItem
                 android:id="@+id/tabItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bebidas y postres" />
+                android:text="Bebidas " />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem3"

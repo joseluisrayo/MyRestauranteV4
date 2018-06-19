@@ -51,8 +51,7 @@ import java.io.IOException;
 import static android.app.Activity.RESULT_OK;
 
 public class Bebidas extends Fragment  {
- private   EditText txtarea;
- private  String hola;
+
 
  private EditText nombre,marca,precio,canidad,cantidad1,descripcion,descripcion1;
  private Spinner categoria;
@@ -314,10 +313,6 @@ registrar.setOnClickListener(new View.OnClickListener() {
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select image"), REQUEST_CODE);
-    }
-
-    private void Registrar() {
-
     }
 
     public String getImageExt(Uri uri) {

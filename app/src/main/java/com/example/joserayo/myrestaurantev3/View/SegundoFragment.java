@@ -1,4 +1,5 @@
 package com.example.joserayo.myrestaurantev3.View;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -8,19 +9,19 @@ import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.support.v4.app.Fragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joserayo.myrestaurantev3.Model.Comidas;
-import com.example.joserayo.myrestaurantev3.Model.ExtrasModel;
+import com.example.joserayo.myrestaurantev3.Model.SegundoModel;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,7 +47,7 @@ import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Extras extends  Fragment{
+public class SegundoFragment extends Fragment {
     final int COD_FOTO=20;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
@@ -55,24 +56,20 @@ public class Extras extends  Fragment{
     String path;
 
     private Uri imgUri,foto1;
+    private ImageView imagen;
+    private EditText segundo,precio,precio1,cantidad,cantidad1,descripcion,descripcion1;
     private Button registrar;
-    private  ImageView imagen;
-
-    private EditText extras,segundo,precio,descripcion;
     private StorageReference storageReference;
     private DatabaseReference mDatabaseRef;
 
-
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.extras, container, false);
-        extras = (EditText)v. findViewById(R.id.extras);
-        precio = (EditText)v. findViewById(R.id.precioextras);
-        descripcion = (EditText) v.findViewById(R.id.comentario);
-
-        imagen=(ImageView)v.findViewById(R.id.fotoextra);
-
-        registrar=(Button)v.findViewById(R.id.regisextras);
+        View v = inflater.inflate(R.layout.segundo, container, false);
+        segundo = (EditText)v. findViewById(R.id.segundo);
+        precio = (EditText)v. findViewById(R.id.precio);
+        descripcion = (EditText) v.findViewById(R.id.descripcion);
+        registrar=(Button)v.findViewById(R.id.registrarsegundo);
+        imagen=(ImageView)v.findViewById(R.id.fotosegundo);
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
         //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
@@ -179,41 +176,41 @@ public class Extras extends  Fragment{
         final String dato = bundle.getString("nombre");
         final String dato1 = bundle.getString("idres");
 
+        Log.d("legoaa",""+dato1);
+
         if ( imgUri!=null) {
 
 
             final ProgressDialog dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Registrando Bebidas");
+            dialog.setTitle("Registrando Segundo");
             dialog.show();
 //agrega con foto
             StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri) );
             reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    final String extra1 = extras.getText().toString().trim();
-                    final Long pre =Long.valueOf(precio.getText().toString());
+                    final String segundo1 = segundo.getText().toString().trim();
+                    final Long prec =Long.valueOf(precio.getText().toString());
+
                     final String descrip = descripcion.getText().toString().trim();
 
+                    if (!TextUtils.isEmpty(segundo1) && !TextUtils.isEmpty(prec.toString())  && !TextUtils.isEmpty(descrip)) {
 
-
-                    if (!TextUtils.isEmpty(extra1) && !TextUtils.isEmpty(pre.toString())  && !TextUtils.isEmpty(descrip)) {
-
-                      ExtrasModel extra=new ExtrasModel(extra1,taskSnapshot.getDownloadUrl().toString());
-                        extra.setDescripcionextra(descrip);
-                        extra.setNombreRest(dato);
-                        extra.setPrecioExtra(pre);
-                        extra.setIdRestaurante(dato1);
-                        mDatabaseRef.child("Extras").child(extra1).setValue(extra);
-                        extras.setText("");
+                        SegundoModel comidas = new SegundoModel(segundo1, taskSnapshot.getDownloadUrl().toString());
+                        comidas.setDescripcionsegundo(descrip);
+                        comidas.setPreciosegundo(prec);
+                        comidas.setIdRestaurante(dato1);
+                        segundo.setText("");
                         precio.setText("");
                         descripcion.setText("");
 
-                        Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
+                        mDatabaseRef.child("Segundo").child(segundo1).setValue(comidas);
+                        Toast.makeText(getActivity(), "exito", Toast.LENGTH_LONG).show();
 
-                    } else {
 
-                        Toast.makeText(getActivity(), "error al registrar", Toast.LENGTH_SHORT).show();
                     }
+
+
                 }
             })
 
@@ -243,32 +240,26 @@ public class Extras extends  Fragment{
         } else  if(valida()) {
 //agrega sin foto
 
-            final String extras2=extras.getText().toString().trim();
-            final Long pre1 =Long.valueOf(precio.getText().toString());
+
+            final String segundo2=segundo.getText().toString().trim();
+            final Long prec1 =Long.valueOf(precio.getText().toString());
+
             final String descrip2=descripcion.getText().toString().trim();
             String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
-            ExtrasModel comida=new ExtrasModel();
-          //  String  id=mDatabaseRef.push().getKey();
-         //   comida.ser(id);
+            SegundoModel comida=new SegundoModel();
 
-            comida.setPrecioExtra(pre1);
-            comida.setDescripcionextra(descrip2);
-            comida.setNombreRest(dato);
+
+            comida.setSegundo(segundo2);
+            comida.setPreciosegundo(prec1);
             comida.setIdRestaurante(dato1);
-            comida.setUrl2(imagen);
-            comida.setExtra(extras2);
-            mDatabaseRef.child("Extras").child(extras2).setValue(comida);
+            comida.setDescripcionsegundo(descrip2);
+            comida.setUrl4(imagen);
 
-
-
-
+            mDatabaseRef.child("Menu").child(segundo2).setValue(comida);
             Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
-            Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
 
-            extras.setText("");
-
+            segundo.setText("");
             precio.setText("");
-
             descripcion.setText("");
 
         } else {
@@ -282,11 +273,9 @@ public class Extras extends  Fragment{
     private boolean valida() {
 
         boolean valida = true;
-        if (TextUtils.isEmpty(extras.getText())) {
-            extras.setError("campo obligatorio");
+         if (TextUtils.isEmpty(segundo.getText())) {
+            segundo.setError("campo obligatorio");
             valida = false;
-
-
         } else if (TextUtils.isEmpty(precio.getText())) {
             precio.setError("campo obligatorio");
             valida = false;
@@ -341,7 +330,5 @@ public class Extras extends  Fragment{
 
 
 
-
-
-
 }
+
