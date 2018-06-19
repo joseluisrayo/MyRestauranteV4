@@ -48,12 +48,16 @@ public class MainActivity extends AppCompatActivity{
         Typeface face = Typeface.createFromAsset(getAssets(),"fonts/NABILA.TTF");
         textSlogann.setTypeface(face);
 
-       firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser()!=null){
+     /*   firebaseAuth = FirebaseAuth.getInstance();
+          if (firebaseAuth.getCurrentUser()!=null){
             //profile activity here
+
             finish();
-            startActivity(new Intent(this,PrincipalActivity.class));
-        }
+            //startActivity(new Intent(this,PrincipalActivity.class));
+            Intent intent=new Intent(this,PrincipalActivity.class);
+            intent.putExtra("email",);
+            startActivity(intent);
+        } */
 
         btnsignIn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,16 +12,21 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_manage"
             android:title="Ajustes" />
+        <item
+            android:id="@+id/nav_MiRest"
+            android:icon="@drawable/ic_store_black_24dp"
+            android:title="Mi Restaurante" />
+
+        <item
+            android:id="@+id/nav_Restau"
+            android:icon="@drawable/ic_restaurant_black_24dp"
+            android:title="Registro de Restaurante" />
 
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="Cerrar sesión" />
 
-        <item
-            android:id="@+id/nav_Restau"
-            android:icon="@drawable/ic_restaurant_black_24dp"
-            android:title="Registro de Restaurante" />
     </group>
 
 </menu>

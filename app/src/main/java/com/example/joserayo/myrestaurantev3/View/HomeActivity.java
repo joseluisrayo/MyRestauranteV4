@@ -19,11 +19,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -55,18 +57,17 @@ import java.util.List;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
+    //private FirebaseAuth firebaseAuth;
 
-
-
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
     private EditText direccion, telefono, horario, nombreRest;
     private Spinner categoria;
-    private Button registrar;
+    private Button registrar, cargarFoto;
     private CheckBox selectrestaurante;
     private boolean firstame = true;
     private FirebaseAuth mAuth;
-
-
-    private String cate;
+    private FirebaseAuth.AuthStateListener fireAuthStateListener;
+    private String cate,cate1;
     private String dato;
     private String lista[] = {"Escoge Categoria", "Restaurante", "Pizeria", "Chifa", "Cevicheria", "Polleria", "Cafeteria"};
     private ArrayAdapter<String> adapter;
@@ -79,9 +80,12 @@ public class HomeActivity extends AppCompatActivity {
     public static final String FB_DATABASE_PATH = "location2";
     private ImageView imagen;
     private Uri imgUri;
+    private int idrestaurante =0;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
+
     String direc;
+    String Idser="";
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
@@ -90,18 +94,19 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ///Se resive el putExtra por medio del bundle con el iddel User;
+        Bundle bundle1=this.getIntent().getExtras();
+        if(bundle1!=null){
+            Idser = bundle1.getString("idUsers");
+        }
 
         if (requestCode == SECACT_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 valorLat = data.getDoubleExtra("latitud", 0);
                 valorLong = data.getDoubleExtra("longitud", 0);
                 direc = data.getStringExtra("direccion");
-
                 direccion.setText(direc);
-
-
             }
-
         }
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imgUri = data.getData();
@@ -346,7 +351,7 @@ public class HomeActivity extends AppCompatActivity {
     private void Registrar() {
         if (imgUri != null) {
             final ProgressDialog dialog = new ProgressDialog(this);
-            dialog.setTitle("registrando imagen");
+            dialog.setTitle("Registrando....");
             dialog.show();
             //pongo el nombre que ba tener en el torag
             StorageReference ref = mStorageRef.child(FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri));
@@ -366,9 +371,13 @@ public class HomeActivity extends AppCompatActivity {
                         imageUpload.setCategoria(cate);
                         imageUpload.setHorarios(horario1);
                         imageUpload.setLongitude(valorLong);
-
                         imageUpload.setLatitude(valorLat);
+                        imageUpload.setIdUser(Idser);
 
+                        //     //Save image info in to firebase database
+                        //    String ultimoCliente = mDatabaseRef.getKey();
+                        //   String uid = mDatabaseRef.child("location2").push().getKey();
+                        //   imageUpload.setIdRestaurante(uid);
                         String uploadId = mDatabaseRef.push().getKey();
                         mDatabaseRef.child(uploadId).setValue(imageUpload);
 
@@ -404,9 +413,17 @@ public class HomeActivity extends AppCompatActivity {
                         telefono.setText("");
                         imagen.setTag("");
 
-                     } else {
-                         Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
-                     }
+
+
+
+
+
+
+
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
+                    }
 
 
 
@@ -455,7 +472,7 @@ public class HomeActivity extends AppCompatActivity {
         String nom = nombreRest.getText().toString();
         outState.putString("nom1", nom);
         outState.getString("direc2", direcc);
-
+        Toast.makeText(this, "llego" + nom, Toast.LENGTH_LONG).show();
 
 
         super.onSaveInstanceState(outState);
@@ -468,14 +485,8 @@ public class HomeActivity extends AppCompatActivity {
         String direcc3 = savedInstanceState.getString("direc2");
         direccion.setText(direcc3);
         super.onRestoreInstanceState(savedInstanceState);
-
-
-
+        Toast.makeText(this, "llego12" + direcc3, Toast.LENGTH_LONG).show();
     }
-
-
-
-
 
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -503,18 +514,12 @@ public class HomeActivity extends AppCompatActivity {
             valida = false;
         }
 
-            return valida;
+        return valida;
 
     }
 
 
 }
-
-
-
-
-
-
 
 
 

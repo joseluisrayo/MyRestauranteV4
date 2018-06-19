@@ -3,6 +3,7 @@ package com.example.joserayo.myrestaurantev3.Model;
 public class LocationModel {
 
     private String IdRestaurante;
+    private String IdUser;
     private String nombreRest;
     private String url;
     private Long Telefono;
@@ -10,6 +11,14 @@ public class LocationModel {
     private String categoria;
     Double latitude;
     Double longitude;
+
+    public String getIdUser() {
+        return IdUser;
+    }
+
+    public void setIdUser(String idUser) {
+        IdUser = idUser;
+    }
 
     public void setIdRestaurante(String idRestaurante) {
         IdRestaurante = idRestaurante;
@@ -85,7 +94,7 @@ public class LocationModel {
 
 
 
-    public LocationModel(String numero, String direccion, String categoria, double latitude, double longitude) {
+    public LocationModel( String numero, String direccion, String categoria, double latitude, double longitude) {
 
         this.direccion = direccion;
         this.categoria = categoria;
