@@ -373,10 +373,10 @@ public class HomeActivity extends AppCompatActivity {
 
                         imageUpload.setLatitude(valorLat);
 
-                        //     //Save image info in to firebase database
-                        //    String ultimoCliente = mDatabaseRef.getKey();
-                        //   String uid = mDatabaseRef.child("location2").push().getKey();
-                        //   imageUpload.setIdRestaurante(uid);
+                   //     //Save image info in to firebase database
+                    //    String ultimoCliente = mDatabaseRef.getKey();
+                     //   String uid = mDatabaseRef.child("location2").push().getKey();
+                     //   imageUpload.setIdRestaurante(uid);
                         String uploadId = mDatabaseRef.push().getKey();
                         mDatabaseRef.child(uploadId).setValue(imageUpload);
 
@@ -420,9 +420,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
-                    }
+                     } else {
+                         Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
+                     }
 
 
 
@@ -519,12 +519,18 @@ public class HomeActivity extends AppCompatActivity {
             valida = false;
         }
 
-        return valida;
+            return valida;
 
     }
 
 
 }
+
+
+
+
+
+
 
 
 
