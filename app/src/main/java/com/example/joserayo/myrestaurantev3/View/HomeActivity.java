@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -67,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener fireAuthStateListener;
-    private String cate;
+    private String cate,cate1;
     private String dato;
     private String lista[] = {"Escoge Categoria", "Restaurante", "Pizeria", "Chifa", "Cevicheria", "Polleria", "Cafeteria"};
     private ArrayAdapter<String> adapter;
@@ -126,6 +127,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("REGISTRO DE RESTURANTES");
         nombreRest = (EditText) findViewById(R.id.nombre);
         telefono = (EditText) findViewById(R.id.telefono);
         direccion = (EditText) findViewById(R.id.direccion);
@@ -134,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
         categoria = (Spinner) findViewById(R.id.categoria);
         horario = (EditText) findViewById(R.id.horarios);
         imagen = (ImageView) findViewById(R.id.idimagen);
-        cargarFoto = (Button) findViewById(R.id.foto);
+
         listItems = getResources().getStringArray(R.array.shopping_item);
         checkedItems = new boolean[listItems.length];
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -144,7 +149,7 @@ public class HomeActivity extends AppCompatActivity {
         direccion.setInputType(InputType.TYPE_NULL);
         horario.setInputType(InputType.TYPE_NULL);
 
-        cargarFoto.setOnClickListener(new View.OnClickListener() {
+        imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cargarfoto();
@@ -209,13 +214,7 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        int width = metrics.widthPixels;
-        int heint = metrics.heightPixels;
-
-        getWindow().setLayout((int) (width * .8), (int) (heint * .7));
 
         /*Obtener categoria*/
 
@@ -233,20 +232,20 @@ public class HomeActivity extends AppCompatActivity {
                         cate = "Restaurantes";
                         break;
                     case 2:
-                        cate = "Pizzerías";
+                        cate = "Pizeria";
                         break;
                     case 3:
-                        cate = "Chiferias";
+                        cate = "Chifa";
                         break;
                     case 4:
                         cate = "Cevicheria";
                         break;
 
                     case 5:
-                        cate = "Pollerias";
+                        cate = "Polleria";
                         break;
                     case 6:
-                        cate = "Cafeterias";
+                        cate = "Cafeteria";
 
                 }
                 if (firstame) {
@@ -361,46 +360,69 @@ public class HomeActivity extends AppCompatActivity {
             ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                     if (validar()){
-                         final Long telefono2 = Long.valueOf(telefono.getText().toString().trim());
-                         final String horario1=(horario.getText().toString());
-                         final String nombre=(nombreRest.getText().toString().trim());
-                         LocationModel imageUpload = new LocationModel(nombre, taskSnapshot.getDownloadUrl().toString());
-                         imageUpload.setTelefono(telefono2);
-                         imageUpload.setDireccion(direccion.getText().toString());
-                         imageUpload.setCategoria(cate);
-                         imageUpload.setHorarios(horario1);
-                         imageUpload.setLongitude(valorLong);
-                         imageUpload.setLatitude(valorLat);
+                    if (validar()) {
+                        final Long telefono2 = Long.valueOf(telefono.getText().toString().trim());
+                        final String horario1 = (horario.getText().toString());
+                        final String nombre = (nombreRest.getText().toString().trim());
+                        LocationModel imageUpload = new LocationModel(nombre, taskSnapshot.getDownloadUrl().toString());
+                        imageUpload.setTelefono(telefono2);
+                        imageUpload.setDireccion(direccion.getText().toString());
+                        imageUpload.setCategoria(cate);
+                        imageUpload.setHorarios(horario1);
+                        imageUpload.setLongitude(valorLong);
 
-                         //Save image info in to firebase database
-                         String ultimoCliente = mDatabaseRef.getKey();
-                         String uid = mDatabaseRef.child("location2").push().getKey();
-                         imageUpload.setIdRestaurante(uid);
-                         String uploadId = mDatabaseRef.push().getKey();
-                         mDatabaseRef.child(uploadId).setValue(imageUpload);
+                        imageUpload.setLatitude(valorLat);
 
-
-                         //ocultar dialogo cuando se registra
-                         dialog.dismiss();
-                         //Display success toast msg
-                         Toast.makeText(getApplicationContext(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
-                         nombreRest.setText("");
-                         direccion.setText("");
-                         horario.setText("");
-                         telefono.setText("");
-                         imagen.setTag("");
-                        Intent intent=new Intent(HomeActivity.this,RegistroMenu1.class);
-                          Bundle bundle=new Bundle();
-                        bundle.putString("nombre",nombre);
-                          bundle.putString("idrestaurante",uid);
-                         intent.putExtras(bundle);
-                         startActivity(intent);
+                        //     //Save image info in to firebase database
+                        //    String ultimoCliente = mDatabaseRef.getKey();
+                        //   String uid = mDatabaseRef.child("location2").push().getKey();
+                        //   imageUpload.setIdRestaurante(uid);
+                        String uploadId = mDatabaseRef.push().getKey();
+                        mDatabaseRef.child(uploadId).setValue(imageUpload);
 
 
-                     } else {
-                         Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
-                     }
+                        //ocultar dialogo cuando se registra
+                        dialog.dismiss();
+                        //Display success toast msg
+                        if (cate.equals("Restaurantes")) {
+                            switch (cate) {
+                                case "Restaurantes":
+                                    Intent intent = new Intent(HomeActivity.this, RegistroMenu1.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("nombre", nombre);
+                                    bundle.putString("idres",uploadId);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+
+                                    break;
+
+
+                            }
+
+                        } else {
+                            Toast.makeText(HomeActivity.this,"esto es otra categoria",Toast.LENGTH_LONG).show();
+                        }
+
+
+
+                        Toast.makeText(getApplicationContext(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
+                        nombreRest.setText("");
+                        direccion.setText("");
+                        horario.setText("");
+                        telefono.setText("");
+                        imagen.setTag("");
+
+
+
+
+
+
+
+
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
+                    }
 
 
 
@@ -467,6 +489,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -493,17 +519,12 @@ public class HomeActivity extends AppCompatActivity {
             valida = false;
         }
 
-            return valida;
+        return valida;
 
     }
 
+
 }
-
-
-
-
-
-
 
 
 
