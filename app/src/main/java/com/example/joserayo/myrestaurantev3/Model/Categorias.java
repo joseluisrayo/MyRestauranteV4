@@ -3,11 +3,28 @@ package com.example.joserayo.myrestaurantev3.Model;
 public class Categorias {
 private String idcategoria;
 private String nombre;
+private String Url1;
 private String categoria;
 private String marca;
 private String precio;
-private String descripcion;
-private String Url;
+private String describebidas;
+private String cantidad;
+private String idRestaurante;
+
+    public String getIdRestaurante() {
+        return idRestaurante;
+    }
+
+    public void setIdRestaurante(String idRestaurante) {
+        this.idRestaurante = idRestaurante;
+    }
+
+    public Categorias(String idRestaurante) {
+        this.idRestaurante = idRestaurante;
+    }
+
+    private String nombreRest;
+private String idMenu;
 
     public String getIdcategoria() {
         return idcategoria;
@@ -23,6 +40,14 @@ private String Url;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getUrl1() {
+        return Url1;
+    }
+
+    public void setUrl1(String url1) {
+        Url1 = url1;
     }
 
     public String getCategoria() {
@@ -49,32 +74,59 @@ private String Url;
         this.precio = precio;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescribebidas() {
+        return describebidas;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescribebidas(String describebidas) {
+        this.describebidas = describebidas;
     }
 
-    public String getUrl() {
-        return Url;
+    public String getCantidad() {
+        return cantidad;
     }
 
-    public void setUrl(String url) {
-        Url = url;
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public Categorias(String idcategoria, String nombre, String categoria, String marca, String precio, String descripcion, String url) {
+    public String getNombreRest() {
+        return nombreRest;
+    }
+
+    public void setNombreRest(String nombreRest) {
+        this.nombreRest = nombreRest;
+    }
+
+    public String getIdMenu() {
+        return idMenu;
+    }
+
+    public void setIdMenu(String idMenu) {
+        this.idMenu = idMenu;
+    }
+
+    public Categorias(String idcategoria, String categoria, String marca, String precio, String describebidas, String cantidad, String nombreRest, String idMenu) {
         this.idcategoria = idcategoria;
-        this.nombre = nombre;
         this.categoria = categoria;
         this.marca = marca;
         this.precio = precio;
-        this.descripcion = descripcion;
-        Url = url;
+        this.describebidas = describebidas;
+        this.cantidad = cantidad;
+        this.nombreRest = nombreRest;
+        this.idMenu = idMenu;
+    }
+
+    public Categorias(String nombre, String url1) {
+        this.nombre = nombre;
+        Url1 = url1;
     }
 
     public Categorias() {
+
     }
+
+
+
+
 }

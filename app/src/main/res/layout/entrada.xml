@@ -38,6 +38,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -61,17 +62,50 @@
                                 android:inputType="textPersonName"
                                 android:textColorHint="#fc050000" />
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
 
-
-                            </RelativeLayout>
 
 
                         </android.support.design.widget.TextInputLayout>
 
+
+
+
+
+
+
+
+
+
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+
+                            android:gravity="center_horizontal">
+
+                            <EditText
+                                android:id="@+id/segundo"
+                                android:layout_width="282dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:drawableStart="@drawable/breakfast"
+                                android:ems="10"
+                                android:hint="Segundo"
+                                android:inputType="textPersonName"
+                                android:textColorHint="#fc050000" />
+                        </android.support.design.widget.TextInputLayout>
+                    </RelativeLayout>
+
+
+
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -89,27 +123,6 @@
                             android:layout_marginTop="166dp"
                             android:ems="10"
                             android:hint="Precio"
-                            android:inputType="number" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_horizontal">
-
-                        <EditText
-                            android:id="@+id/cantidad"
-                            android:layout_width="282dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="166dp"
-                            android:ems="10"
-                            android:drawableStart="@drawable/ic_exposure_black_24dp"
-
-                            android:hint="Cantidad"
                             android:inputType="number" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -133,127 +146,22 @@
                             android:hint="Descripcion"
                             android:inputType="textImeMultiLine" />
                     </android.support.design.widget.TextInputLayout>
-                    <LinearLayout
+
+
+
+                </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/fotoentrada"
                         android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/mostrar2"
-                            android:textSize="20dp"
-                            android:text="Registro Plato de fondo"
-                            android:layout_width="300dp"
-                            android:onClick="modal"
-                            android:layout_marginStart="20dp"
-                            android:paddingStart="40dp"
-                            android:drawableEnd="@drawable/ic_expand_more_black_24dp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ocultar"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_centerVertical="true"
-
-                                android:gravity="center_horizontal">
-
-                                <EditText
-                                    android:id="@+id/Segundo"
-                                    android:layout_width="282dp"
-                                    android:visibility="gone"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_centerHorizontal="true"
-                                    android:drawableStart="@drawable/breakfast"
-                                    android:ems="10"
-                                    android:hint="Segundo"
-                                    android:inputType="textPersonName"
-                                    android:textColorHint="#fc050000" />
-
-
-                            </android.support.design.widget.TextInputLayout>
-
-                        </RelativeLayout>
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_horizontal">
-
-                            <EditText
-                                android:id="@+id/precio1"
-                                android:layout_width="282dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:drawableStart="@drawable/ic_attach_money_black_24dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="166dp"
-                                android:ems="10"
-                                android:visibility="gone"
-                                android:hint="Precio"
-                                android:inputType="number" />
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_horizontal">
-
-                            <EditText
-                                android:id="@+id/cantida1"
-                                android:layout_width="282dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="166dp"
-                                android:visibility="gone"
-                                android:ems="10"
-                                android:drawableStart="@drawable/ic_exposure_black_24dp"
-
-                                android:hint="Cantidad"
-                                android:inputType="number" />
-
-
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_horizontal">
-
-                            <EditText
-                                android:id="@+id/descripcion1"
-                                android:layout_width="282dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="166dp"
-                                android:visibility="gone"
-                                android:ems="10"
-                                android:drawableStart="@drawable/ic_exposure_black_24dp"
-                                android:hint="Descripccion"
-                                android:inputType="textImeMultiLine" />
-
-
-                        </android.support.design.widget.TextInputLayout>
-
-
-                    </LinearLayout>
-
+                        android:layout_width="100dp"
+                        android:src="@drawable/img_base"
+                        android:layout_height="100dp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -279,4 +187,5 @@
         android:src="@drawable/ic_check_black_24dp"/>
 
     </android.support.design.widget.CoordinatorLayout>
+
 

@@ -102,6 +102,9 @@ public class PrincipalActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             LoginManager.getInstance().logOut();
             goloinScreen();
+
+        } else if (id==R.id.nav_Restau){
+            startActivity(new Intent(PrincipalActivity.this,HomeActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

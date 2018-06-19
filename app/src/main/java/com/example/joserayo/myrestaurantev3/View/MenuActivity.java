@@ -1,8 +1,8 @@
 package com.example.joserayo.myrestaurantev3.View;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,17 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.joserayo.myrestaurantev3.R;
 
-public class RegistroMenu1 extends AppCompatActivity  {
+public class MenuActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,58 +34,43 @@ public class RegistroMenu1 extends AppCompatActivity  {
      */
     private ViewPager mViewPager;
 
-
-
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_registro_menu1);
+        setContentView(R.layout.activity_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("LISTA DE COMIDAS Y BEBIDAS");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-
-        Bundle bundle1=this.getIntent().getExtras();
-        if(bundle1!=null){
-            String iddato=bundle1.getString("nombre");
-            String dato=bundle1.getString("idrestaurante");
-            Toast.makeText(RegistroMenu1.this,"llego id"+iddato,Toast.LENGTH_LONG).show();
-
-        }else{
-            Toast.makeText(RegistroMenu1.this,"no llego",Toast.LENGTH_LONG).show();
-
-        }
-
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
     }
-
-
-
-
-
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_registro_menu1, menu);
+        getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
 
@@ -107,14 +88,6 @@ public class RegistroMenu1 extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void prueba(View view) {
-        Toast.makeText(RegistroMenu1.this,"hola dayana",Toast.LENGTH_LONG).show();
-    }
-
-
-
-
 
     /**
      * A placeholder fragment containing a simple view.
@@ -135,23 +108,22 @@ public class RegistroMenu1 extends AppCompatActivity  {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-          switch (position){
-              case 0:
-                  Entrada marino=new Entrada();
+            switch (position){
+                case 0:
+                    FragmentLisComidas bebidas=new FragmentLisComidas();
 
-                  return marino;
+                    return bebidas;
 
-              case 1:
-                  Bebidas criollo=new Bebidas();
-                  return criollo;
-              case 2:
-                  Extras vegetariano=new Extras();
-                  return vegetariano;
+                case 1:
+                    FragmentLisBebidas comidas=new FragmentLisBebidas();
+                    return comidas;
+                case 2:
+                    FragmentLisExtras extras =new FragmentLisExtras();
+                    return extras;
 
-                  default:
-                      return null;
-          }
-
+                default:
+                    return null;
+            }
         }
 
         @Override
@@ -160,12 +132,4 @@ public class RegistroMenu1 extends AppCompatActivity  {
             return 3;
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-
 }

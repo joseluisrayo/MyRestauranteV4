@@ -12,7 +12,7 @@
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
     <application
         android:name=".Model.ModelFacebook"
@@ -32,9 +32,7 @@
         </activity>
         <activity android:name=".View.SingInActivity" />
         <activity android:name=".View.SingUpActivity" />
-        <activity
-            android:name=".View.HomeActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".View.HomeActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -60,7 +58,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -80,11 +78,16 @@
             android:name=".View.DetallesFoodActivity"
             android:label="@string/title_activity_detalles_food"
             android:theme="@style/AppTheme" />
-        <activity android:name=".View.RegistroFragment" />
-        <activity android:name=".View.MegustaFragment" />
         <activity android:name=".View.Bebidas" />
         <activity android:name=".View.Extras" />
+        <activity android:name=".View.FragmentLisComidas" />
+        <activity android:name=".View.FragmentLisBebidas" />
+        <activity android:name=".View.FragmentLisExtras" />
         <activity android:name=".View.RegistroMenu1" />
+        <activity
+            android:name=".View.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

@@ -45,6 +45,7 @@ public class ListaFragment extends Fragment{
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>searchRecyclerAdapter;
     List<String> suggestList= new ArrayList<>();
     MaterialSearchBar materialSearchBar;
+    String idresta;
 
     @Nullable
     @Override
@@ -123,6 +124,10 @@ public class ListaFragment extends Fragment{
             }
         });
         //retorna los metodos que estamos utlizando
+
+           Bundle bundle=getActivity().getIntent().getExtras();
+        idresta=bundle.getString("idres");
+
          return vista;
     }
     private void stardSearch(CharSequence text) {
@@ -190,6 +195,9 @@ public class ListaFragment extends Fragment{
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent intent= new Intent(getActivity(), DetallesFoodActivity.class);
                         intent.putExtra("idRest",firebaseRecyclerAdapter.getRef(position).getKey());
+
+
+
                         startActivity(intent);
                     }
                 });

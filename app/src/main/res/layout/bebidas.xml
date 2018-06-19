@@ -81,25 +81,7 @@
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_horizontal">
 
-                <EditText
-                    android:id="@+id/cantidadbebida"
-                    android:layout_width="282dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="166dp"
-                    android:ems="10"
-                    android:drawableStart="@drawable/ic_exposure_black_24dp"
-                    android:hint="Cantidad"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -163,14 +145,7 @@
                 android:src="@drawable/img_base"
                 android:layout_height="100dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
 
-
-        </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="match_parent"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"

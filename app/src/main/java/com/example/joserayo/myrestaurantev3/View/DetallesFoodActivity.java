@@ -1,17 +1,13 @@
 package com.example.joserayo.myrestaurantev3.View;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,10 +26,12 @@ public class DetallesFoodActivity extends AppCompatActivity {
     ImageView imageRest;
     CardView call;
     Entrada entrada;
+    String id;
     String foodid="";
     FirebaseDatabase firebaseDatabase ;
     DatabaseReference location2;
     CollapsingToolbarLayout collapsingToolbarLayout;
+
 
 
 
@@ -49,8 +47,18 @@ public class DetallesFoodActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                String idres=location2.push().getKey();
+
+
+           Intent intent=new Intent(DetallesFoodActivity.this,MenuActivity.class);
+           Bundle bundle=new Bundle();
+           bundle.putString("id",foodid);
+           intent.putExtras(bundle);
+           startActivity(intent);
+           finish();
+
+            //    startActivity(new Intent(DetallesFoodActivity.this,ListarCategorias.class));
             }
         });
 
@@ -73,9 +81,13 @@ public class DetallesFoodActivity extends AppCompatActivity {
         //Get foodid from Intent
         if(getIntent()!=null){
             foodid = getIntent().getStringExtra("idRest");
+
         }if (!foodid.isEmpty()){
             getDetailFood(foodid);
         }
+
+
+
     }
 
     private void getDetailFood(String foodid){
@@ -107,7 +119,10 @@ public class DetallesFoodActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
 
 
 }
