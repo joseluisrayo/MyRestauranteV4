@@ -27,7 +27,7 @@
     <TextView
         android:layout_marginLeft="80dp"
         android:id="@+id/nombreUser"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Eat Guest"

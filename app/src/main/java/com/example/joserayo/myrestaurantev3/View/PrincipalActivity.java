@@ -19,12 +19,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.joserayo.myrestaurantev3.Model.UsersModel;
 import com.example.joserayo.myrestaurantev3.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class PrincipalActivity extends AppCompatActivity
@@ -32,7 +37,12 @@ public class PrincipalActivity extends AppCompatActivity
 
     private TextView nombuser;
     private ImageView imagenPhoto;
+    private TextView nombuser2;
     String userid="";
+    String correop="";
+    String nombreperr;
+    String apellidperr;
+    String urlImgen;
     FirebaseDatabase firebaseDatabase ;
     DatabaseReference users;
 
@@ -42,8 +52,8 @@ public class PrincipalActivity extends AppCompatActivity
         setContentView(R.layout.activity_principal);
 
         //instanciamos la base de datos
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        users = firebaseDatabase.getReference("users");
+        users = FirebaseDatabase.getInstance().getReference().child("users");
+        users.keepSynced(true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,18 +70,40 @@ public class PrincipalActivity extends AppCompatActivity
         ///validamos el iduser recibido
         View hView = navigationView.getHeaderView(0);
         nombuser = (TextView) hView.findViewById(R.id.nombreUser);
+        nombuser2 =(TextView) hView.findViewById(R.id.nombreUser);
         imagenPhoto = (ImageView)hView.findViewById(R.id.imageView);
 
-        //Bundle para obtener el id que se envia
-        Bundle bundle1=PrincipalActivity.this.getIntent().getExtras();
-        if(bundle1!=null){
-            userid = bundle1.getString("nombre");
+        //Bundle para obtener el correo
+        Bundle bundle2 = PrincipalActivity.this.getIntent().getExtras();
+        correop = bundle2.getString("correo"); ///se resive el email de MainActivity
+        if(bundle2!=null){
+            users.addValueEventListener(new ValueEventListener() { ///se instancia para poder recorrer en la db_firebase para validar el email(user)
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot IDGenerado : dataSnapshot.getChildren()){
+                        String useremail = IDGenerado.child("email").getValue(String.class);
+                        if (useremail.equals(correop)){
+                            nombreperr= IDGenerado.child("nombreUser").getValue(String.class);
+                            //apellidperr = IDGenerado.child("apellidoUser").getValue(String.class);
+                            urlImgen = IDGenerado.child("mImagenUrl").getValue(String.class);
+                            userid = IDGenerado.getKey();
+                        }
+                    }
+                    //se envia los datos obtenidos para que se muestren en el menu
+                    nombuser.setText(nombreperr);
+                    Picasso.with(getBaseContext()).load(urlImgen).into(imagenPhoto);
+                    Toast.makeText(PrincipalActivity.this,"El idUser:"+userid,Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }else{
+            nombuser2.setText("Eat Guest");
         }
-
         navigationView.setNavigationItemSelectedListener(this);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navegation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ListaFragment()).commit();
 
     }

@@ -220,11 +220,12 @@ public class SingUpActivity extends AppCompatActivity implements SignupInterface
 
     @Override
     public void onSingup() {
-        Toast.makeText(this,"Registrado Correctamente",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Registrado Correctamente"+ user1.getText().toString().trim(),Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this,PrincipalActivity.class);
         ///se envia el iduser con bundle
         Bundle bundle=new Bundle();
-        bundle.putString("nombre", uplodId);
+        bundle.putString("correo", user1.getText().toString().trim());
+        //bundle.putString("nombre", uplodId);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();

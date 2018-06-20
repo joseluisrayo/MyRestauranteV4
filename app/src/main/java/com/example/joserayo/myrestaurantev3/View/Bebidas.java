@@ -60,7 +60,7 @@ public class Bebidas extends Fragment  {
     private Uri imgUri;
     private static final int SECACT_REQUEST_CODE = 0;
     private static final int REQUEST_CODE = 1234;
-    public static final String FB_STORAGE_PATH = "image/";
+    public static final String FB_STORAGE_PATH = "image/*";
     public static final String FB_DATABASE_PAT= "Categorias";
     private boolean firstame = true;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
