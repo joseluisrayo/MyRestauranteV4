@@ -21,7 +21,7 @@ public class SingUpPresenter implements SignupInterface.Presenter ,SignupInterfa
     @Override
     public void doSignUp(String Email, String Password) {
     if(view2!=null){
-        view2.DisableImputs();
+
         view2.ShowProgres();
     }
     model.Registro(Email,Password);
@@ -30,7 +30,7 @@ public class SingUpPresenter implements SignupInterface.Presenter ,SignupInterfa
     @Override
     public void onSucess() {
    if(view2!=null){
-       view2.EnableImputs();
+
        view2.Hideprogres();
        view2.onSingup();
    }
@@ -39,7 +39,7 @@ public class SingUpPresenter implements SignupInterface.Presenter ,SignupInterfa
     @Override
     public void onError(String error) {
      if (view2!=null){
-         view2.EnableImputs();
+
          view2.Hideprogres();
          view2.onError(error);
      }

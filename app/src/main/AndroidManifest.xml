@@ -87,6 +87,7 @@
         <activity android:name=".View.SegundoFragment" />
         <activity android:name=".View.FragmentLisBebidas" />
         <activity android:name=".View.FragmentLisExtras" />
+        <activity android:name=".View.MegustaFragment" />
         <activity android:name=".View.RegistroMenu1" />
         <activity
             android:name=".View.MenuActivity"
@@ -96,7 +97,14 @@
             android:name=".View.Menu2"
             android:label="@string/title_activity_meu2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".View.GestionRestUserActivity"></activity>
+        <activity
+            android:name=".View.Horarios"
+            android:label="@string/title_activity_horarios"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".View.Restaurante"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

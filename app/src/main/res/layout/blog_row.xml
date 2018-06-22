@@ -53,7 +53,7 @@
                         android:textColor="#FFF"/>
 
                     <ImageView
-                        android:onClick="like"
+
                         android:id="@+id/favorite1"
                         android:layout_marginLeft="170dp"
                         android:layout_width="match_parent"

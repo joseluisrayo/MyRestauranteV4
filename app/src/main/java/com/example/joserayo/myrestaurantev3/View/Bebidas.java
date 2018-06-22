@@ -253,8 +253,8 @@ public class Bebidas extends Fragment  {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            dialog.setMessage("Uploaded " + (int) progress + "%");
+                        //    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        //    dialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
         }else {

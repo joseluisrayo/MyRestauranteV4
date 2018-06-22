@@ -19,11 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
 import com.example.joserayo.myrestaurantev3.Model.LocationModel;
 import com.example.joserayo.myrestaurantev3.Presentador.MenuViewHolder;
 import com.example.joserayo.myrestaurantev3.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,12 +44,21 @@ public class ListaFragment extends Fragment{
     private ImageView imagensinConexion;
     private RecyclerView recyclerView;
     private DatabaseReference  mDatabase;
+    private DatabaseReference  mDatabaselike;
+    private DatabaseReference  mDatabaseuser;
+    private FirebaseDatabase database;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>firebaseRecyclerAdapter;
     //funcionalidades del buscador
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>searchRecyclerAdapter;
     List<String> suggestList= new ArrayList<>();
+  
     MaterialSearchBar materialSearchBar;
     String idresta;
+     String postkey;
+    private boolean like= false;
+
 
     @Nullable
     @Override
@@ -53,7 +66,13 @@ public class ListaFragment extends Fragment{
         View vista = inflater.inflate(R.layout.lista_fragment,container,false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("location2");
+        mDatabaselike = FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseuser = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.keepSynced(true);
+        mDatabaselike.keepSynced(true);
+        mDatabaseuser.keepSynced(true);
+        mAuth = FirebaseAuth.getInstance();
+
 
         //llama al metodo de recycleview
         recyclerView = (RecyclerView)vista.findViewById(R.id.myreclicleview);
@@ -63,6 +82,11 @@ public class ListaFragment extends Fragment{
         //se instacion al id de imagensinconexion
         imagensinConexion = (ImageView)vista.findViewById(R.id.imagenSinConexion);
         imagensinConexion.setVisibility(View.INVISIBLE);
+
+
+
+
+
 
         //se carga la instacion de conexion
         ConnectivityManager con=(ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -125,8 +149,7 @@ public class ListaFragment extends Fragment{
         });
         //retorna los metodos que estamos utlizando
 
-           Bundle bundle=getActivity().getIntent().getExtras();
-        idresta=bundle.getString("idres");
+
 
          return vista;
     }
@@ -153,6 +176,7 @@ public class ListaFragment extends Fragment{
                     }
                 });
 
+
             }
         };
         //devuelve el metodo para que paresca los datos en el recyclerView
@@ -170,21 +194,64 @@ public class ListaFragment extends Fragment{
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+             like=true;
             }
         });
 
     }
 
-    private void loadMenu(){
+    private void loadMenu() {
+
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter
                 <LocationModel, MenuViewHolder>(LocationModel.class, R.layout.blog_row, MenuViewHolder.class, mDatabase) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, LocationModel model, int position) {
+            protected void populateViewHolder(final MenuViewHolder viewHolder, final LocationModel model, int position) {
+                postkey = getRef(position).getKey();
                 viewHolder.nomnrePro.setText(model.getNombreRest());
                 viewHolder.nombrecatego.setText(model.getCategoria());
                 viewHolder.direccion.setText(model.getDireccion());
+                viewHolder.direccion.setText(model.getIdUser());
                 Picasso.with(getContext()).load(model.getUrl()).into(viewHolder.imegenPro);
+                viewHolder.setLike(postkey);
+
+                viewHolder.favorito.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        like = true;
+
+                            mDatabaselike.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    LocationModel locationModel=new LocationModel();
+                                 String iduser=mDatabaseuser.push().getKey();
+
+
+                                    if (like) {
+                                        if (dataSnapshot.child(postkey).hasChild(mAuth.getCurrentUser().getUid())) {
+
+                                            mDatabaselike.child(postkey).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                            like = false;
+
+                                        } else {
+                                            mDatabaselike.child(postkey).child(mAuth.getCurrentUser().getUid()).setValue("like");
+                                            like = false;
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                    }
+
+
+                });
 
                 //Se instancia el metodo Model.LocationModel para utilizar para llamar los nombres
                 final LocationModel clickItem = model;
@@ -193,8 +260,8 @@ public class ListaFragment extends Fragment{
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Intent intent= new Intent(getActivity(), DetallesFoodActivity.class);
-                        intent.putExtra("idRest",firebaseRecyclerAdapter.getRef(position).getKey());
+                        Intent intent = new Intent(getActivity(), DetallesFoodActivity.class);
+                        intent.putExtra("idRest", firebaseRecyclerAdapter.getRef(position).getKey());
 
 
 
@@ -202,9 +269,10 @@ public class ListaFragment extends Fragment{
                     }
                 });
             }
-        } ;
+        };
         //devuelve el metodo para que paresca los datos en el recyclerView
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
+
 
 }

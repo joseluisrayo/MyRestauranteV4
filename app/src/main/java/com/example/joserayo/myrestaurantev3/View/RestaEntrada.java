@@ -1,4 +1,5 @@
 package com.example.joserayo.myrestaurantev3.View;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,28 +10,25 @@ import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.support.v4.app.Fragment;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joserayo.myrestaurantev3.Model.Comidas;
@@ -48,12 +46,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Entrada extends Fragment {
+
+public class RestaEntrada extends Fragment {
 
     final int COD_FOTO=20;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
@@ -61,13 +58,13 @@ public class Entrada extends Fragment {
     public static final String FB_DATABASE_PAT= "Categorias";
     private static final int REQUEST_CODE = 1234;
     String path;
-      Spinner horarios;
-      String hora;
+    Spinner horarios;
+    String hora;
     private String lista[]={"Seleccion Dias","domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
     private ArrayAdapter<String> adapter;
     private Uri imgUri;
-    private   FloatingActionButton foto;
-   private  ImageView imagen;
+    private FloatingActionButton foto;
+    private ImageView imagen;
     private boolean firstame = true;
 
     private EditText entrada,precio,descripcion;
@@ -76,21 +73,24 @@ public class Entrada extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.entrada, container, false);
+        View v = inflater.inflate(R.layout.fragment_resta_entrada, container, false);
         entrada = (EditText)v. findViewById(R.id.entrada1);
 
 
         precio = (EditText) v.findViewById(R.id.precio);
 
         descripcion = (EditText) v.findViewById(R.id.descripcion);
-    imagen=(ImageView)v.findViewById(R.id.fotoentrada);
+        imagen=(ImageView)v.findViewById(R.id.fotoentrada);
         ImageView  registrar=(ImageView)v.findViewById(R.id.Registrar);
-       foto=(FloatingActionButton)v.findViewById(R.id.fotos);
-       horarios=(Spinner)v.findViewById(R.id.horarios);
+        foto=(FloatingActionButton)v.findViewById(R.id.fotos);
+        horarios=(Spinner)v.findViewById(R.id.horarios);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
-      //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
+        //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
+    //    adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, lista);
+    //    horarios.setAdapter(adapter);
+
 
 
         foto.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class Entrada extends Fragment {
 
     }
 
-//sirve para registrar foto
+    //sirve para registrar foto
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getActivity().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -219,7 +219,7 @@ public class Entrada extends Fragment {
                         comidas.setPrecio1(prec);
                         comidas.setIdRestaurante(dato1);
                         comidas.setIddia(dia);
-                        Horarios horarios=new Horarios();
+                        com.example.joserayo.myrestaurantev3.Model.Horarios horarios=new com.example.joserayo.myrestaurantev3.Model.Horarios();
 
                         horarios.setIddia(dia);
 
@@ -256,8 +256,8 @@ public class Entrada extends Fragment {
 
                             //Show upload progress
 
-                      //      double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                       //     dialog.setMessage("Uploaded " + (int) progress + "%");
+                            //      double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            //     dialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
 
@@ -270,21 +270,21 @@ public class Entrada extends Fragment {
         else  if(valida()) {
 //agrega sin foto
 
-           final String entrada2=entrada.getText().toString().trim();
+            final String entrada2=entrada.getText().toString().trim();
 
             final Long prec1 =Long.valueOf(precio.getText().toString());
 
-          final String descrip2=descripcion.getText().toString().trim();
-           String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
+            final String descrip2=descripcion.getText().toString().trim();
+            String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
             String dia=mDatabaseRef.push().getKey();
-           Comidas comida=new Comidas();
+            Comidas comida=new Comidas();
 
 
             comida.setEntrada(entrada2);
             comida.setPrecio1(prec1);
-           comida.setIdRestaurante(dato1);
+            comida.setIdRestaurante(dato1);
             comida.setDescripcion(descrip2);
-            Horarios horarios=new Horarios();
+            com.example.joserayo.myrestaurantev3.Model.Horarios horarios=new Horarios();
             horarios.setDia(hora);
             horarios.setIddia(dia);
 
@@ -364,9 +364,6 @@ public class Entrada extends Fragment {
 
 
     }
-
-
-
 
 
 

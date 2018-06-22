@@ -7,6 +7,28 @@ public class Comidas {
     private  String segundo;
     private String descripcion;
     private String idRestaurante;
+    private String horario;
+    private String iddia;
+
+    public String getIddia() {
+        return iddia;
+    }
+
+    public void setIddia(String iddia) {
+        this.iddia = iddia;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public Comidas(String horario) {
+        this.horario = horario;
+    }
 
     public String getEntrada() {
         return entrada;

@@ -1,7 +1,7 @@
 package com.example.joserayo.myrestaurantev3.View;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,32 +9,25 @@ import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.support.v4.app.Fragment;
 import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.joserayo.myrestaurantev3.Model.Comidas;
-import com.example.joserayo.myrestaurantev3.Model.Horarios;
+import com.example.joserayo.myrestaurantev3.Model.ExtrasModel;
 import com.example.joserayo.myrestaurantev3.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,52 +41,44 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Entrada extends Fragment {
 
+public class RestPlatosExtras extends Fragment {
     final int COD_FOTO=20;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
     public static final String FB_DATABASE_PAT= "Categorias";
     private static final int REQUEST_CODE = 1234;
     String path;
-      Spinner horarios;
-      String hora;
-    private String lista[]={"Seleccion Dias","domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
-    private ArrayAdapter<String> adapter;
-    private Uri imgUri;
-    private   FloatingActionButton foto;
-   private  ImageView imagen;
-    private boolean firstame = true;
 
-    private EditText entrada,precio,descripcion;
+    private Uri imgUri,foto1;
+    private Button registrar;
+    private ImageView imagen;
+
+    private EditText extras,segundo,precio,descripcion;
     private StorageReference storageReference;
     private DatabaseReference mDatabaseRef;
 
+
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.entrada, container, false);
-        entrada = (EditText)v. findViewById(R.id.entrada1);
+        View v = inflater.inflate(R.layout.fragment_resta_extras, container, false);
+        extras = (EditText)v. findViewById(R.id.extras);
+        precio = (EditText)v. findViewById(R.id.precioextras);
+        descripcion = (EditText) v.findViewById(R.id.comentario);
 
+        imagen=(ImageView)v.findViewById(R.id.fotoextra);
 
-        precio = (EditText) v.findViewById(R.id.precio);
-
-        descripcion = (EditText) v.findViewById(R.id.descripcion);
-    imagen=(ImageView)v.findViewById(R.id.fotoentrada);
-        ImageView  registrar=(ImageView)v.findViewById(R.id.Registrar);
-       foto=(FloatingActionButton)v.findViewById(R.id.fotos);
-       horarios=(Spinner)v.findViewById(R.id.horarios);
-
+        registrar=(Button)v.findViewById(R.id.regisextras);
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
-      //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
+        //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
 
 
-        foto.setOnClickListener(new View.OnClickListener() {
+
+        imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
@@ -133,7 +118,7 @@ public class Entrada extends Fragment {
 
     }
 
-//sirve para registrar foto
+    //sirve para registrar foto
     public String getImageExt(Uri uri) {
         ContentResolver contentResolver = getActivity().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -193,47 +178,41 @@ public class Entrada extends Fragment {
         final String dato = bundle.getString("nombre");
         final String dato1 = bundle.getString("idres");
 
-        Log.d("legoaa",""+dato1);
-
         if ( imgUri!=null) {
 
 
             final ProgressDialog dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Registrando Entrada");
+            dialog.setTitle("Registrando Bebidas");
             dialog.show();
 //agrega con foto
-            StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri));
+            StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri) );
             reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    final String entrada1 = entrada.getText().toString().trim();
-
-                    final Long prec = Long.valueOf(precio.getText().toString());
-
+                    final String extra1 = extras.getText().toString().trim();
+                    final Long pre =Long.valueOf(precio.getText().toString());
                     final String descrip = descripcion.getText().toString().trim();
-                    String dia=mDatabaseRef.push().getKey();
-                    if (!TextUtils.isEmpty(entrada1) && !TextUtils.isEmpty(prec.toString()) && !TextUtils.isEmpty(descrip)) {
 
-                        Comidas comidas = new Comidas(entrada1, taskSnapshot.getDownloadUrl().toString());
-                        comidas.setDescripcion(descrip);
-                        comidas.setPrecio1(prec);
-                        comidas.setIdRestaurante(dato1);
-                        comidas.setIddia(dia);
-                        Horarios horarios=new Horarios();
 
-                        horarios.setIddia(dia);
 
-                        entrada.setText("");
+                    if (!TextUtils.isEmpty(extra1) && !TextUtils.isEmpty(pre.toString())  && !TextUtils.isEmpty(descrip)) {
+
+                        ExtrasModel extra=new ExtrasModel(extra1,taskSnapshot.getDownloadUrl().toString());
+                        extra.setDescripcionextra(descrip);
+                        extra.setNombreRest(dato);
+                        extra.setPrecioExtra(pre);
+                        extra.setIdRestaurante(dato1);
+                        mDatabaseRef.child("Extras").child(extra1).setValue(extra);
+                        extras.setText("");
                         precio.setText("");
                         descripcion.setText("");
-                        mDatabaseRef.child("Entrada").child(entrada1).setValue(comidas);
-                        mDatabaseRef.child(dia).setValue(horarios);
-                        Toast.makeText(getActivity(), "exito", Toast.LENGTH_LONG).show();
 
+                        Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
 
+                    } else {
+
+                        Toast.makeText(getActivity(), "error al registrar", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
             })
 
@@ -256,44 +235,37 @@ public class Entrada extends Fragment {
 
                             //Show upload progress
 
-                      //      double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                       //     dialog.setMessage("Uploaded " + (int) progress + "%");
+                            //  double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            //    dialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
-
-
-        }
-
-
-
-
-        else  if(valida()) {
+        } else  if(valida()) {
 //agrega sin foto
 
-           final String entrada2=entrada.getText().toString().trim();
+            final String extras2=extras.getText().toString().trim();
+            final Long pre1 =Long.valueOf(precio.getText().toString());
+            final String descrip2=descripcion.getText().toString().trim();
+            String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
+            ExtrasModel comida=new ExtrasModel();
+            //  String  id=mDatabaseRef.push().getKey();
+            //   comida.ser(id);
 
-            final Long prec1 =Long.valueOf(precio.getText().toString());
+            comida.setPrecioExtra(pre1);
+            comida.setDescripcionextra(descrip2);
+            comida.setNombreRest(dato);
+            comida.setIdRestaurante(dato1);
+            comida.setUrl2(imagen);
+            comida.setExtra(extras2);
+            mDatabaseRef.child("Extras").child(extras2).setValue(comida);
 
-          final String descrip2=descripcion.getText().toString().trim();
-           String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
-            String dia=mDatabaseRef.push().getKey();
-           Comidas comida=new Comidas();
 
 
-            comida.setEntrada(entrada2);
-            comida.setPrecio1(prec1);
-           comida.setIdRestaurante(dato1);
-            comida.setDescripcion(descrip2);
-            Horarios horarios=new Horarios();
-            horarios.setDia(hora);
-            horarios.setIddia(dia);
 
-            comida.setUrl(imagen);
-
-            mDatabaseRef.child("Entrada").child(entrada2).setValue(comida);
-            mDatabaseRef.child(dia).setValue(horarios);
             Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
-            entrada.setText("");
+            Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
+
+            extras.setText("");
+
             precio.setText("");
 
             descripcion.setText("");
@@ -309,8 +281,8 @@ public class Entrada extends Fragment {
     private boolean valida() {
 
         boolean valida = true;
-        if (TextUtils.isEmpty(entrada.getText())) {
-            entrada.setError("campo obligatorio");
+        if (TextUtils.isEmpty(extras.getText())) {
+            extras.setError("campo obligatorio");
             valida = false;
 
 
@@ -334,7 +306,7 @@ public class Entrada extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imgUri = data.getData();
-
+            foto1=data.getData();
 
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imgUri);
@@ -364,8 +336,6 @@ public class Entrada extends Fragment {
 
 
     }
-
-
 
 
 

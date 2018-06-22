@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class PrincipalActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener  {
 
     private TextView nombuser;
     private ImageView imagenPhoto;
@@ -55,6 +56,10 @@ public class PrincipalActivity extends AppCompatActivity
         users = FirebaseDatabase.getInstance().getReference().child("users");
         users.keepSynced(true);
 
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Buscador Restaurantes");
@@ -72,6 +77,22 @@ public class PrincipalActivity extends AppCompatActivity
         nombuser = (TextView) hView.findViewById(R.id.nombreUser);
         nombuser2 =(TextView) hView.findViewById(R.id.nombreUser);
         imagenPhoto = (ImageView)hView.findViewById(R.id.imageView);
+        Bundle bundle=this.getIntent().getExtras();
+
+        if (bundle!=null){
+            String id1=bundle.getString("id");
+            Log.d("este ","es"+id1);
+        }
+
+
+
+
+
+
+
+
+
+
 
         //Bundle para obtener el correo
         Bundle bundle2 = PrincipalActivity.this.getIntent().getExtras();
@@ -114,6 +135,12 @@ public class PrincipalActivity extends AppCompatActivity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -184,4 +211,6 @@ public class PrincipalActivity extends AppCompatActivity
                     return true;
                 }
             };
+
+
 }

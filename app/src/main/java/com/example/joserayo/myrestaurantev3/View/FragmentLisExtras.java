@@ -71,7 +71,7 @@ public class FragmentLisExtras  extends Fragment  {
              protected void populateViewHolder(ExtrasVHolder viewHolder, ExtrasModel model, int position) {
                           viewHolder.nombre.setText(model.getExtra());
                           viewHolder.descripio.setText(model.getDescripcionextra());
-
+                 viewHolder.precio.setText(String.valueOf(model.getPrecioExtra()));
                  Picasso.with(getContext()).load(model.getUrl2()).fit()
                          .into(viewHolder.foto);
                  final ExtrasModel comidas=model;

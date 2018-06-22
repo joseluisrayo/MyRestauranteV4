@@ -20,7 +20,7 @@ public class SegundoHolder extends RecyclerView.ViewHolder implements View.OnCli
         super(itemView);
         nombre=(TextView)itemView.findViewById(R.id.nom);
         descripio=(TextView)itemView.findViewById(R.id.descr);
-
+        precio=(TextView) itemView.findViewById(R.id.precio);
         foto=(ImageView)itemView.findViewById(R.id.imagenlistar);
         itemView.setOnClickListener(this);
         itemView.setOnClickListener(this);

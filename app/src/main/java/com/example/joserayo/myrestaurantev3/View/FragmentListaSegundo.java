@@ -72,6 +72,7 @@ public class FragmentListaSegundo extends Fragment {
             protected void populateViewHolder(SegundoHolder viewHolder, SegundoModel model, int position) {
                 viewHolder.nombre.setText(model.getSegundo());
                 viewHolder.descripio.setText(model.getDescripcionsegundo());
+                viewHolder.precio.setText(String.valueOf(model.getPreciosegundo()));
                 Picasso.with(getActivity()).load(model.getUrl4()).fit().into(viewHolder.foto);
 
                 final SegundoModel comidas=model;

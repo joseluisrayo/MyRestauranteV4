@@ -41,18 +41,9 @@
         <item>Jueves</item>
         <item>Viernes</item>
         <item>Sabado</item>
-    </string-array>
-    <string-array name="shopping_item2">
-        <item>Seleccione Dia</item>
-        <item>Lunes</item>
-        <item>Martes</item>
-        <item>Miércoles</item>
-        <item>Jueves</item>
-        <item>Viernes</item>
-        <item>Sábado</item>
-        <item>Domingo</item>
-    </string-array>
+        <item>24 Horas</item>
 
+    </string-array>
     <string name="title_activity_listar_categoria">ListarCategoria</string>
     <string name="title_activity_menu_fragment">MenuFragment</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -65,7 +56,6 @@
     <string name="title_activity_menu2">Menu2</string>
     <string name="title_activity_meu2">Meu2</string>
     <string name="title_activity_segundo_frgamen_lista">SegundoFrgamenLista</string>
-    <string name="MenaRegistrODay">Es importante seleccionar el mismo día para el registro de entrada, segundos, bebidas y extras porque la
-        aplicación automáticamente mostrara en menú según el dia actual.</string>
+    <string name="title_activity_horarios">Horarios</string>
 
 </resources>

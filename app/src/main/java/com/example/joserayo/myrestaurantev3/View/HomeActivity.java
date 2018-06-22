@@ -136,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
         telefono = (EditText) findViewById(R.id.telefono);
         direccion = (EditText) findViewById(R.id.direccion);
         registrar = (Button) findViewById(R.id.createRes);
-        selectrestaurante = (CheckBox) findViewById(R.id.selectlugar);
+
         categoria = (Spinner) findViewById(R.id.categoria);
         horario = (EditText) findViewById(R.id.horarios);
         imagen = (ImageView) findViewById(R.id.idimagen);
@@ -277,10 +277,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        selectrestaurante.setOnClickListener(new View.OnClickListener() {
+        telefono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.selectlugar) {
+                if (v.getId() == R.id.telefono) {
 
                     LocationManager locationManager = (LocationManager) HomeActivity.this.getSystemService(HomeActivity.this.LOCATION_SERVICE);
                     if ((ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -388,7 +388,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (cate.equals("Restaurantes")) {
                             switch (cate) {
                                 case "Restaurantes":
-                                    Intent intent = new Intent(HomeActivity.this, RegistroMenu1.class);
+                                    Intent intent = new Intent(HomeActivity.this, Restaurante.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("nombre", nombre);
                                     bundle.putString("idres",uploadId);
@@ -397,11 +397,15 @@ public class HomeActivity extends AppCompatActivity {
 
                                     break;
 
-
                             }
 
                         } else {
-                            Toast.makeText(HomeActivity.this,"esto es otra categoria",Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(HomeActivity.this, RegistroMenu1.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("nombre", nombre);
+                            bundle.putString("idres",uploadId);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
 
 
@@ -472,7 +476,7 @@ public class HomeActivity extends AppCompatActivity {
         String nom = nombreRest.getText().toString();
         outState.putString("nom1", nom);
         outState.getString("direc2", direcc);
-        Toast.makeText(this, "llego" + nom, Toast.LENGTH_LONG).show();
+
 
 
         super.onSaveInstanceState(outState);
@@ -485,7 +489,7 @@ public class HomeActivity extends AppCompatActivity {
         String direcc3 = savedInstanceState.getString("direc2");
         direccion.setText(direcc3);
         super.onRestoreInstanceState(savedInstanceState);
-        Toast.makeText(this, "llego12" + direcc3, Toast.LENGTH_LONG).show();
+
     }
 
     public String getImageExt(Uri uri) {
