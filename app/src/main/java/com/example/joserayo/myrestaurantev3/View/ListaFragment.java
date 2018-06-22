@@ -126,7 +126,7 @@ public class ListaFragment extends Fragment{
         //retorna los metodos que estamos utlizando
 
            Bundle bundle=getActivity().getIntent().getExtras();
-           idresta=bundle.getString("idres");
+        idresta=bundle.getString("idres");
 
          return vista;
     }

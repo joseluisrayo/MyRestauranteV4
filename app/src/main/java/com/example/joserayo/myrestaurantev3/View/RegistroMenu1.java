@@ -24,11 +24,7 @@ import com.example.joserayo.myrestaurantev3.R;
 public class RegistroMenu1 extends AppCompatActivity  {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-
     private ViewPager mViewPager;
-
-
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -42,13 +38,8 @@ public class RegistroMenu1 extends AppCompatActivity  {
         getSupportActionBar().setTitle("Registro de Menu del Dia");
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-
-
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
 
         Bundle bundle1=this.getIntent().getExtras();
         if(bundle1!=null){
@@ -85,20 +76,31 @@ public class RegistroMenu1 extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id==R.id.action_nomLun){
+            return true;
+        }else if(id==R.id.action_nomMar){
             return true;
         }
-
+        else if(id==R.id.action_nomMier){
+            return true;
+        }
+        else if(id==R.id.action_nomJuev){
+            return true;
+        }
+        else if(id==R.id.action_nomVier){
+            return true;
+        }
+        else if(id==R.id.action_nomSab){
+            return true;
+        }
+        else if(id==R.id.action_nomDom){
+            Toast.makeText(this,"Selecciono Domingo",Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 
 
     /**
@@ -137,8 +139,6 @@ public class RegistroMenu1 extends AppCompatActivity  {
                   Extras vegetariano=new Extras();
                   return vegetariano;
 
-
-
                   default:
                       return null;
           }
@@ -151,9 +151,5 @@ public class RegistroMenu1 extends AppCompatActivity  {
             return 4;
         }
     }
-
-
-
-
 
 }

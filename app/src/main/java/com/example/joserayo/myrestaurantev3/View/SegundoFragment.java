@@ -54,7 +54,6 @@ public class SegundoFragment extends Fragment {
     public static final String FB_DATABASE_PAT= "Categorias";
     private static final int REQUEST_CODE = 1234;
     String path;
-
     private Uri imgUri,foto1;
     private ImageView imagen;
     private EditText segundo,precio,precio1,cantidad,cantidad1,descripcion,descripcion1;
@@ -73,8 +72,6 @@ public class SegundoFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
         //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
-
-
 
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,19 +98,13 @@ public class SegundoFragment extends Fragment {
             }
         });
 
-
-
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Registrar();
             }
         });
-
-
-
         return v;
-
     }
 
     //sirve para registrar foto
@@ -123,15 +114,9 @@ public class SegundoFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-
-
-
-
-
-
     private void carfoto() {
         Intent intent=new Intent();
-        intent.setType("image/");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select image"), REQUEST_CODE);
     }
@@ -148,12 +133,8 @@ public class SegundoFragment extends Fragment {
             nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
         }
 
-
-        path=Environment.getExternalStorageDirectory()+
-                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
-
+        path=Environment.getExternalStorageDirectory()+ File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
         File imagen=new File(path);
-
         Intent intent=null;
         intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         ////
@@ -172,19 +153,16 @@ public class SegundoFragment extends Fragment {
 
     private void Registrar() {
         final Bundle bundle = getActivity().getIntent().getExtras();
-
         final String dato = bundle.getString("nombre");
         final String dato1 = bundle.getString("idres");
-
         Log.d("legoaa",""+dato1);
 
         if ( imgUri!=null) {
 
-
             final ProgressDialog dialog = new ProgressDialog(getActivity());
             dialog.setTitle("Registrando Segundo");
             dialog.show();
-//agrega con foto
+            //agrega con foto
             StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri) );
             reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -213,8 +191,6 @@ public class SegundoFragment extends Fragment {
 
                 }
             })
-
-
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -238,12 +214,9 @@ public class SegundoFragment extends Fragment {
                         }
                     });
         } else  if(valida()) {
-//agrega sin foto
-
-
+            //agrega sin foto
             final String segundo2=segundo.getText().toString().trim();
             final Long prec1 =Long.valueOf(precio.getText().toString());
-
             final String descrip2=descripcion.getText().toString().trim();
             String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
             SegundoModel comida=new SegundoModel();
@@ -266,8 +239,6 @@ public class SegundoFragment extends Fragment {
             Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
         }
 
-
-
     }
 
     private boolean valida() {
@@ -284,12 +255,8 @@ public class SegundoFragment extends Fragment {
             descripcion.setError("campo obligatorio");
             valida = false;
         }
-
         return valida;
-
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -321,14 +288,6 @@ public class SegundoFragment extends Fragment {
             imagen.setImageBitmap(bitmap);
         }
 
-
-
-
-
     }
-
-
-
-
 }
 

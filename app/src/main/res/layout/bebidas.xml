@@ -5,32 +5,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:scrollbars="vertical"
         tools:context="com.adroitminds.tabbedview.Section2">
-
-        <TextView
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="cursive"
-            android:paddingTop="5dp"
-            android:text="Bebidas"
-            android:textColor="#111111"
-            android:textSize="45dp" />
-        <ImageView
-           android:layout_gravity="center_horizontal"
-            android:layout_width="50dp"
-            android:src="@drawable/ic_local_bar_black_24dp"
-
-            android:layout_height="50sp" />
         <LinearLayout
+            android:layout_marginStart="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="cursive"
+                android:paddingTop="5dp"
+                android:text="Bebidas"
+                android:textColor="#111111"
+                android:textSize="45dp" />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="50dp"
+                android:src="@drawable/ic_local_bar_black_24dp"
+                android:layout_height="50sp" />
+            <ImageView
+                android:id="@+id/infoEntrada3"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_info_outline_black_24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -82,16 +97,16 @@
             </android.support.design.widget.TextInputLayout>
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <Spinner
-        android:id="@+id/categoria"
-        android:layout_width="250dp"
-        android:layout_marginStart="60dp"
-        android:layout_height="wrap_content"></Spinner>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/categoria"
+                    android:layout_width="282dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
 
-</LinearLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,54 +120,38 @@
                     android:layout_alignParentTop="true"
                     android:lines="4"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="166dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
                     android:drawableStart="@drawable/ic_description_black_24dp"
                     android:hint="Descripcion"
                     android:inputType="textImeMultiLine" />
             </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_horizontal">
-                <EditText
-                    android:id="@+id/marca"
-                    android:layout_width="282dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:lines="4"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="166dp"
-                    android:ems="10"
-                    android:drawableStart="@drawable/ic_description_black_24dp"
-                    android:hint="Marca"
-                    android:inputType="textImeMultiLine" />
-            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-        <LinearLayout
 
+        <LinearLayout
+            android:layout_marginTop="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/fotobebida"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:layout_width="100dp"
+                android:layout_marginStart="100dp"
                 android:src="@drawable/img_base"
                 android:layout_height="100dp" />
+            <Button
+                android:id="@+id/registrar1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/LightGreen"
+                android:text="Registrar"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="match_parent"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_gravity="bottom|end"
-            android:id="@+id/registrar1"
-            android:src="@drawable/ic_check_black_24dp"
-            android:layout_marginBottom="20dp"
-            android:layout_height="match_parent" />
     </LinearLayout>
+
 </ScrollView>

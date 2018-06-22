@@ -53,15 +53,12 @@ public class Extras extends  Fragment{
     public static final String FB_DATABASE_PAT= "Categorias";
     private static final int REQUEST_CODE = 1234;
     String path;
-
     private Uri imgUri,foto1;
     private Button registrar;
     private  ImageView imagen;
-
     private EditText extras,segundo,precio,descripcion;
     private StorageReference storageReference;
     private DatabaseReference mDatabaseRef;
-
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,15 +66,11 @@ public class Extras extends  Fragment{
         extras = (EditText)v. findViewById(R.id.extras);
         precio = (EditText)v. findViewById(R.id.precioextras);
         descripcion = (EditText) v.findViewById(R.id.comentario);
-
         imagen=(ImageView)v.findViewById(R.id.fotoextra);
-
         registrar=(Button)v.findViewById(R.id.regisextras);
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
         //  final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
-
-
 
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,18 +96,12 @@ public class Extras extends  Fragment{
                 alertOpciones.show();
             }
         });
-
-
-
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Registrar();
             }
         });
-
-
-
         return v;
 
     }
@@ -126,15 +113,9 @@ public class Extras extends  Fragment{
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-
-
-
-
-
-
     private void carfoto() {
         Intent intent=new Intent();
-        intent.setType("image/");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select image"), REQUEST_CODE);
     }
@@ -185,7 +166,7 @@ public class Extras extends  Fragment{
             final ProgressDialog dialog = new ProgressDialog(getActivity());
             dialog.setTitle("Registrando Bebidas");
             dialog.show();
-//agrega con foto
+            //agrega con foto
             StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri) );
             reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -241,8 +222,7 @@ public class Extras extends  Fragment{
                         }
                     });
         } else  if(valida()) {
-//agrega sin foto
-
+            //agrega sin foto
             final String extras2=extras.getText().toString().trim();
             final Long pre1 =Long.valueOf(precio.getText().toString());
             final String descrip2=descripcion.getText().toString().trim();
@@ -259,9 +239,6 @@ public class Extras extends  Fragment{
             comida.setExtra(extras2);
             mDatabaseRef.child("Extras").child(extras2).setValue(comida);
 
-
-
-
             Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
             Toast.makeText(getActivity(), "Registrado Correctamente", Toast.LENGTH_SHORT).show();
 
@@ -274,9 +251,6 @@ public class Extras extends  Fragment{
         } else {
             Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
         }
-
-
-
     }
 
     private boolean valida() {
@@ -298,9 +272,7 @@ public class Extras extends  Fragment{
 
         return valida;
 
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -331,17 +303,6 @@ public class Extras extends  Fragment{
             Bitmap bitmap= BitmapFactory.decodeFile(path);
             imagen.setImageBitmap(bitmap);
         }
-
-
-
-
-
     }
-
-
-
-
-
-
 
 }

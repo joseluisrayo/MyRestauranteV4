@@ -2,9 +2,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.joserayo.myrestaurantev3.View.RegistroMenu1">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_nomLun"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Lunes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomMar"
+        android:orderInCategory="100"
+        android:title="Martes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomMier"
+        android:orderInCategory="100"
+        android:title="Miercoles"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomJuev"
+        android:orderInCategory="100"
+        android:title="Jueves"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomVier"
+        android:orderInCategory="100"
+        android:title="viernes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomSab"
+        android:orderInCategory="100"
+        android:title="Sabado"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nomDom"
+        android:orderInCategory="100"
+        android:title="Domingo"
         app:showAsAction="never" />
 </menu>

@@ -139,8 +139,11 @@ public class PrincipalActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_MiRest) {
-
-
+            Intent intent= new Intent(PrincipalActivity.this,GestionRestUserActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("idUsers", userid);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         else if (id==R.id.nav_Restau){
             Intent intent= new Intent(PrincipalActivity.this,HomeActivity.class);

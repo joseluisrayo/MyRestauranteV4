@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="7dp"
+    app:cardCornerRadius="12dp"
+    android:elevation="90dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/postImgen2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:background="@color/overlayBackground"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginLeft="3dp"
+                    android:id="@+id/post_nombreRest2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="nombreRest"
+                    android:textSize="18dp"
+                    android:textColor="#FFF"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="3dp"
+                        android:id="@+id/post_categoria2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Categoria"
+                        android:textColor="#FFF"/>
+
+                    <ImageView
+                        android:onClick="like"
+                        android:id="@+id/favorite12"
+                        android:layout_marginLeft="170dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_favorite_border_black_24dp"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:layout_marginLeft="3dp"
+                    android:id="@+id/post_direccion2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Direccion"
+                    android:textColor="#FFF"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
