@@ -22,27 +22,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 public class FragmentLisExtras  extends Fragment  {
     RecyclerView recyclerView;
     String id="";
+    String fecha="";
     RecyclerView.LayoutManager manager;
-
     DatabaseReference reference;
     FirebaseDatabase database;
     FirebaseRecyclerAdapter<ExtrasModel,ExtrasVHolder> recyclerAdapter;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_extras, container, false);
 
+        fecha();
         database= FirebaseDatabase.getInstance();
-        reference=database.getReference("Categorias/Extras");
+        reference=database.getReference("Categorias");
 
         recyclerView = (RecyclerView)rootView. findViewById(R.id.myreclicleview);
 
         manager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-
 
         if(getActivity().getIntent()!=null){
             id =getActivity(). getIntent().getStringExtra("id");
@@ -54,9 +56,17 @@ public class FragmentLisExtras  extends Fragment  {
         return rootView;
     }
 
+    private void fecha(){
+        String[] dias={"Domingo","Lunes","Martes", "Miercoles","Jueves","Viernes","Sabado"};
+        int numeroDia = 0;
+        Calendar cal= Calendar.getInstance();
+        numeroDia = cal.get(Calendar.DAY_OF_WEEK);
+        fecha = dias[numeroDia - 1];
+    }
+
     private void listar(String id) {
          recyclerAdapter=new FirebaseRecyclerAdapter<ExtrasModel, ExtrasVHolder>(ExtrasModel.class,R.layout.item_categoria,
-                 ExtrasVHolder.class,reference.orderByChild("idRestaurante").equalTo(id)) {
+                 ExtrasVHolder.class,reference.child(fecha).child("Extras").orderByChild("idRestaurante").equalTo(id)) {
              @Override
              protected void populateViewHolder(ExtrasVHolder viewHolder, ExtrasModel model, int position) {
                           viewHolder.nombre.setText(model.getExtra());
@@ -69,14 +79,12 @@ public class FragmentLisExtras  extends Fragment  {
                  viewHolder.setItemClickListener(new ItemClickListener() {
                      @Override
                      public void onClick(View view, int position, boolean isLongClick) {
-                         Toast.makeText(getActivity(),""+comidas.getExtra(),Toast.LENGTH_LONG).show();
+                         //Toast.makeText(getActivity(),""+comidas.getExtra(),Toast.LENGTH_LONG).show();
                      }
                  });
              }
          };
 
         recyclerView.setAdapter(recyclerAdapter);
-
-
     }
 }

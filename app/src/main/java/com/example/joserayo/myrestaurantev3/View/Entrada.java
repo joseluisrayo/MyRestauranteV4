@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +66,8 @@ public class Entrada extends Fragment {
     private ImageView infoEntrada;
     private ImageView imagen;
     private Button registrar;
+    private Spinner diaReg;
+    private ArrayAdapter<String> adapter;
     private EditText entrada,precio,descripcion;
     private StorageReference storageReference;
     private DatabaseReference mDatabaseRef;
@@ -73,16 +76,17 @@ public class Entrada extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.entrada, container, false);
 
-        //DialogSpinner();//se carga el mensaje del dialogSppiner
         entrada = (EditText)v. findViewById(R.id.entrada1);
         precio = (EditText) v.findViewById(R.id.precio);
         descripcion = (EditText) v.findViewById(R.id.descripcion);
+
         imagen=(ImageView)v.findViewById(R.id.fotoentrada);
         registrar=(Button)v.findViewById(R.id.Registrar);
+        diaReg = (Spinner)v.findViewById(R.id.diaReg1) ;
         infoEntrada = (ImageView) v.findViewById(R.id.infoEntrada);
-        storageReference = FirebaseStorage.getInstance().getReference();
+
+        storageReference = FirebaseStorage.getInstance().getReference(FB_DATABASE_PAT);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(FB_DATABASE_PAT);
-         //final LinearLayout layout = (LinearLayout)v. findViewById(R.id.ocultar);
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,42 +117,43 @@ public class Entrada extends Fragment {
                 Registrar();
             }
         });
-
         infoEntrada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogSpinner();
             }
         });
+        adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.shopping_item2));
+        diaReg.setAdapter(adapter);
+        diaReg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View v, int position, long id) {
+                if (!diaReg.getSelectedItem().toString().equalsIgnoreCase("Seleccione Dia")){
+                    DiaRegi = diaReg.getSelectedItem().toString();
+                    Toast.makeText(getActivity(), DiaRegi,Toast.LENGTH_SHORT).show();
+                }else{
+                    DiaRegi ="";
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         return v;
     }
     public void DialogSpinner(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View mView = getLayoutInflater().inflate(R.layout.dialog_spinner,null);
         builder.setTitle("Seleccione dia de Registro");
-        final Spinner spinner = (Spinner)mView.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.shopping_item2));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
+        builder.setMessage(R.string.MenaRegistrODay);
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {///evento onclik cuando presiono "Ok"
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (!spinner.getSelectedItem().toString().equalsIgnoreCase("Seleccione Dia")){
-                    DiaRegi = spinner.getSelectedItem().toString();
-                    Toast.makeText(getActivity(), DiaRegi,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
             }
         });
-
-        builder.setView(mView);//se determina para que el dialog aparesca
         final AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -174,17 +179,12 @@ public class Entrada extends Fragment {
         if(isCreada==false){
             isCreada=fileImagen.mkdirs();
         }
-
         if(isCreada==true){
             nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
         }
-
-
-        path=Environment.getExternalStorageDirectory()+
-                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
+        path=Environment.getExternalStorageDirectory()+ File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
 
         File imagen=new File(path);
-
         Intent intent=null;
         intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         ////
@@ -202,18 +202,21 @@ public class Entrada extends Fragment {
     }
 
     private void Registrar() {
-        final Bundle bundle = getActivity().getIntent().getExtras();
-        //final String dato = bundle.getString("nombre");
-        final String dato1 = bundle.getString("idres");
+        if (valida()){
+            registrarfinal();
+        }
+    }
 
-        Log.d("legoaa",""+dato1);
+    private void registrarfinal(){
+        final Bundle bundle = getActivity().getIntent().getExtras();
+        final String dato1 = bundle.getString("idres");
 
         if ( imgUri!=null) {
             final ProgressDialog dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Registrando Entrada");
+            dialog.setTitle("Registrando Entrada...");
             dialog.show();
             //agrega con foto
-            StorageReference reference = storageReference.child(FB_DATABASE_PAT + System.currentTimeMillis() + "." + getImageExt(imgUri) );
+            StorageReference reference = storageReference.child(System.currentTimeMillis() + "." + getImageExt(imgUri) );
             reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -226,69 +229,45 @@ public class Entrada extends Fragment {
                         comidas.setDescripcion(descrip);
                         comidas.setPrecio1(prec);
                         comidas.setIdRestaurante(dato1);
+
                         entrada.setText("");
                         precio.setText("");
                         descripcion.setText("");
-                        mDatabaseRef.child(DiaRegi).child("Entrada").child(entrada1).setValue(comidas);
-                        //mDatabaseRef.child("Entrada").child(entrada1).setValue(comidas);
-                        dialog.dismiss();
-                        Toast.makeText(getActivity(), "exito", Toast.LENGTH_LONG).show();
 
+                        mDatabaseRef.child(DiaRegi).child("Entrada").child(entrada1).setValue(comidas);
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Registrado!!", Toast.LENGTH_LONG).show();
                     }
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //se borra el dialogo
-                            dialog.dismiss();
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //se borra el dialogo
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
 
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //Show upload progress
-                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            dialog.setMessage("Uploaded " + (int) progress + "%");
-                        }
-                    });
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    //Show upload progress
+                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    dialog.setMessage("Uploaded " + (int) progress + "%");
+                }
+            });
 
-        } else  if(valida()) {
-            //agrega sin foto
-           final String entrada2=entrada.getText().toString().trim();
-           final Long prec1 =Long.valueOf(precio.getText().toString());
-           final String descrip2=descripcion.getText().toString().trim();
-
-           String imagen ="https://st.depositphotos.com/1014014/2679/i/950/depositphotos_26797131-stock-photo-restaurant-finder-concept-illustration-design.jpg";
-           Comidas comida=new Comidas();
-           String  id=mDatabaseRef.push().getKey();
-
-            comida.setEntrada(entrada2);
-            comida.setPrecio1(prec1);
-            comida.setIdRestaurante(dato1);
-            comida.setDescripcion(descrip2);
-            comida.setUrl(imagen);
-
-            mDatabaseRef.child("Entrada").child(entrada2).setValue(comida);
-            Toast.makeText(getActivity(),"exito",Toast.LENGTH_LONG).show();
-            entrada.setText("");
-            precio.setText("");
-            descripcion.setText("");
-
-        } else {
-            Toast.makeText(getActivity(),"error",Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(getActivity(),"Por favor ingrese una imagen del plato que va a registrar!!",Toast.LENGTH_LONG).show();
         }
-
     }
 
     private boolean valida() {
-
         boolean valida = true;
+
         if (TextUtils.isEmpty(entrada.getText())) {
             entrada.setError("campo obligatorio");
             valida = false;
-
 
         } else if (TextUtils.isEmpty(precio.getText())) {
             precio.setError("campo obligatorio");
@@ -297,10 +276,11 @@ public class Entrada extends Fragment {
         } else if (TextUtils.isEmpty(descripcion.getText())){
             descripcion.setError("campo obligatorio");
             valida = false;
+        } else if (DiaRegi.equals("")){
+            Toast.makeText(getActivity(), "Seleccione un día para el registro, para mas detalles en el icono de información",Toast.LENGTH_SHORT).show();
+            valida = false;
         }
-
         return valida;
-
     }
 
     @Override
@@ -308,8 +288,6 @@ public class Entrada extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imgUri = data.getData();
-
-
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imgUri);
                 imagen.setImageBitmap(bm);

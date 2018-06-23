@@ -20,22 +20,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 
 public class FragmentListaSegundo extends Fragment {
+
     RecyclerView recyclerView;
     String id="";
+    String fecha="";
     RecyclerView.LayoutManager manager;
-
     DatabaseReference reference;
     FirebaseDatabase database;
     FirebaseRecyclerAdapter<SegundoModel,SegundoHolder> recyclerAdapter;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fragment_lista_segundo, container, false);
 
+        fecha();
         database= FirebaseDatabase.getInstance();
-        reference=database.getReference("Categorias/Segundo");
+        reference=database.getReference("Categorias");
 
         recyclerView = (RecyclerView)rootView. findViewById(R.id.myreclicleview);
 
@@ -53,9 +57,17 @@ public class FragmentListaSegundo extends Fragment {
         return rootView;
     }
 
+    private void fecha(){
+        String[] dias={"Domingo","Lunes","Martes", "Miercoles","Jueves","Viernes","Sabado"};
+        int numeroDia = 0;
+        Calendar cal= Calendar.getInstance();
+        numeroDia = cal.get(Calendar.DAY_OF_WEEK);
+        fecha = dias[numeroDia - 1];
+    }
+
     private void listar(String id) {
         recyclerAdapter=new FirebaseRecyclerAdapter<SegundoModel, SegundoHolder>(SegundoModel.class,R.layout.item_categoria,
-                SegundoHolder.class,reference.orderByChild("idRestaurante").equalTo(id)) {
+                SegundoHolder.class,reference.child(fecha).child("Segundo").orderByChild("idRestaurante").equalTo(id)) {
             @Override
             protected void populateViewHolder(SegundoHolder viewHolder, SegundoModel model, int position) {
                 viewHolder.nombre.setText(model.getSegundo());
@@ -67,18 +79,13 @@ public class FragmentListaSegundo extends Fragment {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(getActivity(),""+comidas.getSegundo(),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(),""+comidas.getSegundo(),Toast.LENGTH_LONG).show();
                     }
                 });
-
-
-
             }
         };
 
         recyclerView.setAdapter(recyclerAdapter);
-
-
     }
 
 }
