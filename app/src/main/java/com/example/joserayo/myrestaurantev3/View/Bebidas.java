@@ -143,7 +143,7 @@ public class Bebidas extends Fragment  {
     public void DialogSpinner(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Seleccione dia de Registro");
-        builder.setMessage(R.string.MenaRegistrODay);
+        builder.setMessage("seleccion");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {///evento onclik cuando presiono "Ok"
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

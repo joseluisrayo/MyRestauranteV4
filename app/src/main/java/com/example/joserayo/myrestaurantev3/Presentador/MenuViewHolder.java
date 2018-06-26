@@ -12,6 +12,7 @@ import com.example.joserayo.myrestaurantev3.R;
 
 import com.example.joserayo.myrestaurantev3.Interfaces.ItemClickListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,9 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView nomnrePro,nombrecatego,direccion;
     public ImageView imegenPro,favorito;
- DatabaseReference mDatabaselike;
+ DatabaseReference mDatabaselike ,mUsers;
  FirebaseAuth auth;
  Context context;
+
+public String uid;
     private ItemClickListener itemClickListener;
 
 
@@ -41,22 +44,48 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         favorito=(ImageView)itemView.findViewById(R.id.favorite1);
 
         mDatabaselike= FirebaseDatabase.getInstance().getReference().child("Likes");
+        mUsers= FirebaseDatabase.getInstance().getReference().child("users");
         auth=FirebaseAuth.getInstance();
         mDatabaselike.keepSynced(true);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            uid = user.getUid();
+        }
+
+     mUsers.addValueEventListener(new ValueEventListener() {
+
+         @Override
+         public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+             for (DataSnapshot IDGenerado : dataSnapshot.getChildren()) {
+
+
+                 final String   uid = IDGenerado.getKey();
+             }
+         }
+
+         @Override
+         public void onCancelled(DatabaseError databaseError) {
+
+         }
+     });
         itemView.setOnClickListener(this);
     }
+
+
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
+
     public void setLike(final String poskey){
            mDatabaselike.addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(DataSnapshot dataSnapshot) {
-                   if (dataSnapshot.child(poskey).hasChild(auth.getCurrentUser().getUid())){
+                   if (dataSnapshot.child(poskey).hasChild(uid)){
 
                        favorito.setImageResource(R.drawable.ic_favorite);
                       

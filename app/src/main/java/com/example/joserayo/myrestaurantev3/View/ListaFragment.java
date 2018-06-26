@@ -53,7 +53,8 @@ public class ListaFragment extends Fragment{
     //funcionalidades del buscador
     FirebaseRecyclerAdapter<LocationModel,MenuViewHolder>searchRecyclerAdapter;
     List<String> suggestList= new ArrayList<>();
-  
+       String email;
+       String uid;
     MaterialSearchBar materialSearchBar;
     String idresta;
      String postkey;
@@ -84,7 +85,27 @@ public class ListaFragment extends Fragment{
         imagensinConexion.setVisibility(View.INVISIBLE);
 
 
+            mDatabaseuser.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+                    for (DataSnapshot IDGenerado : dataSnapshot.getChildren()){
+                        String useremail = IDGenerado.child("email").getValue(String.class);
+                        if (useremail.equals(email)){
+
+
+                            uid = IDGenerado.getKey();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
 
 
@@ -99,6 +120,16 @@ public class ListaFragment extends Fragment{
 
         //Se llama al metodo en donde se liste los datos en cardwied
         loadMenu();
+
+        //obtengo idau
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            email = user.getEmail();
+            uid = user.getUid();
+        }
+
+
+
 
         //se llama la metodo de listar las sugerencias
         loadSuggest();
@@ -223,18 +254,16 @@ public class ListaFragment extends Fragment{
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                    LocationModel locationModel=new LocationModel();
-                                 String iduser=mDatabaseuser.push().getKey();
 
 
                                     if (like) {
-                                        if (dataSnapshot.child(postkey).hasChild(mAuth.getCurrentUser().getUid())) {
+                                        if (dataSnapshot.child(postkey).hasChild(uid)) {
 
-                                            mDatabaselike.child(postkey).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                            mDatabaselike.child(postkey).child(uid).removeValue();
                                             like = false;
 
                                         } else {
-                                            mDatabaselike.child(postkey).child(mAuth.getCurrentUser().getUid()).setValue("like");
+                                            mDatabaselike.child(postkey).child(uid).setValue("like");
                                             like = false;
                                         }
 

@@ -200,7 +200,7 @@ public class Extras extends  Fragment{
 
                       ExtrasModel extra=new ExtrasModel(extra1,taskSnapshot.getDownloadUrl().toString());
                         extra.setDescripcionextra(descrip);
-                        extra.setNombreRest(dato);
+
                         extra.setPrecioExtra(pre);
                         extra.setIdRestaurante(dato1);
                         mDatabaseRef.child("Extras").child(extra1).setValue(extra);
@@ -253,7 +253,7 @@ public class Extras extends  Fragment{
 
             comida.setPrecioExtra(pre1);
             comida.setDescripcionextra(descrip2);
-            comida.setNombreRest(dato);
+
             comida.setIdRestaurante(dato1);
             comida.setUrl2(imagen);
             comida.setExtra(extras2);

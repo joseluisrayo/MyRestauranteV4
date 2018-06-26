@@ -44,6 +44,17 @@
         <item>24 Horas</item>
 
     </string-array>
+    <string-array name="shopping_item2">
+        <item>Domingo</item>
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sabado</item>
+        <item>24 Horas</item>
+
+    </string-array>
     <string name="title_activity_listar_categoria">ListarCategoria</string>
     <string name="title_activity_menu_fragment">MenuFragment</string>
     <string name="section_format">Hello World from section: %1$d</string>
