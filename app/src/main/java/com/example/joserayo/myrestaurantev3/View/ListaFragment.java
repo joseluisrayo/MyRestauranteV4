@@ -57,7 +57,7 @@ public class ListaFragment extends Fragment{
        String uid;
     MaterialSearchBar materialSearchBar;
     String idresta;
-     String postkey;
+
     private boolean like= false;
 
 
@@ -237,7 +237,7 @@ public class ListaFragment extends Fragment{
                 <LocationModel, MenuViewHolder>(LocationModel.class, R.layout.blog_row, MenuViewHolder.class, mDatabase) {
             @Override
             protected void populateViewHolder(final MenuViewHolder viewHolder, final LocationModel model, int position) {
-                postkey = getRef(position).getKey();
+        final  String        postkey = getRef(position).getKey();
                 viewHolder.nomnrePro.setText(model.getNombreRest());
                 viewHolder.nombrecatego.setText(model.getCategoria());
                 viewHolder.direccion.setText(model.getDireccion());

@@ -3,6 +3,7 @@ package com.example.joserayo.myrestaurantev3.Presentador;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
  FirebaseAuth auth;
  Context context;
 
-public String uid;
+       String uid,email;
     private ItemClickListener itemClickListener;
 
 
@@ -45,32 +46,37 @@ public String uid;
 
         mDatabaselike= FirebaseDatabase.getInstance().getReference().child("Likes");
         mUsers= FirebaseDatabase.getInstance().getReference().child("users");
-        auth=FirebaseAuth.getInstance();
+
         mDatabaselike.keepSynced(true);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-
+            email = user.getEmail();
             uid = user.getUid();
         }
 
-     mUsers.addValueEventListener(new ValueEventListener() {
 
-         @Override
-         public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-             for (DataSnapshot IDGenerado : dataSnapshot.getChildren()) {
+        mUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                 final String   uid = IDGenerado.getKey();
-             }
-         }
+                for (DataSnapshot IDGenerado : dataSnapshot.getChildren()){
+                    String useremail = IDGenerado.child("email").getValue(String.class);
+                    if (useremail.equals(email)){
 
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
 
-         }
-     });
+                        uid = IDGenerado.getKey();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         itemView.setOnClickListener(this);
     }
 
@@ -82,10 +88,13 @@ public String uid;
 
 
     public void setLike(final String poskey){
+
            mDatabaselike.addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(DataSnapshot dataSnapshot) {
                    if (dataSnapshot.child(poskey).hasChild(uid)){
+
+
 
                        favorito.setImageResource(R.drawable.ic_favorite);
                       
@@ -110,4 +119,5 @@ public String uid;
     public void onClick(View view) {
         itemClickListener.onClick(view,getAdapterPosition(),false);
     }
+
 }
